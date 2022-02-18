@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./source/",
+    "paths": {
+      "@images": [
+        "assets/images/"
+      ],
+      "@fonts": [
+        "assets/fonts/"
+      ],
+      "@constants": [
+        "components/constants/"
+      ],
+      "@AppScreens": [
+        "components/screens/app/"
+      ],
+      "@AuthScreens": [
+        "components/screens/auth/"
+      ],
+      "@global_components": [
+        "components/screens/global_components/"
+      ],
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,760 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00E356F31AD99517003FC87E /* ICTCIRCLETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ICTCIRCLETests.m */; };
+		135B74E8B006425EA639147F /* Aileron-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 03AF7E18C00D46DCB0AF76D8 /* Aileron-Italic.otf */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1F66E5DFCC5D2C32CA3C3DB5 /* libPods-ICTCIRCLE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA244C4A40669446C3E0B92 /* libPods-ICTCIRCLE.a */; };
+		201E74339EFD4F4EA5681F32 /* Aileron-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9D2A3564A6F648779FC7E308 /* Aileron-Bold.otf */; };
+		246F3FC14CCA4374A45C31D9 /* Aileron-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC9F302D95BD4D7A8CA255ED /* Aileron-BoldItalic.otf */; };
+		29EBC2E135FF4A26972CF402 /* Aileron-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = AA2E74F75FC04BFF9DEC9AC5 /* Aileron-ThinItalic.otf */; };
+		353235F7B14F48E39BA4A6C8 /* Aileron-UltraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2092A24AC04BCDBE02EC94 /* Aileron-UltraLight.otf */; };
+		38168A942C814C88B38E3978 /* Aileron-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 81BE4070C4044F579DB8362C /* Aileron-Regular.otf */; };
+		45F3B72A8C2846C2AAF636A2 /* Aileron-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = B06E427943A941A883313382 /* Aileron-SemiBoldItalic.otf */; };
+		4A8BDD54A5984703B0A7A9D7 /* Aileron-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = C94B800FD72F453299708AF4 /* Aileron-Heavy.otf */; };
+		4CFBECB8F63F4506A5D9A6B0 /* Aileron-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2136E858AFFC4E44B3ABEE11 /* Aileron-BlackItalic.otf */; };
+		4DE90AA52FCF4D089DAD8C3A /* Aileron-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7009C26788D84251A1493CD9 /* Aileron-Thin.otf */; };
+		6CB571344BCD4BF58A22BF0C /* Aileron-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5753A149AEB74A60BE83E972 /* Aileron-SemiBold.otf */; };
+		6D7F7AFB89E4452686FD8CD8 /* Aileron-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11883CEA859B41D187D4B86F /* Aileron-Black.otf */; };
+		7414CD73F4E446F388A3856C /* Aileron-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = F64B3689FD364ACC841DEC2A /* Aileron-HeavyItalic.otf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8641DD40D99E8BF2FBF15D78 /* libPods-ICTCIRCLE-ICTCIRCLETests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBE12A0E309514B92466629 /* libPods-ICTCIRCLE-ICTCIRCLETests.a */; };
+		86E61E9B598C47748316A91A /* Aileron-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A97744AA46C44D8EA074C0D2 /* Aileron-Light.otf */; };
+		95EA474949404F80B75003FA /* Aileron-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7F2B33B0A0CE4C3CA8E0786D /* Aileron-LightItalic.otf */; };
+		E170AA8239914C9AB403D453 /* Aileron-UltraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7D9B73A826884E3B869BB168 /* Aileron-UltraLightItalic.otf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = ICTCIRCLE;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00E356EE1AD99517003FC87E /* ICTCIRCLETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ICTCIRCLETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* ICTCIRCLETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICTCIRCLETests.m; sourceTree = "<group>"; };
+		03AF7E18C00D46DCB0AF76D8 /* Aileron-Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-Italic.otf"; path = "../source/assets/fonts/Aileron-Italic.otf"; sourceTree = "<group>"; };
+		11883CEA859B41D187D4B86F /* Aileron-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-Black.otf"; path = "../source/assets/fonts/Aileron-Black.otf"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* ICTCIRCLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ICTCIRCLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ICTCIRCLE/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ICTCIRCLE/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ICTCIRCLE/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ICTCIRCLE/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ICTCIRCLE/main.m; sourceTree = "<group>"; };
+		1C2092A24AC04BCDBE02EC94 /* Aileron-UltraLight.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-UltraLight.otf"; path = "../source/assets/fonts/Aileron-UltraLight.otf"; sourceTree = "<group>"; };
+		2136E858AFFC4E44B3ABEE11 /* Aileron-BlackItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-BlackItalic.otf"; path = "../source/assets/fonts/Aileron-BlackItalic.otf"; sourceTree = "<group>"; };
+		5753A149AEB74A60BE83E972 /* Aileron-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-SemiBold.otf"; path = "../source/assets/fonts/Aileron-SemiBold.otf"; sourceTree = "<group>"; };
+		7009C26788D84251A1493CD9 /* Aileron-Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-Thin.otf"; path = "../source/assets/fonts/Aileron-Thin.otf"; sourceTree = "<group>"; };
+		7D9B73A826884E3B869BB168 /* Aileron-UltraLightItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-UltraLightItalic.otf"; path = "../source/assets/fonts/Aileron-UltraLightItalic.otf"; sourceTree = "<group>"; };
+		7F2B33B0A0CE4C3CA8E0786D /* Aileron-LightItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-LightItalic.otf"; path = "../source/assets/fonts/Aileron-LightItalic.otf"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ICTCIRCLE/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81BE4070C4044F579DB8362C /* Aileron-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-Regular.otf"; path = "../source/assets/fonts/Aileron-Regular.otf"; sourceTree = "<group>"; };
+		99A300217F5F93530B5D404E /* Pods-ICTCIRCLE-ICTCIRCLETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICTCIRCLE-ICTCIRCLETests.release.xcconfig"; path = "Target Support Files/Pods-ICTCIRCLE-ICTCIRCLETests/Pods-ICTCIRCLE-ICTCIRCLETests.release.xcconfig"; sourceTree = "<group>"; };
+		9D2A3564A6F648779FC7E308 /* Aileron-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-Bold.otf"; path = "../source/assets/fonts/Aileron-Bold.otf"; sourceTree = "<group>"; };
+		9F12E30742C547FF1887F1DD /* Pods-ICTCIRCLE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICTCIRCLE.release.xcconfig"; path = "Target Support Files/Pods-ICTCIRCLE/Pods-ICTCIRCLE.release.xcconfig"; sourceTree = "<group>"; };
+		A3862097CC3EF13A06932CB5 /* Pods-ICTCIRCLE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICTCIRCLE.debug.xcconfig"; path = "Target Support Files/Pods-ICTCIRCLE/Pods-ICTCIRCLE.debug.xcconfig"; sourceTree = "<group>"; };
+		A97744AA46C44D8EA074C0D2 /* Aileron-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-Light.otf"; path = "../source/assets/fonts/Aileron-Light.otf"; sourceTree = "<group>"; };
+		AA2E74F75FC04BFF9DEC9AC5 /* Aileron-ThinItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-ThinItalic.otf"; path = "../source/assets/fonts/Aileron-ThinItalic.otf"; sourceTree = "<group>"; };
+		ADA244C4A40669446C3E0B92 /* libPods-ICTCIRCLE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ICTCIRCLE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06E427943A941A883313382 /* Aileron-SemiBoldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-SemiBoldItalic.otf"; path = "../source/assets/fonts/Aileron-SemiBoldItalic.otf"; sourceTree = "<group>"; };
+		B9318B8258051CBBE927AC0B /* Pods-ICTCIRCLE-ICTCIRCLETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICTCIRCLE-ICTCIRCLETests.debug.xcconfig"; path = "Target Support Files/Pods-ICTCIRCLE-ICTCIRCLETests/Pods-ICTCIRCLE-ICTCIRCLETests.debug.xcconfig"; sourceTree = "<group>"; };
+		BC9F302D95BD4D7A8CA255ED /* Aileron-BoldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-BoldItalic.otf"; path = "../source/assets/fonts/Aileron-BoldItalic.otf"; sourceTree = "<group>"; };
+		C94B800FD72F453299708AF4 /* Aileron-Heavy.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-Heavy.otf"; path = "../source/assets/fonts/Aileron-Heavy.otf"; sourceTree = "<group>"; };
+		CCBE12A0E309514B92466629 /* libPods-ICTCIRCLE-ICTCIRCLETests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ICTCIRCLE-ICTCIRCLETests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F64B3689FD364ACC841DEC2A /* Aileron-HeavyItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Aileron-HeavyItalic.otf"; path = "../source/assets/fonts/Aileron-HeavyItalic.otf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00E356EB1AD99517003FC87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8641DD40D99E8BF2FBF15D78 /* libPods-ICTCIRCLE-ICTCIRCLETests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F66E5DFCC5D2C32CA3C3DB5 /* libPods-ICTCIRCLE.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* ICTCIRCLETests */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F21AD99517003FC87E /* ICTCIRCLETests.m */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+			);
+			path = ICTCIRCLETests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13B07FAE1A68108700A75B9A /* ICTCIRCLE */ = {
+			isa = PBXGroup;
+			children = (
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				13B07FB71A68108700A75B9A /* main.m */,
+			);
+			name = ICTCIRCLE;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				ADA244C4A40669446C3E0B92 /* libPods-ICTCIRCLE.a */,
+				CCBE12A0E309514B92466629 /* libPods-ICTCIRCLE-ICTCIRCLETests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4571D4F1AF0DC2B988E34453 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A3862097CC3EF13A06932CB5 /* Pods-ICTCIRCLE.debug.xcconfig */,
+				9F12E30742C547FF1887F1DD /* Pods-ICTCIRCLE.release.xcconfig */,
+				B9318B8258051CBBE927AC0B /* Pods-ICTCIRCLE-ICTCIRCLETests.debug.xcconfig */,
+				99A300217F5F93530B5D404E /* Pods-ICTCIRCLE-ICTCIRCLETests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				13B07FAE1A68108700A75B9A /* ICTCIRCLE */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				00E356EF1AD99517003FC87E /* ICTCIRCLETests */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				4571D4F1AF0DC2B988E34453 /* Pods */,
+				DCB32E8DC75647458B9C608E /* Resources */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* ICTCIRCLE.app */,
+				00E356EE1AD99517003FC87E /* ICTCIRCLETests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCB32E8DC75647458B9C608E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				11883CEA859B41D187D4B86F /* Aileron-Black.otf */,
+				2136E858AFFC4E44B3ABEE11 /* Aileron-BlackItalic.otf */,
+				9D2A3564A6F648779FC7E308 /* Aileron-Bold.otf */,
+				BC9F302D95BD4D7A8CA255ED /* Aileron-BoldItalic.otf */,
+				C94B800FD72F453299708AF4 /* Aileron-Heavy.otf */,
+				F64B3689FD364ACC841DEC2A /* Aileron-HeavyItalic.otf */,
+				03AF7E18C00D46DCB0AF76D8 /* Aileron-Italic.otf */,
+				A97744AA46C44D8EA074C0D2 /* Aileron-Light.otf */,
+				7F2B33B0A0CE4C3CA8E0786D /* Aileron-LightItalic.otf */,
+				81BE4070C4044F579DB8362C /* Aileron-Regular.otf */,
+				5753A149AEB74A60BE83E972 /* Aileron-SemiBold.otf */,
+				B06E427943A941A883313382 /* Aileron-SemiBoldItalic.otf */,
+				7009C26788D84251A1493CD9 /* Aileron-Thin.otf */,
+				AA2E74F75FC04BFF9DEC9AC5 /* Aileron-ThinItalic.otf */,
+				1C2092A24AC04BCDBE02EC94 /* Aileron-UltraLight.otf */,
+				7D9B73A826884E3B869BB168 /* Aileron-UltraLightItalic.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00E356ED1AD99517003FC87E /* ICTCIRCLETests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ICTCIRCLETests" */;
+			buildPhases = (
+				3A5BB5FE935DF3D865EA6A70 /* [CP] Check Pods Manifest.lock */,
+				00E356EA1AD99517003FC87E /* Sources */,
+				00E356EB1AD99517003FC87E /* Frameworks */,
+				00E356EC1AD99517003FC87E /* Resources */,
+				EB0DC18CE72E01E16787DA19 /* [CP] Embed Pods Frameworks */,
+				F6A7E926B41700060646E2A5 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+			);
+			name = ICTCIRCLETests;
+			productName = ICTCIRCLETests;
+			productReference = 00E356EE1AD99517003FC87E /* ICTCIRCLETests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		13B07F861A680F5B00A75B9A /* ICTCIRCLE */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ICTCIRCLE" */;
+			buildPhases = (
+				7C4D455E3945BC9707D3EA2C /* [CP] Check Pods Manifest.lock */,
+				FD10A7F022414F080027D42C /* Start Packager */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				82A3A98E99787DED9AA685C9 /* [CP] Embed Pods Frameworks */,
+				9DB4CE03157A3582E62A6419 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ICTCIRCLE;
+			productName = ICTCIRCLE;
+			productReference = 13B07F961A680F5B00A75B9A /* ICTCIRCLE.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					00E356ED1AD99517003FC87E = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1120;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ICTCIRCLE" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* ICTCIRCLE */,
+				00E356ED1AD99517003FC87E /* ICTCIRCLETests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00E356EC1AD99517003FC87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				6D7F7AFB89E4452686FD8CD8 /* Aileron-Black.otf in Resources */,
+				4CFBECB8F63F4506A5D9A6B0 /* Aileron-BlackItalic.otf in Resources */,
+				201E74339EFD4F4EA5681F32 /* Aileron-Bold.otf in Resources */,
+				246F3FC14CCA4374A45C31D9 /* Aileron-BoldItalic.otf in Resources */,
+				4A8BDD54A5984703B0A7A9D7 /* Aileron-Heavy.otf in Resources */,
+				7414CD73F4E446F388A3856C /* Aileron-HeavyItalic.otf in Resources */,
+				135B74E8B006425EA639147F /* Aileron-Italic.otf in Resources */,
+				86E61E9B598C47748316A91A /* Aileron-Light.otf in Resources */,
+				95EA474949404F80B75003FA /* Aileron-LightItalic.otf in Resources */,
+				38168A942C814C88B38E3978 /* Aileron-Regular.otf in Resources */,
+				6CB571344BCD4BF58A22BF0C /* Aileron-SemiBold.otf in Resources */,
+				45F3B72A8C2846C2AAF636A2 /* Aileron-SemiBoldItalic.otf in Resources */,
+				4DE90AA52FCF4D089DAD8C3A /* Aileron-Thin.otf in Resources */,
+				29EBC2E135FF4A26972CF402 /* Aileron-ThinItalic.otf in Resources */,
+				353235F7B14F48E39BA4A6C8 /* Aileron-UltraLight.otf in Resources */,
+				E170AA8239914C9AB403D453 /* Aileron-UltraLightItalic.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		3A5BB5FE935DF3D865EA6A70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ICTCIRCLE-ICTCIRCLETests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C4D455E3945BC9707D3EA2C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ICTCIRCLE-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		82A3A98E99787DED9AA685C9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE/Pods-ICTCIRCLE-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE/Pods-ICTCIRCLE-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE/Pods-ICTCIRCLE-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DB4CE03157A3582E62A6419 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE/Pods-ICTCIRCLE-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE/Pods-ICTCIRCLE-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE/Pods-ICTCIRCLE-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB0DC18CE72E01E16787DA19 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE-ICTCIRCLETests/Pods-ICTCIRCLE-ICTCIRCLETests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE-ICTCIRCLETests/Pods-ICTCIRCLE-ICTCIRCLETests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE-ICTCIRCLETests/Pods-ICTCIRCLE-ICTCIRCLETests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6A7E926B41700060646E2A5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE-ICTCIRCLETests/Pods-ICTCIRCLE-ICTCIRCLETests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE-ICTCIRCLETests/Pods-ICTCIRCLE-ICTCIRCLETests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ICTCIRCLE-ICTCIRCLETests/Pods-ICTCIRCLE-ICTCIRCLETests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD10A7F022414F080027D42C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00E356EA1AD99517003FC87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00E356F31AD99517003FC87E /* ICTCIRCLETests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* ICTCIRCLE */;
+			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		00E356F61AD99517003FC87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9318B8258051CBBE927AC0B /* Pods-ICTCIRCLE-ICTCIRCLETests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ICTCIRCLETests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ICTCIRCLE.app/ICTCIRCLE";
+			};
+			name = Debug;
+		};
+		00E356F71AD99517003FC87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99A300217F5F93530B5D404E /* Pods-ICTCIRCLE-ICTCIRCLETests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = ICTCIRCLETests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ICTCIRCLE.app/ICTCIRCLE";
+			};
+			name = Release;
+		};
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3862097CC3EF13A06932CB5 /* Pods-ICTCIRCLE.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = ICTCIRCLE/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = ICTCIRCLE;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F12E30742C547FF1887F1DD /* Pods-ICTCIRCLE.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = ICTCIRCLE/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = ICTCIRCLE;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ICTCIRCLETests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F61AD99517003FC87E /* Debug */,
+				00E356F71AD99517003FC87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ICTCIRCLE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ICTCIRCLE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}
