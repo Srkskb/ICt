@@ -242,7 +242,7 @@ const HomeScreen = ({navigation}) => {
           {/* trending */}
 
 
-          <FlatList
+          {/* <FlatList
             horizontal
             ItemSeparatorComponent={
               () => <View style={{ padding: 5 }}/>
@@ -253,7 +253,7 @@ const HomeScreen = ({navigation}) => {
             keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}
 
-          />
+          /> */}
 
 
 
