@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackActions } from '@react-navigation/native';
 import Modal from 'react-native-modal'
 import axios from 'axios';
+
 import Svg, {Path,Circle,Line} from 'react-native-svg';
 import {
   LoginLogoImg,
@@ -41,11 +42,6 @@ const HomeScreen = ({navigation}) => {
     setTimeout(() => {
       setState(prev => ({...prev, loader: false}));
     }, 2000);
-  }, []);
-
-  useEffect(() => {
-    console.log('this is get list')
-
     getlist()
   }, []);
 
@@ -123,7 +119,7 @@ const HomeScreen = ({navigation}) => {
       <View key={item.id}
       style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4,
         borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
-        <TouchableOpacity
+        <TouchableOpacity onPress={()=>console.log(item)}
         style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
