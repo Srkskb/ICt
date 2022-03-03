@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text,TouchableOpacity, Image, TextInput, FlatList, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-import {DefaultColours, SCREEN_WIDTH} from '@constants';
+import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT} from '@constants';
 import {Loader} from '@global_components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackActions } from '@react-navigation/native';
 import Modal from 'react-native-modal'
 import axios from 'axios';
+import Svg, {Path,Circle,Line} from 'react-native-svg';
 import {
   LoginLogoImg,
   AtdRateImg,
@@ -23,7 +24,7 @@ const HomeScreen = ({navigation}) => {
   const [search, setsearchText] = useState('');
   const [sliderData, setsliderData] = useState([ {id: 1, image: '@images/images/home-slider-background.png', local: true}, {id: 2, image: '@images/images/home-slider-background.png', local: true} ])
 
-  const [trendingData, settrendingData] = useState([null])
+  const [trendingData, settrendingData] = useState([])
   const [toppicksData, settoppicksData] = useState([
     { id: 1, image: '@images/images/sample1.png', description: 'HP-Pavilion-i5-1035G115.6-Inch-4-GB-DDR41-TB-Win-10-Laptop-15-cs3056tx-2', price1: '1150', price2: '1350', rating: '4.9' },
     { id: 2, image: '@images/images/sample2.png', description: 'boAt-Bluetooth-Headphone-Rockerz-518-Red', price1: '650', price2: '750', rating: '4.9' },
@@ -65,6 +66,22 @@ const HomeScreen = ({navigation}) => {
     }
   }
 
+  const addcart = () => {
+    try {
+     axios.post('http://3.16.105.232:8181/api/user/add/incart')
+      .then(response => {
+      console.log('response list',response.data.data.list)
+
+      })
+    .catch(err => {
+        console.log('error',err)
+      });
+    }
+    catch(error) {
+      console.log('error2',error)
+    }
+  }
+
   const renderItem_sider1 = (item) => {
     return (
       <View key={item.id}>
@@ -75,35 +92,47 @@ const HomeScreen = ({navigation}) => {
 
 
 
-  const renderItem_trending = ({item,index}) => {
-  console.log('item tranding ',item,index)
-    return (
-      <View key={item._id} style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4, borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
-            <View style={{ alignItems: 'center', padding: 10 }}>
-
-              <Image source={{uri:item.thumbnail}} style={{ width: 100, height: 100}} />
-
+  {/*const renderItem_trending = ({item,index}) => {
+    console.log('item tranding ',item,index)
+      return (
+        <View key={item._id} style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4, borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
+              <View style={{ alignItems: 'center', padding: 10 }}>
+  
+                <Image source={{uri:item.thumbnail}} style={{ width: 100, height: 100}} />
+  
+              </View>
+            <Text style={{ color: DefaultColours.black, fontSize: 13, color: 'black', padding: 5, lineHeight: 18 }}>{item.title}</Text>
+            <View style={{ flexDirection: 'row', padding: 5, justifyContent:'flex-end' , flex:1}}>
+                <View style={{ flex: 1, justifyContent:'flex-end' ,}}>
+                    <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>AED <Text style={{ fontWeight: 'bold'}}>{item.sellingPrice}</Text></Text>
+                    <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through' }}>AED {item.originalPrice}</Text>
+                </View>
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
+                  <Image source={require('@images/images/star.png')} style={{ width: 20, height: 20 }} />
+                  <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>4.9</Text>
+                </View>
             </View>
-          <Text style={{ color: DefaultColours.black, fontSize: 13, color: 'black', padding: 5, lineHeight: 18 }}>{item.title}</Text>
-          <View style={{ flexDirection: 'row', padding: 5, justifyContent:'flex-end' , flex:1}}>
-              <View style={{ flex: 1, justifyContent:'flex-end' ,}}>
-                  <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>AED <Text style={{ fontWeight: 'bold'}}>{item.sellingPrice}</Text></Text>
-                  <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through' }}>AED {item.originalPrice}</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
-                <Image source={require('@images/images/star.png')} style={{ width: 20, height: 20 }} />
-                <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>4.9</Text>
-              </View>
-          </View>
-      </View>
-    )
-
-  }
+        </View>
+      )
+  
+    }*/}
 
   const renderItem_toppicks = ({item, index}) => {
     //console.log('item ',item,index)
     return (
-      <View key={item.id} style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4, borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
+      <View key={item.id}
+      style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4,
+        borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
+        <TouchableOpacity
+        style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
+        <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <Circle cx="6" cy="19" r="2" />
+  <Circle cx="17" cy="19" r="2" />
+  <Path d="M17 17h-11v-14h-2" />
+  <Path d="M6 5l14 1l-1 7h-13" />
+</Svg>
+        </TouchableOpacity>
             <View style={{ alignItems: 'center', padding: 10 }}>
             {(index % 2 == 0) ?
               <Image source={require('@images/images/sample1.png')} style={{ width: 100, height: 100}} />
@@ -111,15 +140,18 @@ const HomeScreen = ({navigation}) => {
               <Image source={require('@images/images/sample2.png')} style={{ width: 100, height: 100}} />
             }
             </View>
-          <Text style={{ color: DefaultColours.black, fontSize: 13, color: 'black', padding: 5, lineHeight: 18 }}>{item.description}</Text>
+          <Text numberOfLines={3}
+          style={{ color: DefaultColours.black, fontSize: 13, color: 'black', padding: 5, lineHeight: 18 }}>
+          {item.description}</Text>
           <View style={{ flexDirection: 'row', padding: 5 ,justifyContent:'flex-end' , flex:1}}>
-              <View style={{ flex: 1, justifyContent:'flex-end' ,}}>
+              <View style={{ flex: 1, justifyContent:'flex-end'}}>
                   <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>AED <Text style={{ fontWeight: 'bold'}}>{item.price1}</Text></Text>
                   <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through' }}>AED {item.price2}</Text>
               </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
+              <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
                 <Image source={require('@images/images/star.png')} style={{ width: 20, height: 20 }} />
-                <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>{item.rating}</Text>
+                <Text style={{ color: DefaultColours.black, fontSize: 15,fontWeight:'bold' }}>
+                {item.rating}</Text>
               </View>
           </View>
       </View>
@@ -191,32 +223,45 @@ const HomeScreen = ({navigation}) => {
 
 
           {/* nav_bar */}
-          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH, height: 50 , marginTop:50}}>
-              <TouchableOpacity onPress={()=> navigation.openDrawer()} style={{ flex: 1,marginLeft:10  }}>
+          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH, height: 50,paddingHorizontal:12}}>
+              <TouchableOpacity onPress={()=> navigation.openDrawer()}
+              style={{alignItems:'center',justifyContent:'center',width:'10%'}}>
               <Image
-                style={{width:30, height:50}}
+                style={{width:30, height:30}}
                 resizeMode="contain"
                 source={DrawerImage}
               />
                </TouchableOpacity>
-              <TouchableOpacity onPress={()=>setState(prev => ({...prev, modalVisible: true}))} style={{ flex: 2, justifyContent: 'center', alignItems: 'center'  }} ><Text style={{ color: DefaultColours.black }}>Click to reveal address modal</Text></TouchableOpacity>
-              <TouchableOpacity style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 10 }}>
+              <TouchableOpacity onPress={()=>setState(prev => ({...prev, modalVisible: true}))}
+              style={{justifyContent: 'center', alignItems: 'center',width:'70%'  }} >
+              <Text style={{ color: DefaultColours.black }}>Click to reveal address modal</Text></TouchableOpacity>
+              <TouchableOpacity style={{width:'10%',alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ top: 4, right: 4, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 18, height: 18, borderRadius: 9, backgroundColor: DefaultColours.pink }}>
                   <Text style={{ color: DefaultColours.white, fontSize: 9 }}>10</Text>
                 </View>
-                <Image source={require('@images/images/notificationBell.png')} style={{ width: 26, height: 26 }} />
+                <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bell" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <Path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+  <Path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+</Svg>
               </TouchableOpacity>
+              <TouchableOpacity style={{width:'10%',alignItems: 'center', justifyContent: 'center' }}>
+              <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <Circle cx="10" cy="10" r="7" />
+  <Line x1="21" y1="21" x2="15" y2="15" />
+</Svg></TouchableOpacity>
           </View>
           {/* nav_bar_ends */}
 
 
-          {/* search_bar */}
+          {/* search_bar }
           <View  style={{ flex: 1, alignItems: 'center' }}>
-          <View style={{  borderRadius: 4, borderColor: 'grey', borderWidth: 1, padding: 1, width: SCREEN_WIDTH * 0.8 , height: 48 }}>
+          <View style={{  borderRadius: 4, borderColor: 'grey', borderWidth: 1, padding: 1, width: SCREEN_WIDTH * 0.92 , height: 48 }}>
           <TextInput style={{ fontSize: 13, color: DefaultColours.black }} value={state.searchText} onChangeText={text => setsearchText(text)} />
           </View>
           </View>
-          {/* search_bar_end */}
+          { search_bar_end */}
 
 
           <FlatList
@@ -234,7 +279,7 @@ const HomeScreen = ({navigation}) => {
           />
 
 
-          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft: 10 }}>
+          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft: 12 }}>
             <Image source={require('@images/images/fire.png')} style={{ width: 20, height: 30  }} />
             <Text style={{ paddingLeft: 10, color: DefaultColours.black , fontWeight: 'bold', fontSize : 17 }}>Trending</Text>
           </View>
@@ -242,18 +287,18 @@ const HomeScreen = ({navigation}) => {
           {/* trending */}
 
 
-          {/* <FlatList
+          <FlatList
             horizontal
             ItemSeparatorComponent={
               () => <View style={{ padding: 5 }}/>
             }
             contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
-            data={trendingData}
-            renderItem={renderItem_trending}
-            keyExtractor={item => item._id}
+            data={toppicksData}
+            renderItem={renderItem_toppicks}
+            keyExtractor={item => item.id}
             showsHorizontalScrollIndicator={false}
 
-          /> */}
+          />
 
 
 

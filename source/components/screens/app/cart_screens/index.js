@@ -11,6 +11,8 @@ const CartScreen = ({navigation}) => {
       setState(prev => ({...prev, loader: false}));
     }, 2000);
   }, []);
+
+  
   return (
     <>
     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
