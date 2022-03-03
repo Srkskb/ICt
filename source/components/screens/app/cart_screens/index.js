@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text,FlatList} from 'react-native';
 import {DefaultColours} from '@constants';
 import {Loader} from '@global_components';
 
@@ -13,7 +13,9 @@ const CartScreen = ({navigation}) => {
   }, []);
   return (
     <>
-    <Text>Chat</Text>
+    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+    <Text>You have two items in the cart </Text>
+    </View>
     </>
   );
 };
