@@ -25,7 +25,7 @@ const RootNavigator = () => {
       setIsLoading(false);
     }, 3000);
 
-  //  //console.log('user login details',AsyncStorage.getItem(token))
+  //console.log('user login details',AsyncStorage.getItem(token))
   }, []);
 
   const validAuth = async() => {
