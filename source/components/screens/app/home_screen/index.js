@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackActions } from '@react-navigation/native';
 import Modal from 'react-native-modal'
 import axios from 'axios';
-
+import Toast from 'react-native-simple-toast';
 import Svg, {Path,Circle,Line} from 'react-native-svg';
 import {
   LoginLogoImg,
@@ -49,7 +49,7 @@ const HomeScreen = ({navigation}) => {
     try {
      axios.get('http://3.16.105.232:8181/api/product/all/list')
       .then(response => {
-      console.log('response list',response.data.data.list)
+      console.log('response list',response.data)
           settrendingData(response.data.data.list)
 
       })
@@ -62,21 +62,7 @@ const HomeScreen = ({navigation}) => {
     }
   }
 
-  const addcart = () => {
-    try {
-     axios.post('http://3.16.105.232:8181/api/user/add/incart')
-      .then(response => {
-      console.log('response list',response.data.data.list)
-
-      })
-    .catch(err => {
-        console.log('error',err)
-      });
-    }
-    catch(error) {
-      console.log('error2',error)
-    }
-  }
+  
 
   const renderItem_sider1 = (item) => {
     return (
@@ -115,11 +101,45 @@ const HomeScreen = ({navigation}) => {
 
   const renderItem_toppicks = ({item, index}) => {
     //console.log('item ',item,index)
+    const addcart = () => {
+    AsyncStorage.getItem('userExist')
+            .then(res =>{
+                try {
+     var data = JSON.stringify({
+  "userId": JSON.parse(res),
+  "carts": {
+    "product": [
+      "61bb67b946eeef7ccbd2279a"
+    ]
+  }
+});
+
+var config = {
+  method: 'post',
+  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+axios(config)
+.then((response)=>{
+  console.log(JSON.stringify(response.data))
+  Toast.show(response.data.message)
+})
+.catch((error)=>{
+  console.log(error);
+});
+    }
+    catch(error) {
+                  console.log('error2',error)
+                }}
+  )}
     return (
       <View key={item.id}
       style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4,
         borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
-        <TouchableOpacity onPress={()=>console.log(item)}
+        <TouchableOpacity onPress={addcart}
         style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
