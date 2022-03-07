@@ -38,7 +38,7 @@ const HomeScreen = ({navigation}) => {
   ])
 
   useEffect(() => {
-    console.log('this is home page')
+    //console.log('this is home page')
     setTimeout(() => {
       setState(prev => ({...prev, loader: false}));
     }, 2000);
@@ -49,16 +49,16 @@ const HomeScreen = ({navigation}) => {
     try {
      axios.get('http://3.16.105.232:8181/api/product/all/list')
       .then(response => {
-      console.log('response list',response.data)
+      //console.log('response list',response.data)
           settrendingData(response.data.data.list)
 
       })
     .catch(err => {
-        console.log('error',err)
+        //console.log('error',err)
       });
     }
     catch(error) {
-      console.log('error2',error)
+      //console.log('error2',error)
     }
   }
 
@@ -75,7 +75,7 @@ const HomeScreen = ({navigation}) => {
 
 
   {/*const renderItem_trending = ({item,index}) => {
-    console.log('item tranding ',item,index)
+    //console.log('item tranding ',item,index)
       return (
         <View key={item._id} style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4, borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
               <View style={{ alignItems: 'center', padding: 10 }}>
@@ -100,7 +100,7 @@ const HomeScreen = ({navigation}) => {
     }*/}
 
   const renderItem_toppicks = ({item, index}) => {
-    //console.log('item ',item,index)
+    ////console.log('item ',item,index)
     const addcart = () => {
     AsyncStorage.getItem('userExist')
             .then(res =>{
@@ -124,15 +124,15 @@ var config = {
 };
 axios(config)
 .then((response)=>{
-  console.log(JSON.stringify(response.data))
+  //console.log(JSON.stringify(response.data))
   Toast.show(response.data.message)
 })
 .catch((error)=>{
-  console.log(error);
+  //console.log(error);
 });
     }
     catch(error) {
-                  console.log('error2',error)
+                  //console.log('error2',error)
                 }}
   )}
     return (
@@ -175,7 +175,7 @@ axios(config)
   }
 
   const renderItem_professionalservices = ({item, index}) => {
-    //console.log('item ',item,index)
+    ////console.log('item ',item,index)
     return (
       <View key={item.id} style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4, borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
             <View style={{ alignItems: 'center', padding: 10 }}>

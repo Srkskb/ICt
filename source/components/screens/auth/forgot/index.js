@@ -44,13 +44,13 @@ const ForgotScreen = ({navigation}) => {
 
   const onSubmit = async() => {
 
-      console.log('hit login api in else part');
+      //console.log('hit login api in else part');
       setLoadingtypeoverlay(true)
 
       var password_test = (String(password).trim()).length > 5
       if ( password_test === false  ) {
       setLoadingtypeoverlay(false);
-      console.log('password_test',password_test)
+      //console.log('password_test',password_test)
         setTimeout(()=> {
           Toast.show('Invalid password')
           },200)
@@ -60,7 +60,7 @@ const ForgotScreen = ({navigation}) => {
       var confirmPass_test = (String(confirmPass).trim()).length > 5
       if ( confirmPass_test === false  ) {
       setLoadingtypeoverlay(false);
-      console.log('confirmPass_test',confirmPass_test)
+      //console.log('confirmPass_test',confirmPass_test)
         setTimeout(()=> {
           Toast.show('Invalid confirm password')
           },200)
@@ -83,7 +83,7 @@ const ForgotScreen = ({navigation}) => {
 
       var response = await axios.post('http://3.16.105.232:8181/api/user/forgot/password', data)
       if(response){
-        console.log('response',response.data.data.token)
+        //console.log('response',response.data.data.token)
         //if(response.data !== null && response.status == 200 && ){
           await AsyncStorage.setItem('token', JSON.stringify(response.data.data.token));
             await AsyncStorage.setItem('userExist', JSON.stringify(response.data.data.user._id));
@@ -95,7 +95,7 @@ const ForgotScreen = ({navigation}) => {
       }
     }
       catch(error)  {
-        console.log('error',error)
+        //console.log('error',error)
           Toast.show('There is some connection problem. Please try later.')
           setLoadingtypeoverlay(false);
       }

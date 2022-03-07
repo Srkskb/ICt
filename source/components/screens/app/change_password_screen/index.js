@@ -49,13 +49,13 @@ const ChangePasswordScreen = ({navigation}) => {
   }, []);
 
   const  loginCheck = async () => {
-         console.log('triggering loginCheck')
+         //console.log('triggering loginCheck')
          try {
            var currentUserData =  await AsyncStorage.getItem('userExist')
-           console.log('currentUserData',currentUserData)
+           //console.log('currentUserData',currentUserData)
            if(currentUserData !== null){
                currentUserData = JSON.parse(currentUserData)
-               console.log(currentUserData,'currentUserData')
+               //console.log(currentUserData,'currentUserData')
                setLogged(true);
                setUserId(currentUserData)
 
@@ -65,20 +65,20 @@ const ChangePasswordScreen = ({navigation}) => {
 
            }
          } catch(error) {
-           console.log('Error loginCheck',error)
+           //console.log('Error loginCheck',error)
          }
      }
 
 
   const onSubmit = async() => {
 
-      console.log('hit login api in else part');
+      //console.log('hit login api in else part');
       setLoadingtypeoverlay(true)
 
       var password_test = (String(password).trim()).length > 5
       if ( password_test === false  ) {
       setLoadingtypeoverlay(false);
-      console.log('password_test',password_test)
+      //console.log('password_test',password_test)
         setTimeout(()=> {
           Toast.show('Invalid password')
           },200)
@@ -88,7 +88,7 @@ const ChangePasswordScreen = ({navigation}) => {
       var oldPass_test = (String(oldPass).trim()).length > 5
       if ( oldPass_test === false  ) {
       setLoadingtypeoverlay(false);
-      console.log('oldPass_test',oldPass_test)
+      //console.log('oldPass_test',oldPass_test)
         setTimeout(()=> {
           Toast.show('Invalid old Pass password')
           },200)
@@ -108,12 +108,12 @@ const ChangePasswordScreen = ({navigation}) => {
         oldPassword: oldPass,
         newPassword: password
       }
-      console.log('data', data)
+      //console.log('data', data)
     try {
 
       var response = await axios.post('http://3.16.105.232:8181/api/user/update/password', data)
       if(response){
-        console.log('response',response.data)
+        //console.log('response',response.data)
         //if(response.data !== null && response.status == 200 && ){
 
           Toast.show('Password change successfully.')
@@ -127,7 +127,7 @@ const ChangePasswordScreen = ({navigation}) => {
       }
     }
       catch(error)  {
-        console.log('error',error)
+        //console.log('error',error)
           Toast.show('There is some connection problem. Please try later.')
           setLoadingtypeoverlay(false);
       }

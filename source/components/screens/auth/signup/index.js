@@ -39,16 +39,16 @@ const SignupScreen = ({navigation}) => {
   const confirmPassRef = useRef(null);
 
   useEffect(() => {
-    console.log('this is didmount')
+    //console.log('this is didmount')
    }, []);
 
    useEffect(() => {
-      console.log('this will run after country code update',countryCode)
+      //console.log('this will run after country code update',countryCode)
    }, [countryCode]);
 
   const onSubmit = async() => {
 
-      console.log('hit login api in else part');
+      //console.log('hit login api in else part');
       setLoadingtypeoverlay(true);
 
       var email_test = String(email).trim().toLowerCase()
@@ -57,7 +57,7 @@ const SignupScreen = ({navigation}) => {
 
       if ( email_test === false  ) {
       setLoadingtypeoverlay(false);
-      console.log('email_test',email_test)
+      //console.log('email_test',email_test)
         setTimeout(()=> {
           Toast.show('Invalid email')
           },200)
@@ -71,7 +71,7 @@ const SignupScreen = ({navigation}) => {
       //
       // if ( firstname_test === false  ) {
       // setLoadingtypeoverlay(false);
-      // console.log('firstname_test',firstname_test)
+      // //console.log('firstname_test',firstname_test)
       //   setTimeout(()=> {
       //     Toast.show('Invalid first name')
       //     },200)
@@ -81,7 +81,7 @@ const SignupScreen = ({navigation}) => {
       //
       // if ( lastname_test === false  ) {
       // setLoadingtypeoverlay(false);
-      // console.log('lastname_test',lastname_test)
+      // //console.log('lastname_test',lastname_test)
       //   setTimeout(()=> {
       //     Toast.show('Invalid last name')
       //     },200)
@@ -93,7 +93,7 @@ const SignupScreen = ({navigation}) => {
       var password_test = (String(password).trim()).length > 5
       if ( password_test === false  ) {
       setLoadingtypeoverlay(false);
-      console.log('password_test',password_test)
+      //console.log('password_test',password_test)
         setTimeout(()=> {
           Toast.show('Invalid password')
           },200)
@@ -103,7 +103,7 @@ const SignupScreen = ({navigation}) => {
       var confirmPass_test = (String(confirmPass).trim()).length > 5
       if ( confirmPass_test === false  ) {
       setLoadingtypeoverlay(false);
-      console.log('confirmPass_test',confirmPass_test)
+      //console.log('confirmPass_test',confirmPass_test)
         setTimeout(()=> {
           Toast.show('Invalid confirm password')
           },200)
@@ -113,7 +113,7 @@ const SignupScreen = ({navigation}) => {
       var mobile_test = (String(mobile).trim()).length ==  10
       if ( mobile_test === false  ) {
       setLoadingtypeoverlay(false);
-      console.log('email_test',mobile_test)
+      //console.log('email_test',mobile_test)
         setTimeout(()=> {
           Toast.show('Invalid phone number')
           },200)
@@ -136,24 +136,24 @@ const SignupScreen = ({navigation}) => {
         hearAboutICT: "hear about ICT",
         role: "user"
      }
-         console.log('data', data)
+         //console.log('data', data)
 
       try {
        axios.post('http://3.16.105.232:8181/api/user/add', data)
         .then(response => {
-        console.log('response',response)
+        //console.log('response',response)
         Toast.show('Your Account Register successfully. Please Verify your account')
         setLoadingtypeoverlay(false);
         navigation.navigate('VerifyScreen',{ email})
         })
       .catch(err => {
-          console.log('error',err)
+          //console.log('error',err)
           setLoadingtypeoverlay(false);
           Toast.show('This account allready exit')
         });
       }
       catch(error)  {
-        console.log('error',error)
+        //console.log('error',error)
           Toast.show('There is some connection problem. Please try later.')
           setLoadingtypeoverlay(false);
       }
@@ -243,7 +243,7 @@ const SignupScreen = ({navigation}) => {
               showCountryCode: false,
             }}
             onSelectCountry={data => {
-              console.log('#. onSelectCountry : ', data);
+              //console.log('#. onSelectCountry : ', data);
               setCountryName(data.name)
               setCountryCode(data.code)
               setcountryCallingCode(data.callingCode)

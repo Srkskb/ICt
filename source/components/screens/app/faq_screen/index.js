@@ -29,7 +29,7 @@ const FaqScreen = () => {
 
 
   useEffect(() => {
-    console.log('this is get list')
+    //console.log('this is get list')
     getlist()
   }, []);
 
@@ -37,38 +37,38 @@ const FaqScreen = () => {
     try {
      axios.get('http://3.16.105.232:8181/api/faq/list')
       .then(response => {
-          console.log('response faqs',response.data.data.faqs)
+          //console.log('response faqs',response.data.data.faqs)
           var data = response.data.data.faqs
           var hiderows = {}
           data.forEach((item, i) => {
             hiderows[item.id] = false
           });
-          console.log('hiderows',hiderows)
+          //console.log('hiderows',hiderows)
           setState(prev => ({ ...prev, hiderows, data }))
           //setfaqData(response.data.data.faqs)
 
       })
     .catch(err => {
-        console.log('error',err)
+        //console.log('error',err)
       });
     }
     catch(error) {
-      console.log('error2',error)
+      //console.log('error2',error)
     }
   }
 
 
   const togglerows = (id)=> {
-    console.log('id',id)
-    console.log('before state',state.hiderows)
+    //console.log('id',id)
+    //console.log('before state',state.hiderows)
     var hiderows ={...state.hiderows, [id]: !state.hiderows[id]}
-    console.log('hiderows',hiderows)
+    //console.log('hiderows',hiderows)
     setState(prev => ({...prev, hiderows }));
 
   }
 
   const renderItem_faqData = ({item, index}) => {
-    console.log('item ',item,index)
+    //console.log('item ',item,index)
     return (
 <>
       <TouchableOpacity onPress={()=> togglerows(item.id)} key={item.id} style={{borderWidth:1, borderRadius:20, marginTop:20, height:40, alignItems:'center', justifyContent:'center'}}>

@@ -54,13 +54,13 @@ const AccountScreen = ({navigation}) => {
 
 
 const  loginCheck = async () => {
-             console.log('triggering loginCheck')
+             //console.log('triggering loginCheck')
              try {
                var currentUserData =  await AsyncStorage.getItem('userExist')
-               console.log('currentUserData',currentUserData)
+               //console.log('currentUserData',currentUserData)
                if(currentUserData !== null){
                    currentUserData = JSON.parse(currentUserData)
-                   console.log(currentUserData,'currentUserData')
+                   //console.log(currentUserData,'currentUserData')
                    setLogged(true);
 
                    getUserData(currentUserData)
@@ -69,14 +69,14 @@ const  loginCheck = async () => {
 
                }
              } catch(error) {
-               console.log('Error loginCheck',error)
+               //console.log('Error loginCheck',error)
              }
    }
 
  const  getUserData= async  (currentUserData) =>{
- console.log('userID',currentUserData)
+ //console.log('userID',currentUserData)
  var response = await axios.get(`http://3.16.105.232:8181/api/user/detail?userId=${currentUserData}`)
- console.log('response profile',response.data.data.user)
+ //console.log('response profile',response.data.data.user)
  if(typeof response.data !== 'undefined' && response.data !== null ){
 
     setFirstName(response.data.data.user.firstName)
@@ -89,17 +89,17 @@ const  loginCheck = async () => {
 
 
 
-   // console.log(response.data.Response[0].UserId)
+   // //console.log(response.data.Response[0].UserId)
  }
  }
 
  const  submitForm = async  () =>{
-   console.log('update api ')
+   //console.log('update api ')
    setLoadingtypeoverlay(true);
     var mobile_test = (String(mobile).trim()).length ==  10
     if ( mobile_test === false  ) {
     setLoadingtypeoverlay(false);
-    console.log('email_test',mobile_test)
+    //console.log('email_test',mobile_test)
       setTimeout(()=> {
         Toast.show('Invalid phone number')
         },200)
@@ -109,7 +109,7 @@ const  loginCheck = async () => {
     var firstname_test = (String(firstname).trim()).length > 2
     if ( firstname_test === false  ) {
     setLoadingtypeoverlay(false);
-    console.log('firstname_test',firstname_test)
+    //console.log('firstname_test',firstname_test)
       setTimeout(()=> {
         Toast.show('Invalid first name')
         },200)
@@ -119,7 +119,7 @@ const  loginCheck = async () => {
     var lastname_test = (String(lastname).trim()).length  > 2
     if ( lastname_test === false  ) {
     setLoadingtypeoverlay(false);
-    console.log('lastname_test',lastname_test)
+    //console.log('lastname_test',lastname_test)
       setTimeout(()=> {
         Toast.show('Invalid last name')
         },200)
@@ -129,7 +129,7 @@ const  loginCheck = async () => {
     var message_test = (String(message).trim()).length  > 2
     if ( message_test === false  ) {
     setLoadingtypeoverlay(false);
-    console.log('message_test',message_test)
+    //console.log('message_test',message_test)
       setTimeout(()=> {
         Toast.show('Enter your query')
         },200)
@@ -139,7 +139,7 @@ const  loginCheck = async () => {
     var companyname_test = (String(companyname).trim()).length  > 2
     if ( companyname_test === false  ) {
     setLoadingtypeoverlay(false);
-    console.log('companyname_test',companyname_test)
+    //console.log('companyname_test',companyname_test)
       setTimeout(()=> {
         Toast.show('Enter company name')
         },200)
@@ -160,24 +160,24 @@ const  loginCheck = async () => {
 
 
 
-         console.log('data', data)
+         //console.log('data', data)
          try {
           axios.post('http://3.16.105.232:8181/api/contact/add', data)
            .then(response => {
-           console.log('response',response)
+           //console.log('response',response)
            Toast.show('admin will contact you shortly.')
            setLoadingtypeoverlay(false);
            navigation.navigate("HomeScreen")
 
            })
          .catch(err => {
-             console.log('error',err)
+             //console.log('error',err)
              setLoadingtypeoverlay(false);
              Toast.show('some problem')
            });
          }
          catch(error)  {
-           console.log('error',error)
+           //console.log('error',error)
              Toast.show('There is some connection problem. Please try later.')
              setLoadingtypeoverlay(false);
          }
@@ -289,7 +289,7 @@ const  loginCheck = async () => {
           showCountryCode: false,
         }}
         onSelectCountry={data => {
-          console.log('#. onSelectCountry : ', data);
+          //console.log('#. onSelectCountry : ', data);
           setCountryName(data.name)
           setCountryCode(data.code)
           setcountryCallingCode(data.callingCode)

@@ -37,7 +37,7 @@ const LoginScreen = ({navigation}) => {
 
   const onSubmit = async() => {
 
-      console.log('hit login api in else part');
+      //console.log('hit login api in else part');
       setLoadingtypeoverlay(true)
 
       var email_test = String(email).trim().toLowerCase()
@@ -67,12 +67,12 @@ const LoginScreen = ({navigation}) => {
         password: password,
         role: 'user'
     }
-    console.log('data',data)
+    //console.log('data',data)
 
     try {
 
       var response = await axios.post('http://3.16.105.232:8181/api/user/login', data)
-      console.log('response for ',response.data.data.user._id)
+      //console.log('response for ',response.data.data.user._id)
 
       if(typeof response === 'undefined'){
         Toast.show('There is some connection problem. Please try later.')
@@ -97,7 +97,7 @@ const LoginScreen = ({navigation}) => {
         return;
       }
 
-        console.log('token',response.data.data.token)
+        //console.log('token',response.data.data.token)
         //if(response.data !== null && response.status == 200 && ){
           await AsyncStorage.setItem('token', JSON.stringify(response.data.data.token ));
           await AsyncStorage.setItem('userExist', JSON.stringify(response.data.data.user._id));
@@ -112,7 +112,7 @@ const LoginScreen = ({navigation}) => {
 
     }
       catch(error)  {
-        console.log('error',error)
+        //console.log('error',error)
           Toast.show('There is some connection problem. Please try later.')
           setLoadingtypeoverlay(false);
       }
@@ -122,7 +122,7 @@ const LoginScreen = ({navigation}) => {
 
 const onForgot = async() => {
 
-    console.log('hit onForgot api in else part');
+    //console.log('hit onForgot api in else part');
     setLoadingtypeoverlay(true)
 
     var email_test = String(email).trim().toLowerCase()
@@ -147,7 +147,7 @@ const onForgot = async() => {
 
     var response = await axios.post('http://3.16.105.232:8181/api/user/forgot/password', data)
     if(response){
-      console.log('response',response.data)
+      //console.log('response',response.data)
       //if(response.data !== null && response.status == 200 && ){
 
         Toast.show('Password Has Been Sent To Your Mail.')
@@ -157,7 +157,7 @@ const onForgot = async() => {
     }
   }
     catch(error)  {
-      console.log('error',error)
+      //console.log('error',error)
         Toast.show('There is some connection problem. Please try later.')
         setLoadingtypeoverlay(false);
     }

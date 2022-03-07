@@ -25,16 +25,16 @@ const RootNavigator = () => {
       setIsLoading(false);
     }, 3000);
 
-  //  console.log('user login details',AsyncStorage.getItem(token))
+  //  //console.log('user login details',AsyncStorage.getItem(token))
   }, []);
 
   const validAuth = async() => {
-    console.log('mofo')
+    //console.log('mofo')
     const userToken = await AsyncStorage.getItem('token');
     const userExist = await AsyncStorage.getItem('userExist');
-    console.log('#. userToken : ', userToken, ' #. exist : ', userExist);
+    //console.log('#. userToken : ', userToken, ' #. exist : ', userExist);
     if(typeof userToken !== 'undefined' && userToken !== null && userToken.length !== ''){
-      console.log('this is logged in')
+      //console.log('this is logged in')
       setAuth(true);
     }
     else {
@@ -52,7 +52,7 @@ const RootNavigator = () => {
   const Drawer = createDrawerNavigator();
 
   const MainApp = ({navigation}) => {
-    console.log('navigation',navigation)
+    //console.log('navigation',navigation)
 
 
     return (

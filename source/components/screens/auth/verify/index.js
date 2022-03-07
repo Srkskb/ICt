@@ -33,12 +33,12 @@ const VerifyScreen = ({route, navigation}) => {
   const otpRef = useRef(null);
 
   useEffect(() => {
-    console.log('props',route.params)
+    //console.log('props',route.params)
   }, []);
 
 
 const onResend = async()=> {
-  console.log('hit login api in else part');
+  //console.log('hit login api in else part');
   setLoadingtypeoverlay(true)
 
 var data={
@@ -48,7 +48,7 @@ var data={
 try {
   var response = await axios.post('http://3.16.105.232:8181/api/user/otp', data)
   if(response){
-    console.log('response',response.data)
+    //console.log('response',response.data)
     //if(response.data !== null && response.status == 200 && ){
 
       Toast.show('OTP resend successfully.')
@@ -58,7 +58,7 @@ try {
   }
 }
   catch(error)  {
-    console.log('error',error)
+    //console.log('error',error)
       Toast.show('There is some connection problem. Please try later.')
       setLoadingtypeoverlay(false);
   }
@@ -66,7 +66,7 @@ try {
 
   const onSubmit = async() => {
 
-      console.log('hit login api in else part');
+      //console.log('hit login api in else part');
       setLoadingtypeoverlay(true)
 
       var otp_test = (String(otp).trim()).length ==  4
@@ -90,14 +90,14 @@ try {
         email: route.params.email,
     }
 
-    console.log('otp data', data)
+    //console.log('otp data', data)
 
 
     try {
 
       var response = await axios.post('http://3.16.105.232:8181/api/user/verify/otp', data)
       if(response){
-        console.log('response',response.data)
+        //console.log('response',response.data)
         //if(response.data !== null && response.status == 200 && ){
 
           Toast.show('User login successfully.')
@@ -111,7 +111,7 @@ try {
       }
     }
       catch(error)  {
-        console.log('error',error)
+        //console.log('error',error)
           Toast.show('There is some connection problem. Please try later.')
           setLoadingtypeoverlay(false);
       }

@@ -52,13 +52,13 @@ const AccountScreen = ({navigation}) => {
 
 
 const  loginCheck = async () => {
-             console.log('triggering loginCheck')
+             //console.log('triggering loginCheck')
              try {
                var currentUserData =  await AsyncStorage.getItem('userExist')
-               console.log('currentUserData',currentUserData)
+               //console.log('currentUserData',currentUserData)
                if(currentUserData !== null){
                    currentUserData = JSON.parse(currentUserData)
-                   console.log(currentUserData,'currentUserData')
+                   //console.log(currentUserData,'currentUserData')
                    setLogged(true);
 
                    getUserData(currentUserData)
@@ -67,14 +67,14 @@ const  loginCheck = async () => {
 
                }
              } catch(error) {
-               console.log('Error loginCheck',error)
+               //console.log('Error loginCheck',error)
              }
    }
 
  const  getUserData= async  (currentUserData) =>{
- console.log('userID',currentUserData)
+ //console.log('userID',currentUserData)
  var response = await axios.get(`http://3.16.105.232:8181/api/user/detail?userId=${currentUserData}`)
- console.log('response profile',response.data.data.user)
+ //console.log('response profile',response.data.data.user)
  if(typeof response.data !== 'undefined' && response.data !== null ){
 
     setFirstName(response.data.data.user.firstName)
@@ -88,17 +88,17 @@ const  loginCheck = async () => {
 
 
 
-   // console.log(response.data.Response[0].UserId)
+   // //console.log(response.data.Response[0].UserId)
  }
  }
 
  const  submitForm = async  () =>{
-   console.log('update api ')
+   //console.log('update api ')
    setLoadingtypeoverlay(true);
     var mobile_test = (String(mobile).trim()).length ==  10
     if ( mobile_test === false  ) {
     setLoadingtypeoverlay(false);
-    console.log('email_test',mobile_test)
+    //console.log('email_test',mobile_test)
       setTimeout(()=> {
         Toast.show('Invalid phone number')
         },200)
@@ -108,7 +108,7 @@ const  loginCheck = async () => {
     var firstname_test = (String(firstname).trim()).length > 2
     if ( firstname_test === false  ) {
     setLoadingtypeoverlay(false);
-    console.log('firstname_test',firstname_test)
+    //console.log('firstname_test',firstname_test)
       setTimeout(()=> {
         Toast.show('Invalid first name')
         },200)
@@ -118,7 +118,7 @@ const  loginCheck = async () => {
     var lastname_test = (String(lastname).trim()).length  > 2
     if ( lastname_test === false  ) {
     setLoadingtypeoverlay(false);
-    console.log('lastname_test',lastname_test)
+    //console.log('lastname_test',lastname_test)
       setTimeout(()=> {
         Toast.show('Invalid last name')
         },200)
@@ -137,7 +137,7 @@ const  loginCheck = async () => {
        if(selectedimages !== null){
          var file_extension = selectedimages.mime
          file_extension = file_extension.split('/')
-         console.log(`${userid}.${file_extension[1]}`)
+         //console.log(`${userid}.${file_extension[1]}`)
          data.append('avatar',
            {
               uri: selectedimages.path,
@@ -164,23 +164,23 @@ const  loginCheck = async () => {
       //    mobile: mobile,
       //   }
 
-         console.log('data', data)
+         //console.log('data', data)
          try {
           axios.post('http://3.16.105.232:8181/api/user/update', data)
            .then(response => {
-           console.log('response',response)
+           //console.log('response',response)
            Toast.show('Profile update')
            setLoadingtypeoverlay(false);
 
            })
          .catch(err => {
-             console.log('error',err)
+             //console.log('error',err)
              setLoadingtypeoverlay(false);
              Toast.show('some problem')
            });
          }
          catch(error)  {
-           console.log('error',error)
+           //console.log('error',error)
              Toast.show('There is some connection problem. Please try later.')
              setLoadingtypeoverlay(false);
          }
@@ -200,7 +200,7 @@ const  loginCheck = async () => {
        mediaType: 'photo',
        type: ['jpg','png']
      }).then(image => {
-        console.log('ImagePicker => openPicker(gallery) => images:: ',image);
+        //console.log('ImagePicker => openPicker(gallery) => images:: ',image);
          if(image !== null){
              setselectedimage(image)
          } //if images !== null
@@ -209,7 +209,7 @@ const  loginCheck = async () => {
 
    useEffect(()=>{
      if(selectedimages !== null){
-       console.log(' now we will upload image')
+       //console.log(' now we will upload image')
         uploadPhotoProfile();
      }
    },[selectedimages])
@@ -223,25 +223,25 @@ const  loginCheck = async () => {
          //
          //   //if(imgType == )
          //
-         // //  console.log('are you even triggering?',image.path)
+         // //  //console.log('are you even triggering?',image.path)
          //
          //   var thepath = `/users/profile/${imgType}/${self.state.currentUser.uid}.${image.file_extension}`;
-         // //  console.log('thepath',thepath)
+         // //  //console.log('thepath',thepath)
          //
          // storage().ref(thepath)
          // .putFile(image.path, {
          //     contentType: image.mime
          // })
          // .then(uploadedFile => {
-         //   //  console.log('uploadedFile>',uploadedFile,self.state.currentUser.uid)
+         //   //  //console.log('uploadedFile>',uploadedFile,self.state.currentUser.uid)
          //     return  storage().ref(thepath).getDownloadURL()
          // })
          // .then(downloadURL => {
-         // //  console.log('getDownloadURL',downloadURL)
+         // //  //console.log('getDownloadURL',downloadURL)
          //   return firestore().collection('users').doc(self.state.currentUser.uid).set({[imgType]: downloadURL }, {merge: true })
          // })
          // .then(() => {
-         // //  console.log('updated into database')
+         // //  //console.log('updated into database')
          //   //Toast.show('Profile Updated')
          //   this.setState({ loadingImage: false })
          //   // if(typeof this.props.method() !== 'undefined'){
@@ -250,7 +250,7 @@ const  loginCheck = async () => {
          // })
          // .catch(err => {
          //     //Error
-         //   //  console.log('error:',err);
+         //   //  //console.log('error:',err);
          //     Toast.show('There is some problem to update your image. Please try later.')
          //     this.setState({ loadingImage: false })
          // })
@@ -343,7 +343,7 @@ const  loginCheck = async () => {
           showCountryCode: false,
         }}
         onSelectCountry={data => {
-          console.log('#. onSelectCountry : ', data);
+          //console.log('#. onSelectCountry : ', data);
           setCountryName(data.name)
           setCountryCode(data.code)
           setcountryCallingCode(data.callingCode)

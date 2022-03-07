@@ -36,13 +36,13 @@ const DrawerContent = ({navigation}) => {
     loginCheck()
   }, []);
   const  loginCheck = async () => {
-               console.log('triggering loginCheck')
+               //console.log('triggering loginCheck')
                try {
                  var currentUserData =  await AsyncStorage.getItem('userExist')
-                 console.log('currentUserData',currentUserData)
+                 //console.log('currentUserData',currentUserData)
                  if(currentUserData !== null){
                      currentUserData = JSON.parse(currentUserData)
-                     console.log(currentUserData,'currentUserData')
+                     //console.log(currentUserData,'currentUserData')
                      setLogged(true);
 
                      getUserData(currentUserData)
@@ -51,14 +51,14 @@ const DrawerContent = ({navigation}) => {
 
                  }
                } catch(error) {
-                 console.log('Error loginCheck',error)
+                 //console.log('Error loginCheck',error)
                }
      }
 
    const  getUserData= async  (currentUserData) =>{
-   console.log('userID',currentUserData)
+   //console.log('userID',currentUserData)
    var response = await axios.get(`http://3.16.105.232:8181/api/user/detail?userId=${currentUserData}`)
-   console.log('response profile',response.data.data.user)
+   //console.log('response profile',response.data.data.user)
    if(typeof response.data !== 'undefined' && response.data !== null ){
 
       setFirstName(response.data.data.user.firstName)
@@ -67,13 +67,13 @@ const DrawerContent = ({navigation}) => {
 
 
 
-     console.log('hello',response.data.data.user.firstName)
+     //console.log('hello',response.data.data.user.firstName)
    }
    }
     const [loading, setloading] = useState(false)
 
     const logout = async () =>{
-      console.log('logout trigger')
+      //console.log('logout trigger')
         try {
             await AsyncStorage.removeItem('token');
             await AsyncStorage.removeItem('userExist');
@@ -82,13 +82,13 @@ const DrawerContent = ({navigation}) => {
             );
 
             Toast.show('Log out successfully')
-            console.log('Log out successfully')
+            //console.log('Log out successfully')
             //return true;
         }
         catch(exception) {
             return false;
             Toast.show('There is some connection problem. Please try later.')
-            console.log('there are some problem')
+            //console.log('there are some problem')
         }
     }
   return (

@@ -7,7 +7,7 @@ const UserAuthenticator = ({navigation}) => {
   const GetToken = async () => {
     const userToken = await AsyncStorage.getItem('token');
     const userExist = await AsyncStorage.getItem('userExist');
-    console.log('#. userToken : ', userToken, ' #. exist : ', userExist);
+    //console.log('#. userToken : ', userToken, ' #. exist : ', userExist);
     if (userToken && userExist == 1) {
       navigation.dispatch({
         ...CommonActions.reset({
@@ -50,7 +50,7 @@ const UserAuthenticator = ({navigation}) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      console.log('#. useEffect from Authenticator');
+      //console.log('#. useEffect from Authenticator');
       GetToken();
     });
 

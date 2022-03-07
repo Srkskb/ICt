@@ -30,17 +30,17 @@ const getlist = () => {
             
             axios(config)
             .then(function (response) {
-              console.log(response.data)
+              //console.log(response.data)
               if(JSON.stringify(response.data.status)==200){
                 setState(prev => ({...prev, cart:response.data.data.list}))
               }
             })
             .catch(function (error) {
-              console.log(error);
+              //console.log(error);
             });
                 }
                 catch(error) {
-                  console.log('error2',error)
+                  //console.log('error2',error)
                 }}
   )}
 
@@ -75,16 +75,16 @@ var config = {
 };
 axios(config)
 .then((response)=>{
-  console.log(JSON.stringify(response.data))
+  //console.log(JSON.stringify(response.data))
   getlist()
   Toast.show(response.data.message)
 })
 .catch((error)=>{
-  console.log(error);
+  //console.log(error);
 });
     }
     catch(error) {
-                  console.log('error2',error)
+                  //console.log('error2',error)
                 }}
   )}
 const addqty=()=>{
