@@ -30,7 +30,7 @@ const getlist = () => {
             
             axios(config)
             .then(function (response) {
-              //console.log(response.data)
+              //console.log(response.data.data.list)
               if(JSON.stringify(response.data.status)==200){
                 setState(prev => ({...prev, cart:response.data.data.list}))
               }
@@ -63,7 +63,7 @@ AsyncStorage.getItem('userExist')
                 try {
      var data = JSON.stringify({
   "userId": JSON.parse(res),
-  "product": "61bb67b946eeef7ccbd2279a"
+  "product": list._id
 });
 var config = {
   method: 'post',
@@ -122,15 +122,16 @@ const remqty=()=>{
 
     return(
       <View elevation={5} style={{width: Dimensions.get('window').width-24,backgroundColor: '#fdfdfd',padding:6,
-      marginHorizontal:12,marginVertical:10,borderRadius: 6}}>
+      marginHorizontal:12,marginVertical:6,borderRadius: 6}}>
         
         <View style={{flexDirection:'row',width:'100%',padding:6}}>
         <View style={{width:'20%'}}><Image style={{height:100,borderRadius: 6}}
-                source={{uri:list.thumbnail}}
+                source={{uri:list.thumbnail}} resizeMode={'contain'}
                 /></View>
         <View style={{width:'50%',paddingHorizontal:6,justifyContent: 'flex-start',alignItems: 'center'}}>
-        <Text style={{fontSize: 20,color:'#121212',fontFamily: "Montserrat-SemiBold"}}>
-                  product.name</Text>
+        <Text numberOfLines={3}
+        style={{fontSize: 20,color:'#121212',fontFamily: "Montserrat-SemiBold"}}>
+                  {list.title}</Text>
         
                 <View style={{width:'100%',flexDirection:'row',justifyContent: 'flex-start',alignItems: 'center'}}>
                 <TouchableOpacity onPress={remqty}
@@ -158,9 +159,9 @@ const remqty=()=>{
                 </View>
         <View style={{width:'15%',paddingHorizontal:6,justifyContent: 'center',alignItems: 'center'}}>
         <Text style={{ color: 'black', fontSize: 15,textAlign:'center'}}>
-        AED <Text style={{ fontWeight: 'bold'}}>1150</Text></Text>
+        {list.currency} <Text style={{ fontWeight: 'bold'}}>{list.sellingPrice}</Text></Text>
         <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through',textAlign:'center'}}>
-        AED 1350</Text>
+        {list.currency} {list.originalPrice}</Text>
         </View>
         </View></View>
                 )

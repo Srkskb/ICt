@@ -23,7 +23,7 @@ import {
 const HomeScreen = ({navigation}) => {
   const [state, setState] = useState({loader: true, modalVisible: false});
   const [search, setsearchText] = useState('');
-  const [sliderData, setsliderData] = useState([ {id: 1, image: '@images/images/home-slider-background.png', local: true}, {id: 2, image: '@images/images/home-slider-background.png', local: true} ])
+  const [sliderData, setsliderData] = useState([])
 
   const [trendingData, settrendingData] = useState([])
   const [toppicksData, settoppicksData] = useState([
@@ -43,14 +43,31 @@ const HomeScreen = ({navigation}) => {
       setState(prev => ({...prev, loader: false}));
     }, 2000);
     getlist()
+    getBanner()
   }, []);
 
   const getlist = () => {
     try {
-     axios.get('http://3.16.105.232:8181/api/product/all/list')
+     axios.post('http://3.16.105.232:8181/api/product/all/list')
       .then(response => {
-      //console.log('response list',response.data)
+      //console.log('response list',response.data.data.list)
           settrendingData(response.data.data.list)
+
+      })
+    .catch(err => {
+        //console.log('error',err)
+      });
+    }
+    catch(error) {
+      //console.log('error2',error)
+    }
+  }
+const getBanner = () => {
+    try {
+     axios.get('http://3.16.105.232:8181/api/banner/list?displayAt=home&status=true')
+      .then(response => {
+      //console.log('response list',response.data.data.banners)
+          setsliderData(JSON.stringify(response.data.data.banners))
 
       })
     .catch(err => {
@@ -66,8 +83,9 @@ const HomeScreen = ({navigation}) => {
 
   const renderItem_sider1 = (item) => {
     return (
-      <View key={item.id}>
-        <Image source={require('@images/images/home-slider-background.png')} />
+      <View key={item._id}>
+        <Image style={{height:180,width:400}} source={{uri:item.bannerImage}} />
+        <Text>{item.title}</Text>
       </View>
     )
   }
@@ -163,6 +181,77 @@ axios(config)
               <View style={{ flex: 1, justifyContent:'flex-end'}}>
                   <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>AED <Text style={{ fontWeight: 'bold'}}>{item.price1}</Text></Text>
                   <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through' }}>AED {item.price2}</Text>
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
+                <Image source={require('@images/images/star.png')} style={{ width: 20, height: 20 }} />
+                <Text style={{ color: DefaultColours.black, fontSize: 15,fontWeight:'bold' }}>
+                {item.rating}</Text>
+              </View>
+          </View>
+      </View>
+    )
+  }
+
+  const renderItem_trending = ({item, index}) => {
+    ////console.log('item ',item,index)
+    const addcart = () => {
+    AsyncStorage.getItem('userExist')
+            .then(res =>{
+                try {
+     var data = JSON.stringify({
+  "userId": JSON.parse(res),
+  "carts": {
+    "product": [item._id]
+  }
+});
+
+var config = {
+  method: 'post',
+  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+axios(config)
+.then((response)=>{
+  //console.log(JSON.stringify(response.data))
+  Toast.show(response.data.message)
+})
+.catch((error)=>{
+  //console.log(error);
+});
+    }
+    catch(error) {
+                  //console.log('error2',error)
+                }}
+  )}
+    return (
+      <View key={item._id}
+      style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4,
+        borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
+        <TouchableOpacity onPress={addcart}
+        style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
+        <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <Circle cx="6" cy="19" r="2" />
+  <Circle cx="17" cy="19" r="2" />
+  <Path d="M17 17h-11v-14h-2" />
+  <Path d="M6 5l14 1l-1 7h-13" />
+</Svg>
+        </TouchableOpacity>
+            <View style={{ alignItems: 'center', padding: 10 }}>
+            <Image source={{uri:item.thumbnail}} style={{ width: 100, height: 100}} />
+            </View>
+          <Text numberOfLines={3}
+          style={{ color: DefaultColours.black, fontSize: 13, color: 'black', padding: 5, lineHeight: 18 }}>
+          {item.title}</Text>
+          <View style={{ flexDirection: 'row', padding: 5 ,justifyContent:'flex-end' , flex:1}}>
+              <View style={{ flex: 1, justifyContent:'flex-end'}}>
+                  <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>
+                  {item.currency} <Text style={{ fontWeight: 'bold'}}>{item.sellingPrice}</Text></Text>
+                  <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through' }}>
+                  {item.currency} {item.originalPrice}</Text>
               </View>
               <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
                 <Image source={require('@images/images/star.png')} style={{ width: 20, height: 20 }} />
@@ -288,7 +377,7 @@ axios(config)
             contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
             data={sliderData}
             renderItem={renderItem_sider1}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item._id}
             style={{  maxHeight: 180 }}
             showsHorizontalScrollIndicator={false}
 
@@ -309,9 +398,9 @@ axios(config)
               () => <View style={{ padding: 5 }}/>
             }
             contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
-            data={toppicksData}
-            renderItem={renderItem_toppicks}
-            keyExtractor={item => item.id}
+            data={trendingData}
+            renderItem={renderItem_trending}
+            keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}
 
           />
