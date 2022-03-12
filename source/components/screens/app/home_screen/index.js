@@ -67,7 +67,7 @@ const getBanner = () => {
      axios.get('http://3.16.105.232:8181/api/banner/list?displayAt=home&status=true')
       .then(response => {
       //console.log('response list',response.data.data.banners)
-          setsliderData(JSON.stringify(response.data.data.banners))
+          setsliderData(response.data.data.banners)
 
       })
     .catch(err => {
@@ -81,11 +81,11 @@ const getBanner = () => {
 
   
 
-  const renderItem_sider1 = (item) => {
+  const renderItem_sider1 = ({item, index}) => {
     return (
       <View key={item._id}>
-        <Image style={{height:180,width:400}} source={{uri:item.bannerImage}} />
-        <Text>{item.title}</Text>
+        <Image style={{height:180,width:SCREEN_WIDTH-24,borderRadius:6}} source={{uri:item.bannerImage}} />
+        
       </View>
     )
   }
@@ -350,7 +350,8 @@ axios(config)
   <Path d="M9 17v1a3 3 0 0 0 6 0v-1" />
 </Svg>
               </TouchableOpacity>
-              <TouchableOpacity style={{width:'10%',alignItems: 'center', justifyContent: 'center' }}>
+              <TouchableOpacity onPress={()=>console.log(sliderData)}
+              style={{width:'10%',alignItems: 'center', justifyContent: 'center' }}>
               <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <Circle cx="10" cy="10" r="7" />
@@ -374,17 +375,16 @@ axios(config)
             ItemSeparatorComponent={
               () => <View style={{ padding: 5 }}/>
             }
-            contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
+            contentContainerStyle={{  padding:10 }}
             data={sliderData}
             renderItem={renderItem_sider1}
             keyExtractor={item => item._id}
-            style={{  maxHeight: 180 }}
             showsHorizontalScrollIndicator={false}
-
+            initialNumToRender={1}
           />
 
 
-          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft: 12 }}>
+          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft: 12,marginTop:12 }}>
             <Image source={require('@images/images/fire.png')} style={{ width: 20, height: 30  }} />
             <Text style={{ paddingLeft: 10, color: DefaultColours.black , fontWeight: 'bold', fontSize : 17 }}>Trending</Text>
           </View>
