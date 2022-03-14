@@ -24,6 +24,7 @@ const HomeScreen = ({navigation}) => {
   const [state, setState] = useState({loader: true, modalVisible: false});
   const [search, setsearchText] = useState('');
   const [sliderData, setsliderData] = useState([])
+  const [categoryData, setCategoryData] = useState([])
 
   const [trendingData, settrendingData] = useState([])
   const [toppicksData, settoppicksData] = useState([
@@ -44,6 +45,7 @@ const HomeScreen = ({navigation}) => {
     }, 2000);
     getlist()
     getBanner()
+    getCategories()
   }, []);
 
   const getlist = () => {
@@ -78,7 +80,22 @@ const getBanner = () => {
       //console.log('error2',error)
     }
   }
+const getCategories = () => {
+    try {
+     axios.get('http://3.16.105.232:8181/api/categories/list')
+      .then(response => {
+      console.log(response.data.data.list)
+      //setCategoryData(response.data.data.list)
 
+      })
+    .catch(err => {
+        //console.log('error',err)
+      });
+    }
+    catch(error) {
+      //console.log('error2',error)
+    }
+  }
   
 
   const renderItem_sider1 = ({item, index}) => {
