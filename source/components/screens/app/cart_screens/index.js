@@ -167,6 +167,10 @@ const remqty=()=>{
                 )
   }
 
+  const checkOut=()=>{
+    
+  }
+
   return (
     <>
     {/*<View style={{justifyContent:'center',alignItems:'flex-start',padding:height*0.02,backgroundColor: '#fdfdfd'}}>

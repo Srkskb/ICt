@@ -25,8 +25,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 //import HomeScreen from '../../app/home_screen'
 
 const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState('andrews.macgregors@gmail.com')
-  const [password, setPassword] = useState('Harsh@123')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false)
 
 // const [states, setStates] = useState({loadingtypeoverlay: false, email: '', password: ''});

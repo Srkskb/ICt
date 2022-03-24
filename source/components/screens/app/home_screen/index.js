@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text,TouchableOpacity, Image, TextInput, FlatList, SafeAreaView, ScrollView, StyleSheet} from 'react-native';
+import {View, Text,TouchableOpacity, Image, TextInput, FlatList, SafeAreaView, ScrollView,
+  StyleSheet,KeyboardAvoidingView} from 'react-native';
 import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT} from '@constants';
 import {Loader} from '@global_components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,12 +22,13 @@ import {
 
 
 const HomeScreen = ({navigation}) => {
-  const [state, setState] = useState({loader: true, modalVisible: false});
+  const [state, setState] = useState({loader: true, modalVisible: false,search:false});
   const [search, setsearchText] = useState('');
   const [sliderData, setsliderData] = useState([])
   const [categoryData, setCategoryData] = useState([])
 
   const [trendingData, settrendingData] = useState([])
+  const [searchData, setSearchData] = useState([])
   const [toppicksData, settoppicksData] = useState([
     { id: 1, image: '@images/images/sample1.png', description: 'HP-Pavilion-i5-1035G115.6-Inch-4-GB-DDR41-TB-Win-10-Laptop-15-cs3056tx-2', price1: '1150', price2: '1350', rating: '4.9' },
     { id: 2, image: '@images/images/sample2.png', description: 'boAt-Bluetooth-Headphone-Rockerz-518-Red', price1: '650', price2: '750', rating: '4.9' },
@@ -84,8 +86,8 @@ const getCategories = () => {
     try {
      axios.get('http://3.16.105.232:8181/api/categories/list')
       .then(response => {
-      console.log(response.data.data.list)
-      //setCategoryData(response.data.data.list)
+      //console.log(response.data.data.list)
+      setCategoryData(response.data.data.list)
 
       })
     .catch(err => {
@@ -243,10 +245,84 @@ axios(config)
                   //console.log('error2',error)
                 }}
   )}
+
     return (
       <View key={item._id}
       style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4,
         borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
+        <TouchableOpacity onPress={addcart}
+        style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
+        <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <Circle cx="6" cy="19" r="2" />
+  <Circle cx="17" cy="19" r="2" />
+  <Path d="M17 17h-11v-14h-2" />
+  <Path d="M6 5l14 1l-1 7h-13" />
+</Svg>
+        </TouchableOpacity>
+            <View style={{ alignItems: 'center', padding: 10 }}>
+            <Image source={{uri:item.thumbnail}} style={{ width: 100, height: 100}} />
+            </View>
+          <Text numberOfLines={3}
+          style={{ color: DefaultColours.black, fontSize: 13, color: 'black', padding: 5, lineHeight: 18 }}>
+          {item.title}</Text>
+          <View style={{ flexDirection: 'row', padding: 5 ,justifyContent:'flex-end' , flex:1}}>
+              <View style={{ flex: 1, justifyContent:'flex-end'}}>
+                  <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>
+                  {item.currency} <Text style={{ fontWeight: 'bold'}}>{item.sellingPrice}</Text></Text>
+                  <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through' }}>
+                  {item.currency} {item.originalPrice}</Text>
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
+                <Image source={require('@images/images/star.png')} style={{ width: 20, height: 20 }} />
+                <Text style={{ color: DefaultColours.black, fontSize: 15,fontWeight:'bold' }}>
+                {item.rating}</Text>
+              </View>
+          </View>
+      </View>
+    )
+  }
+
+  const renderItem_search = ({item, index}) => {
+    ////console.log('item ',item,index)
+    const addcart = () => {
+    AsyncStorage.getItem('userExist')
+            .then(res =>{
+                try {
+     var data = JSON.stringify({
+  "userId": JSON.parse(res),
+  "carts": {
+    "product": [item._id]
+  }
+});
+
+var config = {
+  method: 'post',
+  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+axios(config)
+.then((response)=>{
+  //console.log(JSON.stringify(response.data))
+  Toast.show(response.data.message)
+})
+.catch((error)=>{
+  //console.log(error);
+});
+    }
+    catch(error) {
+                  //console.log('error2',error)
+                }}
+  )}
+
+    return (
+      <View key={item._id}
+      style={{ width: SCREEN_WIDTH * .44, minHeight: SCREEN_WIDTH * .4,
+        borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4,marginRight:SCREEN_WIDTH * .02,
+        marginBottom:SCREEN_WIDTH * .02 }}>
         <TouchableOpacity onPress={addcart}
         style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -328,6 +404,13 @@ axios(config)
       }
   }
 
+  const searchItem=(item)=>{
+    let data=trendingData
+    var result = data.filter((e) => e.title == item);
+    setSearchData(result)
+    console.log(result)
+  }
+
   return (
     <>
       {state.loader ? (
@@ -367,7 +450,7 @@ axios(config)
   <Path d="M9 17v1a3 3 0 0 0 6 0v-1" />
 </Svg>
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>console.log(sliderData)}
+              <TouchableOpacity onPress={()=>setState(prev => ({...prev, search: true}))}
               style={{width:'10%',alignItems: 'center', justifyContent: 'center' }}>
               <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -498,7 +581,64 @@ axios(config)
                 */}
             </View>
       </Modal>
+<Modal animationType="slide" style={{ position: 'absolute',margin: 0, padding:0 }} transparent={true} visible={state.search} onRequestClose={() =>  setState(prev => ({...prev, search: false })) }>
+  <View style={{ width:'100%',height:SCREEN_HIGHT, backgroundColor:'#fdfdfd', elevation: 2 }}>
+<View style={{ width:'100%',height:SCREEN_HIGHT, alignItems: 'center' }}>
+  <View style={{  height:60,borderRadius: 4, borderColor: 'grey',
+  flexDirection:'row',justifyContent:'space-between', alignItems: 'center',
+  marginHorizontal:16,borderBottomWidth:1 }}>
+      <TouchableOpacity
+                  style={{
+                          width:'10%',
+                          height: 48,
+                          borderRadius: 24,
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                      }}
+                  onPress={() => {
+                    setState(prev => ({...prev, search: !state.search }))
+                  }}>
+  <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left"
+                  width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5A429B"
+                  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <Line x1="5" y1="12" x2="19" y2="12" />
+  <Line x1="5" y1="12" x2="11" y2="18" />
+  <Line x1="5" y1="12" x2="11" y2="6" />
+</Svg>
+                </TouchableOpacity>
+      <TextInput style={{ fontSize: 13, color: DefaultColours.blue0,width:'90%',
+        borderLeftWidth: 1,height:40,paddingLeft:12,fontSize: 14 }}
+      value={state.searchText}
+      placeholder={'Search ICT Kart'}
+      placeholderTextColor={DefaultColours.blue0}
+      onChangeText={text => searchItem(text)} />
+  </View>
+  <View style={{width:'100%',height:44,paddingTop:4,flexDirection:'row',paddingHorizontal:20}}>
+      <View style={{width:'50%',alignItems:'flex-start',justifyContent:'center'}}>
+      <Text style={{ color: DefaultColours.black , fontWeight: 'bold', fontSize : 16 }}>
+      Results</Text></View>
+      <View style={{width:'50%',alignItems:'flex-end',justifyContent:'center'}}>
+      <Text style={{ color: DefaultColours.blue0 , fontWeight: '400', fontSize : 16 }}>
+      Filter</Text></View>
+  </View>
+  <View style={{width:'100%',height:SCREEN_HIGHT-104,paddingTop:4}}>
+      <FlatList
+            ItemSeparatorComponent={
+              () => <View style={{ padding:2}}/>
+            }
+            numColumns={2}
+            contentContainerStyle={{paddingHorizontal:16,paddingVertical:4 }}
+            data={searchData.length>0? searchData:trendingData}
+            renderItem={renderItem_search}
+            keyExtractor={item => item._id}
+            showsHorizontalScrollIndicator={false}
 
+          />
+  </View>
+          </View>
+</View>
+      </Modal>
     </>
   );
 };
