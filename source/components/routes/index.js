@@ -13,7 +13,8 @@ import AppTabNavigator from './AppTabNavigator';
 import AppTabDrawer from './AppTabDrawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerContent from './DrawerContent';
-import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen, SettingScreen, ChangePasswordScreen, AboutScreen, ContactusScreen} from '@AppScreens';
+import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen, SettingScreen, ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen} from '@AppScreens';
+
 
 const RootNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -69,6 +70,7 @@ const RootNavigator = () => {
           <Drawer.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{headerShown: false, unmountOnBlur:true, title: "Change Password"}} />
           <Drawer.Screen name="AboutScreen" component={AboutScreen} options={{headerShown: true, unmountOnBlur:true,title: "About"}} />
           <Drawer.Screen name="ContactusScreen" component={ContactusScreen} options={{headerShown: true, unmountOnBlur:true, title: "Contact us"}} />
+          <Drawer.Screen name="DetailScreen" component={DetailScreen} options={{headerShown: true, unmountOnBlur:true, title: "Product Detail"}} />
 
       </Drawer.Navigator>
     )

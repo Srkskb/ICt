@@ -15,7 +15,7 @@ import {
 } from '@images';
 import { StackActions } from '@react-navigation/native';
 
-import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen,SettingScreen, ContactusScreen} from '@AppScreens';
+import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen,SettingScreen, ContactusScreen,DetailScreen} from '@AppScreens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -128,10 +128,17 @@ const DrawerContent = ({navigation}) => {
       <Text style={{ fontSize: 16,  flexShrink: 1 }}>Setting</Text>
     </TouchableOpacity>
 
+    <TouchableOpacity onPress={()=>navigation.navigate('DetailScreen')}
+      style={{  flexDirection: 'row', padding:10, borderBottomColor: "grey", alignItems:'center' , backgroundColor:'white', marginTop:5  }}>
+      <Text style={{ fontSize: 16,  flexShrink: 1 }}>Details Product</Text>
+    </TouchableOpacity>
+
     <TouchableOpacity onPress={logout}
       style={{  flexDirection: 'row', padding:10, borderBottomColor: "grey", alignItems:'center' , backgroundColor:'white', marginTop:5  }}>
       <Text style={{ fontSize: 16,  flexShrink: 1 }}>Log out</Text>
     </TouchableOpacity>
+
+   
 </View>
     </View>
 

@@ -7,7 +7,7 @@ import SettingScreen from './setting_screen'
 import ChangePasswordScreen from './change_password_screen'
 import AboutScreen from './about_screen'
 import ContactusScreen from './contactus_screen'
+import DetailScreen from '../Details_Screen';
 
 
-
-export {HomeScreen, AccountScreen, CartScreen, ChatScreen,FaqScreen, SettingScreen,ChangePasswordScreen, AboutScreen, ContactusScreen};
+export {HomeScreen, AccountScreen, CartScreen, ChatScreen,FaqScreen, SettingScreen,ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen};
