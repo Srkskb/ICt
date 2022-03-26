@@ -6,6 +6,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Svg, {Path,Circle,Line} from 'react-native-svg';
 let {height, width} = Dimensions.get('window');
+import Toast from 'react-native-simple-toast';
 
 const CartScreen = ({navigation}) => {
   const [state, setState] = useState({loader: true,cart:[]});
@@ -166,10 +167,78 @@ const remqty=()=>{
         </View></View>
                 )
   }
+  
+  const total=state.cart.map(i=>i.sellingPrice).reduce((a, b) => a+b, 0)
+  const acart=state.cart.map((o,i)=>{
+  const product = o._id
+  const currency=o.currency
+  const type="product"
+  const items=o.quantity
+  const originalPrice=o.originalPrice
+  const sellingPrice=o.sellingPrice
+  const vendor=o.seller.id
+  return {
+    product,
+    currency,
+  type,
+  items,
+  originalPrice,
+  sellingPrice,
+  vendor,
+  }
+});
 
   const checkOut=()=>{
-    
+    AsyncStorage.getItem('userExist')
+            .then(res =>{
+              try {
+     var data = JSON.stringify({
+  "user": JSON.parse(res),
+  "transactionId": "TR1648301811161",
+  "orderId": "OR1648301811161",
+  "paidAmount": total,
+  "totalItems": state.cart.length,
+  "totalPrice": total,
+  "totalDiscount": 0,
+  "deliveryCharges": 0,
+  "totalAmount": total,
+  "shippingAddr": null,
+  "appOrderId": "APOR1648301811161",
+  "paymentStatus": true,
+  "from": "bycart",
+  "items": acart,
+  "address": {
+    "address": {}
   }
+});
+     var config = {
+  method: 'post',
+  url: 'http://3.16.105.232:8181/api/buyproduct/add',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then((response)=>{
+  //console.log(JSON.stringify(response.data));
+  Toast.show(response.data.message)
+  if(response.data.status==200){
+    getlist()
+  }
+})
+.catch((error)=>{
+  //console.log(error.response.data);
+  Toast.show(error.response.data.message)
+});
+    }
+    catch(error) {
+                  //console.log('error2',error)
+                }
+            })
+  }
+
 
   return (
     <>
@@ -189,8 +258,9 @@ const remqty=()=>{
         <Text style={{color:'#121212'}}>You have {state.cart.length} {state.cart.length>1? 'items':'item'} in the cart </Text></View>
         <View style={{paddingHorizontal:height*0.02,paddingVertical:height*0.01}}>
         <Text style={{color:'#121212',fontSize:width*0.054,color: '#5A429B'}}>
-        Sub Total : AED 2300 </Text></View>
-        <TouchableOpacity style={{backgroundColor: '#5A429B',height:height*0.068,
+        Sub Total : INR {total} </Text></View>
+        <TouchableOpacity onPress={checkOut}
+        style={{backgroundColor: '#5A429B',height:height*0.068,
         marginHorizontal:height*0.02,borderRadius:4,justifyContent:'center',alignItems:'center'}}>
         <Text style={{color:'#fdfdfd',fontSize:width*0.04,fontWeight:'400'}}>
         Proceed to buy ( {state.cart.length} {state.cart.length>1? 'items':'item'} )</Text>

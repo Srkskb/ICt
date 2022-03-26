@@ -4,28 +4,63 @@ const { width, height } = Dimensions.get("window");
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-const DetailScreen = () => {
+import Toast from 'react-native-simple-toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const DetailScreen = ({ navigation,route }) => {
+  const addcart = () => {
+    AsyncStorage.getItem('userExist')
+            .then(res =>{
+                try {
+     var data = JSON.stringify({
+  "userId": JSON.parse(res),
+  "carts": {
+    "product": [route.params.data._id]
+  }
+});
+
+var config = {
+  method: 'post',
+  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+axios(config)
+.then((response)=>{
+  //console.log(JSON.stringify(response.data))
+  Toast.show(response.data.message)
+})
+.catch((error)=>{
+  //console.log(error);
+});
+    }
+    catch(error) {
+                  //console.log('error2',error)
+                }}
+  )}
   return (
     <SafeAreaView style={{flex:1,width:width,height:height,backgroundColor:"#FFF"}}>
         <ScrollView showsVerticalScrollIndicator={false} style={{ width: width, height: '95%' }}>
 <View style={{justifyContent:"center",alignItems:'center',borderBottomWidth:1,borderBottomColor:"#DCDCDC"}}>
     <Image
-    source={require('../../../assets/images/images/12345.jpg')}
-    resizeMode="contain"
+    source={{uri:route.params.data.thumbnail}}
+    resizeMode="cover"
     style={{height:height*0.3,width:width*1,backgroundColor:"#DCDCDC"}}
     />
 </View>
 <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
 <View style={{paddingTop:width*0.03,paddingHorizontal:width*0.03,width:"70%"}}>
 <Text style={{fontSize:width*0.04,fontWeight:'bold'}}>
-   {'HP-17.3"Laptop-AMD Ryzen 5-8GB\nMemory-SSD-Natural Silver'}
+   {route.params.data.title}
 </Text>
 </View>
 <View style={{width:"30%",justifyContent:'center',alignItems:'center'}}>
     <TouchableOpacity>
     <View style={{borderWidth:1,borderRadius:50,paddingHorizontal:width*0.05,padding:width*0.02,backgroundColor:"#1776BB",borderColor:'#1776BB'}}>
 <Text style={{fontWeight:'bold',color:"#fff",fontSize:width*0.03}}>
-    AED 629.99
+    {route.params.data.currency} {route.params.data.sellingPrice}
 </Text>
     </View>
 </TouchableOpacity>
@@ -211,7 +246,8 @@ name='chevron-down' size={width*0.09}
 </View>
 <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-evenly',paddingTop:width*0.05}}>
        <View style={{width:"45%",borderRadius:5,borderWidth:1,flexDirection:'row',alignItems:'center',backgroundColor:'#ED4E94',paddingHorizontal:width*0.05,justifyContent:'space-evenly',padding:width*0.04,borderColor:"#ED4E94"}}>
-         <TouchableOpacity style={{flexDirection:'row'}}onPress={()=>alert('Track your food location')}>
+<TouchableOpacity onPress={addcart}
+style={{flexDirection:'row'}}>
 <Text style={{fontSize:width*0.05,fontWeight:"bold",color:'#fff'}}>
 ADD TO CART
 </Text>
