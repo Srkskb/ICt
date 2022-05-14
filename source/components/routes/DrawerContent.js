@@ -129,10 +129,10 @@ const DrawerContent = ({navigation}) => {
       <Text style={{ fontSize: 16,  flexShrink: 1 }}>Setting</Text>
     </TouchableOpacity>
 
-    {/*<TouchableOpacity onPress={()=>navigation.navigate('DetailScreen')}
+    <TouchableOpacity onPress={()=>navigation.navigate('DetailScreen')}
           style={{  flexDirection: 'row', padding:10, borderBottomColor: "grey", alignItems:'center' , backgroundColor:'white', marginTop:5  }}>
-          <Text style={{ fontSize: 16,  flexShrink: 1 }}>Details Product</Text>
-        </TouchableOpacity>*/}
+          <Text style={{ fontSize: 16,  flexShrink: 1 }}>Services</Text>
+        </TouchableOpacity>
 
     <TouchableOpacity onPress={logout}
       style={{  flexDirection: 'row', padding:10, borderBottomColor: "grey", alignItems:'center' , backgroundColor:'white', marginTop:5  }}>

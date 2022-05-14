@@ -70,7 +70,7 @@ const RootNavigator = () => {
           <Drawer.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{headerShown: false, unmountOnBlur:true, title: "Change Password"}} />
           <Drawer.Screen name="AboutScreen" component={AboutScreen} options={{headerShown: true, unmountOnBlur:true,title: "About"}} />
           <Drawer.Screen name="ContactusScreen" component={ContactusScreen} options={{headerShown: true, unmountOnBlur:true, title: "Contact us"}} />
-          <Drawer.Screen name="DetailScreen" component={DetailScreen} options={{headerShown: true, unmountOnBlur:true, title: "Product Detail"}} />
+          <Drawer.Screen name="DetailScreen" component={DetailScreen} options={{headerShown: true, unmountOnBlur:true, title: "Services",headerTitleAlign:'center'}} />
 
       </Drawer.Navigator>
     )
