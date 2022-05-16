@@ -1,4 +1,4 @@
-import { Text, View,Image,TouchableOpacity,Dimensions,ScrollView} from 'react-native'
+import { Text, View,Image,TouchableOpacity,Dimensions,ScrollView,StyleSheet} from 'react-native'
 import React, { Component } from 'react'
 const { width, height } = Dimensions.get("window");
 export default class index extends Component {
@@ -18,8 +18,29 @@ export default class index extends Component {
  {' A Whole Word of freelance Talent at your finger tips'}
 </Text>
         </View>
+        <View style={{paddingTop:width*0.03}}>
+        <ScrollView ref={(snapScroll) => { this.snapScroll = snapScroll; }}
+              horizontal={true}
+              decelerationRate={0}
+              onResponderRelease={() => {
+
+
+                var snapTo = (this.scrollingRight) ? Math.ceil(this.lastx / interval) :
+                  Math.floor(this.lastx / interval);
+                var scrollTo = snapTo * interval;
+                this.snapScroll.scrollTo(0, scrollTo);
+              }}
+              scrollEventThrottle={32}
+              onScroll={(event) => {
+                var nextx = event.nativeEvent.contentOffset.x;
+                this.scrollingRight = (nextx > this.lastx);
+                this.lastx = nextx;
+              }}
+              showsHorizontalScrollIndicator={false}
+              style={styles.listViewHorizontal}
+            >
         <TouchableOpacity onPress={()=>alert("Sub")}>
-        <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center'}}>
+        <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
           source={require("../../../assets/images/images/555.png")}
@@ -32,7 +53,7 @@ export default class index extends Component {
         </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>alert("Sub")}>
-        <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center'}}>
+        <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
           source={require("../../../assets/images/images/556.png")}
@@ -45,7 +66,7 @@ export default class index extends Component {
         </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>alert("Sub")}>
-        <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center'}}>
+        <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
           source={require("../../../assets/images/images/557.png")}
@@ -61,7 +82,14 @@ export default class index extends Component {
 
         </View>
         </ScrollView>
+        </View>
+        </ScrollView>
       </View>
     )
   }
 }
+const styles = StyleSheet.create({
+  listViewHorizontal: {
+
+  },
+})
