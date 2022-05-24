@@ -39,7 +39,7 @@ export default class index extends Component {
               showsHorizontalScrollIndicator={false}
               style={styles.listViewHorizontal}
             >
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("SettingScreen")}>
+        <TouchableOpacity onPress={()=>alert("Sub")}>
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
