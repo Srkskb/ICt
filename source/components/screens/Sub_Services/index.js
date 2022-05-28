@@ -51,7 +51,7 @@ export default class index extends Component {
               showsHorizontalScrollIndicator={false}
               style={styles.listViewHorizontal}
             >
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("ServiceScreen")}>
+        <TouchableOpacity onPress={()=>alert("Please add Services")}>
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
@@ -64,7 +64,7 @@ export default class index extends Component {
 </View>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("ServiceScreen")}>
+        <TouchableOpacity onPress={()=>alert("Please add Services")}>
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
@@ -77,7 +77,7 @@ export default class index extends Component {
 </View>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("ServiceScreen")}>
+        <TouchableOpacity onPress={()=>alert("Please add services")}>
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
@@ -116,41 +116,41 @@ export default class index extends Component {
               showsHorizontalScrollIndicator={false}
               style={styles.listViewHorizontal}
             >
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("ServiceScreen")}>
+        <TouchableOpacity >
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
-          source={require("../../../assets/images/images/555.png")}
+          source={require("../../../assets/images/images/dm.jpg")}
           style={{height:height*0.09,width:width*0.1}}
           />
 <Text style={{fontSize:width*0.05,fontWeight:'bold',}}>
-  Software Installation
+  System Installation
 </Text>
 </View>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("ServiceScreen")}>
+        <TouchableOpacity >
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
-          source={require("../../../assets/images/images/556.png")}
+          source={require("../../../assets/images/images/cm.jpg")}
           style={{height:height*0.09,width:width*0.1}}
           />
 <Text style={{fontSize:width*0.05,fontWeight:'bold',}}>
-  Hardware Repair
+  System Repair
 </Text>
 </View>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("ServiceScreen")}>
+        <TouchableOpacity >
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
-          source={require("../../../assets/images/images/557.png")}
+          source={require("../../../assets/images/images/tm.jpg")}
           style={{height:height*0.09,width:width*0.1}}
           />
 <Text style={{fontSize:width*0.05,fontWeight:'bold',}}>
-  Computer Hardware
+  Computer Parts
 </Text>
 </View>
         </View>
@@ -181,24 +181,24 @@ export default class index extends Component {
               showsHorizontalScrollIndicator={false}
               style={styles.listViewHorizontal}
             >
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("ServiceScreen")}>
+        <TouchableOpacity >
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
-          source={require("../../../assets/images/images/555.png")}
+          source={require("../../../assets/images/images/tm.jpg")}
           style={{height:height*0.09,width:width*0.1}}
           />
 <Text style={{fontSize:width*0.05,fontWeight:'bold',}}>
-  Software Installation
+  Water Installation
 </Text>
 </View>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("ServiceScreen")}>
+        <TouchableOpacity >
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
-          source={require("../../../assets/images/images/556.png")}
+          source={require("../../../assets/images/images/12345.jpg")}
           style={{height:height*0.09,width:width*0.1}}
           />
 <Text style={{fontSize:width*0.05,fontWeight:'bold',}}>
@@ -207,15 +207,15 @@ export default class index extends Component {
 </View>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("ServiceScreen")}>
+        <TouchableOpacity >
         <View style={{paddingTop:width*0.03,justifyContent:'center',alignItems:'center',paddingHorizontal:width*0.03}}>
         <View elevation={5} style={{height:200,borderRadius:10,width:300,justifyContent:'center',alignItems:'center'}}>
           <Image
-          source={require("../../../assets/images/images/557.png")}
+          source={require("../../../assets/images/images/dm.jpg")}
           style={{height:height*0.09,width:width*0.1}}
           />
 <Text style={{fontSize:width*0.05,fontWeight:'bold',}}>
-  Computer Hardware
+  Laptop Repair
 </Text>
 </View>
         </View>
