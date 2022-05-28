@@ -13,7 +13,7 @@ import AppTabNavigator from './AppTabNavigator';
 import AppTabDrawer from './AppTabDrawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerContent from './DrawerContent';
-import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen, SettingScreen, ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen,ServiceScreen} from '@AppScreens';
+import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen, SettingScreen, ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen,ServiceScreen,SubServices} from '@AppScreens';
 
 
 
@@ -72,7 +72,8 @@ const RootNavigator = () => {
           <Drawer.Screen name="AboutScreen" component={AboutScreen} options={{headerShown: true, unmountOnBlur:true,title: "About"}} />
           <Drawer.Screen name="ContactusScreen" component={ContactusScreen} options={{headerShown: true, unmountOnBlur:true, title: "Contact us"}} />
           <Drawer.Screen name="DetailScreen" component={DetailScreen} options={{headerShown: true, unmountOnBlur:true, title: "Services",headerTitleAlign:'center'}} />
-          <Drawer.Screen name="ServiceScreen" component={ServiceScreen} options={{headerShown: true, unmountOnBlur:true, title: "Services",headerTitleAlign:'center'}} />
+          <Drawer.Screen name="ServiceScreen" component={ServiceScreen} options={{headerShown: false, unmountOnBlur:true, title: "Services",headerTitleAlign:'center'}} />
+          <Drawer.Screen name="SubServices" component={SubServices} options={{headerShown: false, unmountOnBlur:true, title: "Services",headerTitleAlign:'center'}} />
       </Drawer.Navigator>
     )
   }
