@@ -92,7 +92,7 @@ const getCategories = () => {
     try {
      axios.get('http://3.16.105.232:8181/api/categories/list')
       .then(response => {
-      //console.log(response.data.data.list)
+      console.log(response.data.data.list)
       setCategoryData(response.data.data.list)
 
       })
@@ -367,7 +367,8 @@ const getCategories = () => {
   const renderItem_professionalservices = ({item, index}) => {
     ////console.log('item ',item,index)
     return (
-      <View key={item.id} style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4, borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
+      <View key={item.id} style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4, borderRadius: 5,
+        borderWidth: 1, borderColor: 'grey', padding: 4 }}>
             <View style={{ alignItems: 'center', padding: 10 }}>
             {(index % 2 == 0) ?
               <Image source={require('@images/images/s1.png')} style={{ borderRadius: 50, width: 100, height: 100}} />
