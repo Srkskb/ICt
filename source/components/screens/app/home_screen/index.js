@@ -408,9 +408,9 @@ axios(config)
 
   const searchItem=(item)=>{
     let data=trendingData
-    var result = data.filter((e) => e.title == item);
+    var result = data.filter((e) => e.title.toLowerCase().includes(item.toLowerCase()));
     setSearchData(result)
-    console.log(result)
+    // console.log(result)
   }
 
   return (
