@@ -176,7 +176,7 @@ const remqty=()=>{
   const items=o.quantity
   const originalPrice=o.originalPrice
   const sellingPrice=o.sellingPrice
-  const vendor=o.seller.id
+  const vendor=o.seller.id? o.seller.id:null
   return {
     product,
     currency,
