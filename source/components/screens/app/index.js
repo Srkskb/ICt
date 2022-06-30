@@ -8,7 +8,8 @@ import ChangePasswordScreen from './change_password_screen'
 import AboutScreen from './about_screen'
 import ContactusScreen from './contactus_screen'
 import DetailScreen from '../Details_Screen';
+import ProductDetailScreen from '../Product_Details_Screen';
 import ServiceScreen  from '../Service_Screen';
 import SubServices from '../Sub_Services';
 export {HomeScreen, AccountScreen, CartScreen, ChatScreen,FaqScreen, SettingScreen,
-	ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen,ServiceScreen,SubServices};
+	ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen,ProductDetailScreen,ServiceScreen,SubServices};

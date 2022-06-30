@@ -31,7 +31,7 @@ const getlist = () => {
             
             axios(config)
             .then(function (response) {
-              //console.log(response.data.data.list)
+              console.log(response.data.data.list)
               if(JSON.stringify(response.data.status)==200){
                 setState(prev => ({...prev, cart:response.data.data.list}))
               }
@@ -134,7 +134,7 @@ const remqty=()=>{
         style={{fontSize: 20,color:'#121212',fontFamily: "Montserrat-SemiBold"}}>
                   {list.title}</Text>
         
-                <View style={{width:'100%',flexDirection:'row',justifyContent: 'flex-start',alignItems: 'center'}}>
+                {/*<View style={{width:'100%',flexDirection:'row',justifyContent: 'flex-start',alignItems: 'center'}}>
                 <TouchableOpacity onPress={remqty}
       style={{borderRadius: 20,flexDirection:'row',
           justifyContent: 'center',alignItems: 'center',paddingHorizontal:4,paddingVertical:4}}>
@@ -144,7 +144,7 @@ const remqty=()=>{
       style={{borderRadius: 20,flexDirection:'row',
           justifyContent: 'center',alignItems: 'center',paddingHorizontal:4,paddingVertical:4}}>
       
-      </TouchableOpacity></View>
+      </TouchableOpacity></View>*/}
                 <View style={{flexDirection:'row-reverse',width:'100%',justifyContent: 'flex-end' }}>
                 <TouchableOpacity onPress={removeItem}
       style={{borderRadius: 20,flexDirection:'row',
@@ -176,7 +176,7 @@ const remqty=()=>{
   const items=o.quantity
   const originalPrice=o.originalPrice
   const sellingPrice=o.sellingPrice
-  const vendor=o.seller.id? o.seller.id:null
+  // const vendor=o.seller.id? o.seller.id:null
   return {
     product,
     currency,
@@ -184,7 +184,7 @@ const remqty=()=>{
   items,
   originalPrice,
   sellingPrice,
-  vendor,
+  // vendor,
   }
 });
 

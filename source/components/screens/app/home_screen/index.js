@@ -176,6 +176,7 @@ axios(config)
       <View key={item.id}
       style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4,
         borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('ProductDetailScreen', { data: item })}>
         <TouchableOpacity onPress={addcart}
         style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -207,6 +208,7 @@ axios(config)
                 {item.rating}</Text>
               </View>
           </View>
+      </TouchableOpacity>
       </View>
     )
   }
@@ -250,7 +252,7 @@ axios(config)
       <View key={item._id}
       style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4,
         borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
-        <TouchableOpacity onPress={()=>navigation.navigate('DetailScreen', { data: item })}>
+        <TouchableOpacity onPress={()=>navigation.navigate('ProductDetailScreen', { data: item })}>
         <TouchableOpacity onPress={addcart}
         style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
