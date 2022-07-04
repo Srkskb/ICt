@@ -31,7 +31,7 @@ const getlist = () => {
             
             axios(config)
             .then(function (response) {
-              console.log(response.data.data.list)
+              // console.log(response.data.data.list)
               if(JSON.stringify(response.data.status)==200){
                 setState(prev => ({...prev, cart:response.data.data.list}))
               }

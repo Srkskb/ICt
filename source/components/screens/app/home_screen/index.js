@@ -611,7 +611,7 @@ axios(config)
   <Line x1="5" y1="12" x2="11" y2="6" />
 </Svg>
                 </TouchableOpacity>
-      <TextInput style={{ fontSize: 13, color: DefaultColours.blue0,width:'90%',
+      <TextInput style={{ color: DefaultColours.blue0,width:'90%',
         borderLeftWidth: 1,height:40,paddingLeft:12,fontSize: 14 }}
       value={state.searchText}
       placeholder={'Search ICT Kart'}
