@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 //import {createDrawerNavigator} from '@react-navigation/drawer';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Button, TextInput,View,TouchableOpacity,Text,StatusBar,Linking,Dimensions,StyleSheet }from 'react-native';
 
 import UserAuthenticator from './UserAuthenticator';
 import SplashScreen from '../screens/auth/splash/';
@@ -159,6 +160,7 @@ const RootNavigator = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <RootStackScreen />
+        <StatusBar backgroundColor='#e23349' barStyle='light-content' />
       </NavigationContainer>
     </SafeAreaProvider>
   );

@@ -424,9 +424,7 @@ axios(config)
           style={{
             flex: 1,
             width: SCREEN_WIDTH,
-            backgroundColor: DefaultColours.white,
-            alignItems: 'center',
-            justifyContent: 'flex-start',
+            backgroundColor: DefaultColours.white
           }}>
           <ScrollView contentContainerStyle={{ width: SCREEN_WIDTH }}>
 

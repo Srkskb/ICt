@@ -69,7 +69,7 @@ export default function AppTabNavigator() {
         },
         tabBarLabelStyle: {
           color: DefaultColours.tabText,
-          height: '25%',
+          // height: '25%',
         },
       }}>
       <Tab.Screen
