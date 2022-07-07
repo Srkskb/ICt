@@ -119,13 +119,13 @@ const DrawerContent = ({navigation}) => {
     {showCategory&&<TouchableOpacity onPress={()=>setShow(false)}
           style={{  flexDirection: 'row', padding:10, borderBottomColor: "grey", 
           alignItems:'center' , backgroundColor:'white', marginTop:5 ,justifyContent:'space-between' }}>
-          <Text style={{ fontSize: 16,  flexShrink: 1 }}>Categories</Text>
+          <Text style={{ fontSize: 16,  flexShrink: 1 }}>Products</Text>
           <FontAwesome5 name='chevron-up' size={14} color={"grey"}/>
         </TouchableOpacity>}
     {!showCategory&&<TouchableOpacity onPress={()=>setShow(true)}
           style={{  flexDirection: 'row', padding:10, borderBottomColor: "grey", 
           alignItems:'center' , backgroundColor:'white', marginTop:5 ,justifyContent:'space-between' }}>
-          <Text style={{ fontSize: 16,  flexShrink: 1 }}>Categories</Text>
+          <Text style={{ fontSize: 16,  flexShrink: 1 }}>Products</Text>
           <FontAwesome5 name='chevron-down' size={14} color={"grey"}/>
         </TouchableOpacity>}
     {showCategory&&categories.map((item,index)=>{
