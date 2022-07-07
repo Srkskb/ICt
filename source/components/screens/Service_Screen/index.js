@@ -92,7 +92,7 @@ const getCategories = () => {
     try {
      axios.get('http://3.16.105.232:8181/api/categories/list')
       .then(response => {
-      console.log(response.data.data.list)
+      // console.log(response.data.data.list)
       setCategoryData(response.data.data.list)
 
       })
@@ -448,7 +448,7 @@ const getCategories = () => {
     let data=trendingData
     var result = data.filter((e) => e.title == item);
     setSearchData(result)
-    console.log(result)
+    // console.log(result)
   }
 
   return (

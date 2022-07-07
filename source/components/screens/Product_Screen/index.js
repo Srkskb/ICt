@@ -13,7 +13,7 @@ import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT} from '@constants';
 
 const ProductScreen = ({ navigation,route }) => {
   useEffect(() => {
-    console.log(route.params.data._id)
+    // console.log(route.params.data._id)
     getProducts()
   }, [])
   const [data, setData] = useState([])
