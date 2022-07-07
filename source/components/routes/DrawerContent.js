@@ -131,7 +131,7 @@ const DrawerContent = ({navigation}) => {
     {showCategory&&categories.map((item,index)=>{
           return(
             <>
-      {subCategories.length>0&&<TouchableOpacity key={item._id}
+      {subCategories.length>0&&<TouchableOpacity key={index}
       onPress={()=>setSubCategory([])}
             style={{  flexDirection: 'row', marginHorizontal:10, borderBottomColor: "grey", 
             alignItems:'center' , backgroundColor:'white', marginVertical:6 ,paddingLeft:12
@@ -140,7 +140,7 @@ const DrawerContent = ({navigation}) => {
             {item.subcategories&&item.subcategories.length>0&&<FontAwesome5 name='chevron-up' size={14} color={"grey"}/>}
           </TouchableOpacity>}
       {subCategories.length==0&&<TouchableOpacity key={index}
-      onPress={()=>setSubCategory(item.subcategories)}
+      onPress={()=>item.subcategories&&item.subcategories.length>0? setSubCategory(item.subcategories):navigation.navigate('ProductScreen', { data: item })}
             style={{  flexDirection: 'row', marginHorizontal:10, borderBottomColor: "grey", 
             alignItems:'center' , backgroundColor:'white', marginVertical:6 ,paddingLeft:12
             ,justifyContent:'space-between' }}>

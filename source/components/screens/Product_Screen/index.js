@@ -13,26 +13,35 @@ import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT} from '@constants';
 
 const ProductScreen = ({ navigation,route }) => {
   useEffect(() => {
-    // console.log(route.params.data)
+    console.log(route.params.data._id)
     getProducts()
   }, [])
   const [data, setData] = useState([])
   const getProducts=()=>{
-    try {
-     axios.post('http://3.16.105.232:8181/api/product/all/list')
-      .then(response => {
-      // console.log(response.data.data.list.length)
-          setData(response.data.data.list)
-
-      })
-    .catch(err => {
-        //console.log('error',err)
-      });
-    }
-    catch(error) {
-      //console.log('error2',error)
-    }
+     var data = JSON.stringify({
+  "search": {
+    "category": [route.params.data._id]
   }
+});
+
+var config = {
+  method: 'post',
+  url: 'https://api.ictkart.com/api/product/all/list',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(response=>{
+      // console.log(response.data.data.list)
+  setData(response.data.data.list)
+})
+.catch(function (error) {
+  console.log(error);
+});
+    }
   const renderItem_search = ({item, index}) => {
     ////console.log('item ',item,index)
     const addcart = () => {

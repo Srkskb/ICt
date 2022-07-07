@@ -7,19 +7,18 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Toast from 'react-native-simple-toast';
 import Svg, {Path,Circle,Line} from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const ProductDetailScreen = ({ navigation,route }) => {
   const addcart = () => {
     AsyncStorage.getItem('userExist')
             .then(res =>{
-                try {
      var data = JSON.stringify({
   "userId": JSON.parse(res),
   "carts": {
     "product": [route.params.data._id]
   }
 });
-
 var config = {
   method: 'post',
   url: 'http://3.16.105.232:8181/api/user/add/incart',
@@ -30,17 +29,42 @@ var config = {
 };
 axios(config)
 .then((response)=>{
-  //console.log(JSON.stringify(response.data))
+  // console.log(JSON.stringify(response.data))
   Toast.show(response.data.message)
 })
 .catch((error)=>{
   //console.log(error);
 });
     }
-    catch(error) {
-                  //console.log('error2',error)
-                }}
   )}
+const addtocart = () => {
+    AsyncStorage.getItem('userExist')
+            .then(res =>{
+     var data = JSON.stringify({
+  "userId": JSON.parse(res),
+  "carts": {
+    "product": [route.params.data._id]
+  }
+});
+var config = {
+  method: 'post',
+  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+axios(config)
+.then((response)=>{
+  // console.log(JSON.stringify(response.data))
+  Toast.show(response.data.message)
+  navigation.navigate('AppTab', { screen: 'CartScreen' })
+})
+.catch((error)=>{
+  //console.log(error);
+});
+    })
+}
   return (
     <SafeAreaView style={{flex:1,width:width,height:height,backgroundColor:"#FFF"}}>
 <ScrollView showsVerticalScrollIndicator={false} style={{ width: width, height: '95%' }}>
@@ -280,7 +304,7 @@ ADD TO CART
 </TouchableOpacity>
        </View>
        <View style={{width:"45%",borderRadius:5,borderWidth:1,flexDirection:'row',alignItems:'center',backgroundColor:'#5A429B',paddingHorizontal:width*0.05,justifyContent:'space-evenly',padding:width*0.04,borderColor:'#5A429B'}}>
-         <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>alert('Cart')}>
+         <TouchableOpacity style={{flexDirection:'row'}} onPress={addtocart}>
          
 <Text style={{fontSize:width*0.05,fontWeight:"bold",color:"#FFFFFF"}}>
 PURCHASE
