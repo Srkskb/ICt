@@ -160,7 +160,7 @@ const RootNavigator = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <RootStackScreen />
-        <StatusBar backgroundColor='#e23349' barStyle='light-content' />
+        {/*<StatusBar backgroundColor='#e23349' barStyle='light-content' />*/}
       </NavigationContainer>
     </SafeAreaProvider>
   );

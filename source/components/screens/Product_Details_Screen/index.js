@@ -65,9 +65,27 @@ axios(config)
 });
     })
 }
+const [data, setData] = React.useState([])
+  const getProductInfo=()=>{
+      AsyncStorage.getItem('userExist')
+            .then(res =>{
+              axios.get(`http://3.16.105.232:8181/api/product/detail?productId=${route.params.data._id}&userId=${JSON.parse(res)}`)
+      .then(response => {
+      // console.log(response.data.data.product)
+          setData(response.data.data.product)
+
+      })
+    .catch(err => {
+        //console.log('error',err)
+      });
+            })
+  }
+  React.useEffect(() => {
+    getProductInfo()
+  }, [])
   return (
-    <SafeAreaView style={{flex:1,width:width,height:height,backgroundColor:"#FFF"}}>
-<ScrollView showsVerticalScrollIndicator={false} style={{ width: width, height: '95%' }}>
+    <SafeAreaView style={{width:width,height:'100%',backgroundColor:"#FFF"}}>
+<ScrollView showsVerticalScrollIndicator={false} style={{ width: width, height: '94%' }}>
 <TouchableOpacity onPress={()=>navigation.goBack()}
 style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',
 paddingVertical:6,paddingHorizontal:12}}>
@@ -99,7 +117,7 @@ borderRadius:30,marginLeft:6}}>
 <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
 <View style={{paddingTop:width*0.03,paddingHorizontal:width*0.03,width:"70%"}}>
 <Text numberOfLines={3} style={{fontSize:width*0.04,fontWeight:'bold'}}>
-   {route.params.data.title}
+   {data.title}
 </Text>
 </View>
 <View style={{width:"30%",justifyContent:'center',alignItems:'center'}}>
@@ -107,11 +125,11 @@ borderRadius:30,marginLeft:6}}>
       padding:width*0.02,backgroundColor:"#1776BB",borderColor:'#1776BB',
       justifyContent:'center',alignItems:'center'}}>
 <Text style={{fontWeight:'bold',color:"#fff",fontSize:width*0.04}}>
-    {route.params.data.currency} {route.params.data.sellingPrice}
+    {data.currency} {data.sellingPrice}
 </Text>
 <Text style={{fontWeight:'bold',color:"#fff",fontSize:width*0.026,
 textDecorationLine:'line-through',paddingTop:4}}>
-    {route.params.data.currency} {route.params.data.originalPrice}
+    {data.currency} {data.originalPrice}
 </Text>
 </TouchableOpacity>
 </View>
@@ -199,47 +217,75 @@ name='shipping-fast' size={width*0.1} color={"#1776BB"}
 </View>
 
 </View>
-<View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.09, paddingHorizontal: width * 0.03 }}>
+<View style={{justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.09, paddingHorizontal: width * 0.03 }}>
+<View style={{width:"100%",backgroundColor:"#FFFFFF"}}>
+<Text style={{ fontSize: width * 0.06,color: "#121212", fontFamily: "Aileron-Bold" }}>
+Description</Text></View>
+<View style={{width:"100%",borderBottomWidth:1,borderBottomColor:"#DCDCDC",paddingTop:width*0.01}}/>
+<View style={{width:"100%",backgroundColor:"#FFFFFF",paddingVertical:6}}>
+<Text style={{ fontSize: width * 0.046, color: "#666", fontFamily: "Aileron-Medium" }}>
+{data&&data.description}</Text>
+</View>
+</View>
+<View style={{borderBottomWidth:1,borderBottomColor:"#DCDCDC",
+marginHorizontal:width*0.03,paddingTop:width*0.01}}/>
+<View style={{justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.03, paddingHorizontal: width * 0.03 }}>
+<View style={{width:"100%",backgroundColor:"#FFFFFF"}}>
+<Text style={{ fontSize: width * 0.06,color: "#121212", fontFamily: "Aileron-Bold" }}>Specifications
+</Text></View>
+<View style={{width:"100%",borderBottomWidth:1,borderBottomColor:"#DCDCDC",paddingTop:width*0.01}}/>
+<View style={{width:"100%",backgroundColor:"#FFFFFF",paddingVertical:6}}>
+<Text style={{ fontSize: width * 0.05,color: "#121212", fontFamily: "Aileron-Bold" }}>
+Product Name</Text></View>
+<View style={{width:"100%",backgroundColor:"#FFFFFF",paddingVertical:4}}>
+<Text style={{ fontSize: width * 0.046, color: "#666", fontFamily: "Aileron-Medium" }}>
+{data.title}</Text>
+</View>
+<View style={{width:"100%",backgroundColor:"#FFFFFF",paddingVertical:6}}>
+<Text style={{ fontSize: width * 0.05,color: "#121212", fontFamily: "Aileron-Bold" }}>
+Category</Text></View>
+<View style={{width:"100%",backgroundColor:"#FFFFFF",paddingVertical:4}}>
+<Text style={{ fontSize: width * 0.046, color: "#666", fontFamily: "Aileron-Medium" }}>
+{data.categoryData}</Text>
+</View>
+<View style={{width:"100%",backgroundColor:"#FFFFFF",paddingVertical:6}}>
+<Text style={{ fontSize: width * 0.05,color: "#121212", fontFamily: "Aileron-Bold" }}>
+Brand</Text></View>
+<View style={{width:"100%",backgroundColor:"#FFFFFF",paddingVertical:4}}>
+<Text style={{ fontSize: width * 0.046, color: "#666", fontFamily: "Aileron-Medium" }}>
+{data.brandData}</Text>
+</View>
+<View style={{width:"100%",backgroundColor:"#FFFFFF",paddingVertical:6}}>
+<Text style={{ fontSize: width * 0.05,color: "#121212", fontFamily: "Aileron-Bold" }}>
+Modal Number</Text></View>
+<View style={{width:"100%",backgroundColor:"#FFFFFF",paddingVertical:4}}>
+<Text style={{ fontSize: width * 0.046, color: "#666", fontFamily: "Aileron-Medium" }}>
+{data.modelNumber}</Text>
+</View>
+</View>
+<View style={{borderBottomWidth:1,borderBottomColor:"#DCDCDC",
+marginHorizontal:width*0.03,paddingTop:width*0.01}}/>
+<View style={{justifyContent: "flex-start", alignItems: "flex-start", 
+paddingTop: width * 0.03, paddingHorizontal: width * 0.03 }}>
           <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', color: "#ED4E94", fontFamily: "Poppins-Thin" }}>
-            Description
-          </Text>
-</View>
-<View style={{width:"20%",backgroundColor:"#ffffff"}}>
-            <View style={{alignItems:'center',justifyContent:"center"}}>
-              <TouchableOpacity>
-              <MaterialCommunityIcons
-name='chevron-down' size={width*0.09}
-/>
-</TouchableOpacity>
-</View>
-</View>
-</View>
-<View style={{borderBottomWidth:1,borderBottomColor:"#DCDCDC",marginHorizontal:width*0.03,paddingTop:width*0.01}}>
-
-</View>
-<View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.05, paddingHorizontal: width * 0.03 }}>
-          <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold',  fontFamily: "Poppins-Thin" }}>
+          <Text style={{ fontSize: width * 0.06,color: "#121212",
+          fontFamily: "Aileron-Bold" }}>
           About The Seller
           </Text>
 </View>
-<View style={{width:"20%",backgroundColor:"#ffffff"}}>
-            <View style={{alignItems:'center',justifyContent:"center"}}>
-              <TouchableOpacity>
-              <MaterialCommunityIcons
-name='chevron-down' size={width*0.09}
-/>
-</TouchableOpacity>
-</View>
+<View style={{width:"100%",borderBottomWidth:1,borderBottomColor:"#DCDCDC",paddingTop:width*0.01}}/>
+
+<View style={{width:"100%",backgroundColor:"#ffffff",paddingVertical:6}}>
+<Text style={{ fontSize: width * 0.046, color: "#666", fontFamily: "Aileron-Medium" }}>
+{data.vendor? data.vendor:'NA'}</Text>
 </View>
 </View>
 <View style={{borderBottomWidth:1,borderBottomColor:"#DCDCDC",marginHorizontal:width*0.03,paddingTop:width*0.01}}>
 
 </View>
-<View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.05, paddingHorizontal: width * 0.03 }}>
+{/*<View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.05, paddingHorizontal: width * 0.03 }}>
           <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Poppins-Thin" }}>
+          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Aileron-Medium" }}>
            Compare
           </Text>
 </View>
@@ -258,7 +304,7 @@ name='chevron-down' size={width*0.09}
 </View>
 <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.05, paddingHorizontal: width * 0.03 }}>
           <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Poppins-Thin" }}>
+          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Aileron-Medium" }}>
             FAQ
           </Text>
 </View>
@@ -271,13 +317,13 @@ name='chevron-down' size={width*0.09}
 </TouchableOpacity>
 </View>
 </View>
-</View>
+</View>*/}
 <View style={{borderBottomWidth:1,borderBottomColor:"#DCDCDC",marginHorizontal:width*0.01}}>
 
 </View>
 <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.05, paddingHorizontal: width * 0.03 }}>
           <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Poppins-Thin" }}>
+          <Text style={{ fontSize: width * 0.06, fontWeight: 'bold', fontFamily: "Aileron-Medium" }}>
             Reviews
           </Text>
 </View>
@@ -294,27 +340,29 @@ name='chevron-down' size={width*0.09}
 <View style={{borderBottomWidth:1,borderBottomColor:"#DCDCDC",marginHorizontal:width*0.03,paddingTop:width*0.01}}>
 
 </View>
-<View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-evenly',paddingTop:width*0.05}}>
-       <View style={{width:"45%",borderRadius:5,borderWidth:1,flexDirection:'row',alignItems:'center',backgroundColor:'#ED4E94',paddingHorizontal:width*0.05,justifyContent:'space-evenly',padding:width*0.04,borderColor:"#ED4E94"}}>
+</ScrollView>
+<View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',
+height: '6%',paddingHorizontal:12}}>
+<View style={{width:"49%",borderRadius:5,borderWidth:1,flexDirection:'row',
+alignItems:'center',backgroundColor:'#ED4E94',height:'100%',
+justifyContent:'space-evenly',borderColor:"#ED4E94"}}>
 <TouchableOpacity onPress={addcart}
 style={{flexDirection:'row'}}>
-<Text style={{fontSize:width*0.05,fontWeight:"bold",color:'#fff'}}>
+<Text style={{fontSize:width*0.036,color:"#FFFFFF", fontFamily: "Aileron-Bold"}}>
 ADD TO CART
 </Text>
 </TouchableOpacity>
        </View>
-       <View style={{width:"45%",borderRadius:5,borderWidth:1,flexDirection:'row',alignItems:'center',backgroundColor:'#5A429B',paddingHorizontal:width*0.05,justifyContent:'space-evenly',padding:width*0.04,borderColor:'#5A429B'}}>
+       <View style={{width:"49%",borderRadius:5,borderWidth:1,flexDirection:'row',
+       alignItems:'center',backgroundColor:'#5A429B',height:'100%',
+       justifyContent:'space-evenly',borderColor:'#5A429B'}}>
          <TouchableOpacity style={{flexDirection:'row'}} onPress={addtocart}>
-         
-<Text style={{fontSize:width*0.05,fontWeight:"bold",color:"#FFFFFF"}}>
+<Text style={{fontSize:width*0.036,color:"#FFFFFF", fontFamily: "Aileron-Bold"}}>
 PURCHASE
 </Text>
 </TouchableOpacity>
        </View>
-
-     </View>
-
-</ScrollView>
+</View>
     </SafeAreaView>
   )
 }

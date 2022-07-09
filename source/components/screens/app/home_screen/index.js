@@ -417,10 +417,7 @@ axios(config)
 
   return (
     <>
-      {state.loader ? (
-        <Loader />
-      ) : (
-        <SafeAreaView
+    <SafeAreaView
           style={{
             flex: 1,
             width: SCREEN_WIDTH,
@@ -553,7 +550,6 @@ axios(config)
 
           </ScrollView>
         </SafeAreaView>
-      )}
 
       <Modal animationType="slide" style={{ margin: 0, padding: 0 }} transparent={true} visible={state.modalVisible} onRequestClose={() =>  setState(prev => ({...prev, modalVisible: false })) }>
             <View style={{ height: '50%', marginTop: 'auto', backgroundColor:'blue', elevation: 2 }}>
@@ -621,8 +617,9 @@ axios(config)
       <Text style={{ color: DefaultColours.black , fontWeight: 'bold', fontSize : 16 }}>
       Results</Text></View>
       <View style={{width:'50%',alignItems:'flex-end',justifyContent:'center'}}>
-      <Text style={{ color: DefaultColours.blue0 , fontWeight: '400', fontSize : 16 }}>
-      Filter</Text></View>
+      {/*<Text style={{ color: DefaultColours.blue0 , fontWeight: '400', fontSize : 16 }}>
+      Filter</Text>*/}
+      </View>
   </View>
   <View style={{width:'100%',height:SCREEN_HIGHT-104,paddingTop:4}}>
       <FlatList

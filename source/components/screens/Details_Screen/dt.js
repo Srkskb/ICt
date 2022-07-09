@@ -151,7 +151,7 @@ name='shipping-fast' size={width*0.1} color={"#1776BB"}
 </View>
 <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.09, paddingHorizontal: width * 0.03 }}>
           <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', color: "#ED4E94", fontFamily: "Poppins-Thin" }}>
+          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', color: "#ED4E94", fontFamily: "Aileron-Thin" }}>
             Description
           </Text>
 </View>
@@ -170,7 +170,7 @@ name='chevron-down' size={width*0.09}
 </View>
 <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.05, paddingHorizontal: width * 0.03 }}>
           <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold',  fontFamily: "Poppins-Thin" }}>
+          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold',  fontFamily: "Aileron-Thin" }}>
           About The Seller
           </Text>
 </View>
@@ -189,7 +189,7 @@ name='chevron-down' size={width*0.09}
 </View>
 <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.05, paddingHorizontal: width * 0.03 }}>
           <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Poppins-Thin" }}>
+          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Aileron-Thin" }}>
            Compare
           </Text>
 </View>
@@ -208,7 +208,7 @@ name='chevron-down' size={width*0.09}
 </View>
 <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.05, paddingHorizontal: width * 0.03 }}>
           <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Poppins-Thin" }}>
+          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Aileron-Thin" }}>
             FAQ
           </Text>
 </View>
@@ -227,7 +227,7 @@ name='chevron-down' size={width*0.09}
 </View>
 <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", paddingTop: width * 0.05, paddingHorizontal: width * 0.03 }}>
           <View style={{width:"80%",backgroundColor:"#FFFFFF"}}>
-          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Poppins-Thin" }}>
+          <Text style={{ fontSize: width * 0.05, fontWeight: 'bold', fontFamily: "Aileron-Thin" }}>
             Reviews
           </Text>
 </View>

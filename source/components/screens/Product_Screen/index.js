@@ -10,14 +10,18 @@ import Svg, {Path,Circle,Line} from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT} from '@constants';
+import {Loader} from '@global_components';
+
 
 const ProductScreen = ({ navigation,route }) => {
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     // console.log(route.params.data._id)
     getProducts()
   }, [])
   const [data, setData] = useState([])
   const getProducts=()=>{
+    setLoading(true)
      var data = JSON.stringify({
   "search": {
     "category": [route.params.data._id]
@@ -37,10 +41,81 @@ axios(config)
 .then(response=>{
       // console.log(response.data.data.list)
   setData(response.data.data.list)
+  setLoading(false)
 })
 .catch(function (error) {
   console.log(error);
 });
+    }
+    const getProductsPop=()=>{
+      setLoading(true)
+     var data = JSON.stringify({
+  "search": {
+    "category": [route.params.data._id]
+  },
+  "sort": "popularity"
+});
+
+var config = {
+  method: 'post',
+  url: 'https://api.ictkart.com/api/product/all/list',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(response=>{
+      // console.log(response.data.data.list)
+  setData(response.data.data.list)
+  setLoading(false)
+})
+.catch(function (error) {
+  console.log(error);
+});
+    }
+    const getProductsHigh=(item)=>{
+      setLoading(true)
+     var data = JSON.stringify({
+  "search": {
+    "category": [route.params.data._id]
+  },
+  "sort": "popularity"
+});
+
+var config = {
+  method: 'post',
+  url: 'https://api.ictkart.com/api/product/all/list',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+if(item=='high'){
+  axios(config)
+.then(response=>{
+      // console.log(response.data.data.list)
+      let data=response.data.data.list.sort((a,b)=>b.sellingPrice-a.sellingPrice)
+  setData(data)
+  setLoading(false)
+})
+.catch(function (error) {
+  console.log(error);
+});
+}
+if(item=='low'){
+  axios(config)
+.then(response=>{
+      // console.log(response.data.data.list)
+      let data=response.data.data.list.sort((a,b)=>a.sellingPrice-b.sellingPrice)
+  setData(data)
+  setLoading(false)
+})
+.catch(function (error) {
+  console.log(error);
+});
+}
     }
   const renderItem_search = ({item, index}) => {
     ////console.log('item ',item,index)
@@ -122,11 +197,12 @@ const searchItem=(item)=>{
     setSearchData(result)
     // console.log(result)
   }
+  const [state, setState] = useState(false)
   return (
     <SafeAreaView style={{flex:1,width:width,height:'100%',backgroundColor:"#fff"}}>
-    <View style={{width:'100%', height:44}}>
+    <View style={{width:'100%', height:'6%'}}>
 <View style={{ position: 'absolute',top:0,flexDirection:'row',
-width:'100%', height: '100%',backgroundColor: '#ccc' }}>
+width:'100%', height: '100%'}}>
 <TouchableOpacity onPress={()=>navigation.goBack()}
 style={{width:'10%',justifyContent:'center',alignItems:'center'}}>
 <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ED4E94" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -146,7 +222,50 @@ style={{width:'10%',justifyContent:'center',alignItems:'center'}}>
 </View>
 </View>
 </View>
-<View style={{width:'100%', height: '93%',justifyContent:"center",alignItems:'center',
+<View style={{width:'100%', height:'5%',paddingHorizontal:20,flexDirection:'row'}}>
+<ScrollView horizontal showsHorizontalScrollIndicator={false}>
+{state&&<><TouchableOpacity onPress={()=>setState(false)}
+style={{justifyContent:'center',alignItems:'center',paddingRight:6}}>
+<MaterialCommunityIcons name="close-circle-outline" size={24} color="black" />
+</TouchableOpacity>
+<TouchableOpacity onPress={()=>getProductsPop()}
+style={{justifyContent:'center',alignItems:'center',marginRight:6,borderWidth: 1,borderRadius:16,
+paddingHorizontal:8}}>
+<Text style={{fontSize:width*0.036,color:DefaultColours.blue0, fontFamily: "Aileron-SemiBold"}}>
+Popularity
+</Text>
+</TouchableOpacity>
+<TouchableOpacity onPress={()=>getProductsPop()}
+style={{justifyContent:'center',alignItems:'center',marginRight:6,borderWidth: 1,borderRadius:16,
+paddingHorizontal:8}}>
+<Text style={{fontSize:width*0.036,color:DefaultColours.blue0, fontFamily: "Aileron-SemiBold"}}>
+Newly added
+</Text>
+</TouchableOpacity>
+<TouchableOpacity onPress={()=>getProductsHigh('high')}
+style={{justifyContent:'center',alignItems:'center',marginRight:6,borderWidth: 1,borderRadius:16,
+paddingHorizontal:8}}>
+<Text style={{fontSize:width*0.036,color:DefaultColours.blue0, fontFamily: "Aileron-SemiBold"}}>
+Price - High to Low
+</Text>
+</TouchableOpacity>
+<TouchableOpacity onPress={()=>getProductsHigh('low')}
+style={{justifyContent:'center',alignItems:'center',marginRight:6,borderWidth: 1,borderRadius:16,
+paddingHorizontal:8}}>
+<Text style={{fontSize:width*0.036,color:DefaultColours.blue0, fontFamily: "Aileron-SemiBold"}}>
+Price - Low to High
+</Text>
+</TouchableOpacity></>}</ScrollView>
+<View style={{width:'14%',justifyContent:'center',alignItems:'center',borderLeftWidth:1,
+borderColor: DefaultColours.blue0}}>
+<TouchableOpacity onPress={()=>setState(true)}
+style={{justifyContent:'center',alignItems:'center'}}>
+<Text style={{fontSize:width*0.036,color:DefaultColours.blue0, fontFamily: "Aileron-SemiBold"}}>
+Sort
+</Text>
+</TouchableOpacity></View>
+</View>
+{loading? <Loader/>:<View style={{width:'100%', height: '89%',justifyContent:"center",alignItems:'center',
 borderBottomColor:"#DCDCDC"}}>
 <FlatList
             
@@ -158,7 +277,7 @@ borderBottomColor:"#DCDCDC"}}>
             showsHorizontalScrollIndicator={false}
             style={{width:'100%'}}
           />
-</View>
+</View>}
 </SafeAreaView>
   )
 }
