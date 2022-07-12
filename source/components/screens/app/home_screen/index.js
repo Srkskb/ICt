@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text,TouchableOpacity, Image, TextInput, FlatList, SafeAreaView, ScrollView,
+import {View, Text,TouchableOpacity, Image, TextInput, FlatList, ScrollView,
   StyleSheet,KeyboardAvoidingView} from 'react-native';
-import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT} from '@constants';
+import {SafeAreaProvider,SafeAreaView} from 'react-native-safe-area-context';
+
+import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT,FontSize} from '@constants';
 import {Loader} from '@global_components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackActions } from '@react-navigation/native';
@@ -19,10 +21,19 @@ import {
   BackButtonImg,
   DrawerImage
 } from '@images';
+import {
+  HomeActiveImg,
+  HomeInactiveImg,
+  AccountActiveImg,
+  AccountInactiveImg,
+  CartActiveImg,
+  CartInactiveImg,
+  ChatActiveImg,
+  ChatInavtiveImg,
+} from '@images';
 
-
-const HomeScreen = ({navigation}) => {
-  const [state, setState] = useState({loader: true, modalVisible: false,search:false});
+const HomeScreen = ({navigation,route}) => {
+  const [state, setState] = useState({loader: true, modalVisible: false,search:false,cart:[]});
   const [search, setsearchText] = useState('');
   const [sliderData, setsliderData] = useState([])
   const [categoryData, setCategoryData] = useState([])
@@ -41,13 +52,14 @@ const HomeScreen = ({navigation}) => {
   ])
 
   useEffect(() => {
-    //console.log('this is home page')
+    // console.log(route)
     setTimeout(() => {
       setState(prev => ({...prev, loader: false}));
     }, 2000);
     getlist()
     getBanner()
     getCategories()
+    getCart()
   }, []);
 
   const getlist = () => {
@@ -66,6 +78,38 @@ const HomeScreen = ({navigation}) => {
       //console.log('error2',error)
     }
   }
+  const getCart = () => {
+  AsyncStorage.getItem('userExist')
+            .then(res =>{
+                try {
+                 var data = JSON.stringify({
+              "userId": JSON.parse(res)
+            });
+            
+            var config = {
+              method: 'post',
+              url: 'http://3.16.105.232:8181/api/user/cart',
+              headers: { 
+                'Content-Type': 'application/json'
+              },
+              data : data
+            };
+            
+            axios(config)
+            .then(function (response) {
+              // console.log(response.data.data.list)
+              if(JSON.stringify(response.data.status)==200){
+                setState(prev => ({...prev, cart:response.data.data.list}))
+              }
+            })
+            .catch(function (error) {
+              //console.log(error);
+            });
+                }
+                catch(error) {
+                  //console.log('error2',error)
+                }}
+  )}
 const getBanner = () => {
     try {
      axios.get('http://3.16.105.232:8181/api/banner/list?displayAt=home&status=true')
@@ -163,6 +207,7 @@ axios(config)
 .then((response)=>{
   //console.log(JSON.stringify(response.data))
   Toast.show(response.data.message)
+  getCart()
 })
 .catch((error)=>{
   //console.log(error);
@@ -238,6 +283,7 @@ axios(config)
 .then((response)=>{
   //console.log(JSON.stringify(response.data))
   Toast.show(response.data.message)
+  getCart()
 })
 .catch((error)=>{
   //console.log(error);
@@ -312,6 +358,7 @@ axios(config)
 .then((response)=>{
   //console.log(JSON.stringify(response.data))
   Toast.show(response.data.message)
+  getCart()
 })
 .catch((error)=>{
   //console.log(error);
@@ -417,13 +464,11 @@ axios(config)
 
   return (
     <>
-    <SafeAreaView
-          style={{
+    <SafeAreaView style={{
             flex: 1,
-            width: SCREEN_WIDTH,
             backgroundColor: DefaultColours.white
           }}>
-          <ScrollView contentContainerStyle={{ width: SCREEN_WIDTH }}>
+    <ScrollView contentContainerStyle={{ width: SCREEN_WIDTH }}>
 
 
           {/* nav_bar */}
@@ -549,6 +594,33 @@ axios(config)
 
 
           </ScrollView>
+        <View style={{ width:'100%',height:SCREEN_HIGHT*0.08, alignItems: 'center',flexDirection:'row' }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')}
+        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+        {route.name=='HomeScreen'? <Image source={HomeActiveImg} style={styles.icon} resizeMode="contain"
+        />:<Image source={HomeInactiveImg} style={styles.icon} resizeMode="contain"/>}
+        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('SettingScreen')}
+        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+        {route.name=='SettingScreen'? <Image source={AccountActiveImg} style={styles.icon} 
+        resizeMode="contain" />:<Image source={AccountInactiveImg} style={styles.icon} 
+        resizeMode="contain" />}
+        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Account</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('CartScreen')}
+        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+        {route.name=='CartScreen'? <Image source={CartActiveImg} style={styles.icon} resizeMode="contain" />:
+                <Image source={CartInactiveImg} style={styles.icon} resizeMode="contain" />}
+        {state.cart&&state.cart.length==0? null:<View style={{position:'absolute',borderRadius:20,
+        backgroundColor:DefaultColours.blue0,paddingHorizontal:5,top:2,right:'30%',paddingVertical:2}}>
+        <Text style={{color:'#fff',fontSize:FontSize(7)}}>{state.cart&&state.cart.length}</Text></View>}
+        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Cart</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('ChatScreen')}
+        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+        {route.name=='ChatScreen'? <Image source={ChatActiveImg} style={styles.icon} resizeMode="contain" />:
+                <Image source={ChatInavtiveImg} style={styles.icon} resizeMode="contain" />}
+        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Chat</Text></TouchableOpacity>
+        </View>
         </SafeAreaView>
 
       <Modal animationType="slide" style={{ margin: 0, padding: 0 }} transparent={true} visible={state.modalVisible} onRequestClose={() =>  setState(prev => ({...prev, modalVisible: false })) }>
@@ -646,3 +718,9 @@ axios(config)
 
 
 export default HomeScreen;
+const styles = StyleSheet.create({
+  icon: {
+    width: 23,
+    height: 22,
+  },
+});

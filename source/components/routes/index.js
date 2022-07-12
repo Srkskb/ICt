@@ -64,13 +64,15 @@ const RootNavigator = () => {
       <Drawer.Navigator
           drawerWidth={250}
           title="Home"
+          initialRouteName="HomeScreen"
           drawerContent={props => <DrawerContent {...props} />}>
-          <Drawer.Screen name="AppTab" navigation={navigation} component={AppTabNavigator} options={{headerShown: false, unmountOnBlur:true}} />
+          {/*<Drawer.Screen name="AppTab" navigation={navigation} component={AppTabNavigator} options={{headerShown: false, unmountOnBlur:true}} />*/}
           <Drawer.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false, unmountOnBlur:true,}} />
+          <Drawer.Screen name="CartScreen" component={CartScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Cart"}} />
           <Drawer.Screen name="AccountScreen" component={AccountScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Account"}} />
           <Drawer.Screen name="ChatScreen" component={ChatScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Chat"}} />
           <Drawer.Screen name="FaqScreen" component={FaqScreen} options={{headerShown: true, unmountOnBlur:true, title: "FAQ"}} />
-          <Drawer.Screen name="SettingScreen" component={SettingScreen} options={{headerShown: true, unmountOnBlur:true, title: "Setting"}} />
+          <Drawer.Screen name="SettingScreen" component={SettingScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Account"}} />
           <Drawer.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{headerShown: false, unmountOnBlur:true, title: "Change Password"}} />
           <Drawer.Screen name="AboutScreen" component={AboutScreen} options={{headerShown: true, unmountOnBlur:true,title: "About"}} />
           <Drawer.Screen name="ContactusScreen" component={ContactusScreen} options={{headerShown: true, unmountOnBlur:true, title: "Contact us"}} />
@@ -160,7 +162,6 @@ const RootNavigator = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <RootStackScreen />
-        {/*<StatusBar backgroundColor='#e23349' barStyle='light-content' />*/}
       </NavigationContainer>
     </SafeAreaProvider>
   );

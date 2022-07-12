@@ -1,14 +1,38 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text,FlatList,Dimensions,TouchableOpacity,Image} from 'react-native';
-import {DefaultColours} from '@constants';
+import {View, Text,TouchableOpacity, Image, TextInput, FlatList, ScrollView,
+  StyleSheet,KeyboardAvoidingView,Dimensions} from 'react-native';
+import {SafeAreaProvider,SafeAreaView} from 'react-native-safe-area-context';
+import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT,FontSize} from '@constants';
 import {Loader} from '@global_components';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Svg, {Path,Circle,Line} from 'react-native-svg';
-let {height, width} = Dimensions.get('window');
+import { StackActions } from '@react-navigation/native';
+import Modal from 'react-native-modal'
+import axios from 'axios';
 import Toast from 'react-native-simple-toast';
+import Svg, {Path,Circle,Line} from 'react-native-svg';
+import {
+  LoginLogoImg,
+  AtdRateImg,
+  LockImg,
+  GoogleImg,
+  FacebookImg,
+  LinkedInImg,
+  BackButtonImg,
+  DrawerImage
+} from '@images';
+import {
+  HomeActiveImg,
+  HomeInactiveImg,
+  AccountActiveImg,
+  AccountInactiveImg,
+  CartActiveImg,
+  CartInactiveImg,
+  ChatActiveImg,
+  ChatInavtiveImg,
+} from '@images';
+let {height, width} = Dimensions.get('window');
 
-const CartScreen = ({navigation}) => {
+const CartScreen = ({navigation,route}) => {
   const [state, setState] = useState({loader: true,cart:[]});
   const [id, setID] = useState('');
 
@@ -48,11 +72,8 @@ const getlist = () => {
   useEffect(() => {
     setTimeout(() => {
       setState(prev => ({...prev, loader: false}));
-    getlist()
     }, 2000);
-    navigation.addListener('focus', () => {
     getlist()
-    });
   }, []);
 
   const renderList = list => {
@@ -241,7 +262,7 @@ axios(config)
 
 
   return (
-    <>
+    <SafeAreaView style={{flex:1}}>
     {/*<View style={{justifyContent:'center',alignItems:'flex-start',padding:height*0.02,backgroundColor: '#fdfdfd'}}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="32" height="32" viewBox="0 0 24 24" stroke-width="2" stroke="#5A429B" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -257,12 +278,12 @@ axios(config)
         <View style={{paddingHorizontal:height*0.02,paddingVertical:height*0.01}}>
         <Text style={{color:'#121212'}}>You have {state.cart.length} {state.cart.length>1? 'items':'item'} in the cart </Text></View>
         <View style={{paddingHorizontal:height*0.02,paddingVertical:height*0.01}}>
-        <Text style={{color:'#121212',fontSize:width*0.054,color: '#5A429B'}}>
+        <Text style={{color:'#121212',fontSize:FontSize(width*0.054),color: '#5A429B'}}>
         Sub Total : INR {total} </Text></View>
         <TouchableOpacity onPress={checkOut}
         style={{backgroundColor: '#5A429B',height:height*0.068,
         marginHorizontal:height*0.02,borderRadius:4,justifyContent:'center',alignItems:'center'}}>
-        <Text style={{color:'#fdfdfd',fontSize:width*0.04,fontWeight:'400'}}>
+        <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.04),fontWeight:'400'}}>
         Proceed to buy ( {state.cart.length} {state.cart.length>1? 'items':'item'} )</Text>
         </TouchableOpacity>
         <FlatList
@@ -272,8 +293,41 @@ axios(config)
             renderItem={({ item }) => renderList(item) }
             />
         </View>}
-    </>
+      <View style={{ width:'100%',height:'8%', alignItems: 'center',flexDirection:'row' }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')}
+        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+        {route.name=='HomeScreen'? <Image source={HomeActiveImg} style={styles.icon} resizeMode="contain"
+        />:<Image source={HomeInactiveImg} style={styles.icon} resizeMode="contain"/>}
+        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('SettingScreen')}
+        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+        {route.name=='SettingScreen'? <Image source={AccountActiveImg} style={styles.icon} 
+        resizeMode="contain" />:<Image source={AccountInactiveImg} style={styles.icon} 
+        resizeMode="contain" />}
+        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Account</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('CartScreen')}
+        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+        {route.name=='CartScreen'? <Image source={CartActiveImg} style={styles.icon} resizeMode="contain" />:
+                <Image source={CartInactiveImg} style={styles.icon} resizeMode="contain" />}
+        {state.cart&&state.cart.length==0? null:<View style={{position:'absolute',borderRadius:20,
+        backgroundColor:DefaultColours.blue0,paddingHorizontal:5,top:2,right:'30%',paddingVertical:2}}>
+        <Text style={{color:'#fff',fontSize:FontSize(7)}}>{state.cart&&state.cart.length}</Text></View>}
+        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Cart</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('ChatScreen')}
+        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+        {route.name=='ChatScreen'? <Image source={ChatActiveImg} style={styles.icon} resizeMode="contain" />:
+                <Image source={ChatInavtiveImg} style={styles.icon} resizeMode="contain" />}
+        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Chat</Text></TouchableOpacity>
+        </View>
+    </SafeAreaView>
   );
 };
 
 export default CartScreen;
+const styles = StyleSheet.create({
+  icon: {
+    width: 23,
+    height: 22,
+  },
+});
