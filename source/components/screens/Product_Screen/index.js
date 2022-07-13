@@ -68,7 +68,7 @@ const ProductScreen = ({ navigation,route }) => {
               }
             })
             .catch(function (error) {
-              //console.log(error);
+              //alert(error);
             });
                 }
                 catch(error) {
@@ -99,7 +99,7 @@ axios(config)
   setLoading(false)
 })
 .catch(function (error) {
-  console.log(error);
+  alert(error);
 });
     }
     const getProductsPop=()=>{
@@ -127,7 +127,7 @@ axios(config)
   setLoading(false)
 })
 .catch(function (error) {
-  console.log(error);
+  alert(error);
 });
     }
     const getProductsHigh=(item)=>{
@@ -156,7 +156,7 @@ if(item=='high'){
   setLoading(false)
 })
 .catch(function (error) {
-  console.log(error);
+  alert(error);
 });
 }
 if(item=='low'){
@@ -168,7 +168,7 @@ if(item=='low'){
   setLoading(false)
 })
 .catch(function (error) {
-  console.log(error);
+  alert(error);
 });
 }
     }
@@ -199,7 +199,7 @@ axios(config)
   Toast.show(response.data.message)
 })
 .catch((error)=>{
-  //console.log(error);
+  //alert(error);
 });
     }
     catch(error) {
