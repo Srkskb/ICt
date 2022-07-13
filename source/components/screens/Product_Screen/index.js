@@ -3,6 +3,9 @@ import {View, Text,TouchableOpacity, Image, TextInput, FlatList, ScrollView,
   StyleSheet,KeyboardAvoidingView,Dimensions} from 'react-native';
 import {SafeAreaProvider,SafeAreaView} from 'react-native-safe-area-context';
 
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT,FontSize} from '@constants';
 import {Loader} from '@global_components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -320,9 +323,9 @@ Sort
 </Text>
 </TouchableOpacity></View>
 </View>
-{loading? <Loader/>:<View style={{width:'100%', height: '81%',justifyContent:"center",alignItems:'center',
+<View style={{width:'100%', height: '81%',justifyContent:"center",alignItems:'center',
 borderBottomColor:"#DCDCDC"}}>
-<FlatList
+{loading? <Loader/>:<FlatList
             
             numColumns={2}
             contentContainerStyle={{paddingHorizontal:16,paddingVertical:4 }}
@@ -331,8 +334,8 @@ borderBottomColor:"#DCDCDC"}}>
             keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}
             style={{width:'100%'}}
-          />
-</View>}
+          />}
+</View>
 <View style={{ width:'100%',height:'8%', alignItems: 'center',flexDirection:'row' }}>
         <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')}
         style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
