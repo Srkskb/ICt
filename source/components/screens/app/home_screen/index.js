@@ -79,6 +79,7 @@ const HomeScreen = ({navigation,route}) => {
     }
   }
   const getCart = () => {
+    setState(prev => ({...prev, loader: true}));
   AsyncStorage.getItem('userExist')
             .then(res =>{
                 try {
@@ -99,7 +100,7 @@ const HomeScreen = ({navigation,route}) => {
             .then(function (response) {
               // console.log(response.data.data.list)
               if(JSON.stringify(response.data.status)==200){
-                setState(prev => ({...prev, cart:response.data.data.list}))
+                setState(prev => ({...prev, cart:response.data.data.list, loader: false}))
               }
             })
             .catch(function (error) {
@@ -468,159 +469,160 @@ axios(config)
             flex: 1,
             backgroundColor: DefaultColours.white
           }}>
-    <ScrollView contentContainerStyle={{ width: SCREEN_WIDTH }}>
-
-
-          {/* nav_bar */}
-          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH, height: 50,paddingHorizontal:12}}>
-              <TouchableOpacity onPress={()=> navigation.openDrawer()}
-              style={{alignItems:'center',justifyContent:'center',width:'10%'}}>
-              <Image
-                style={{width:30, height:30}}
-                resizeMode="contain"
-                source={DrawerImage}
+    {state.loader? <Loader/>:<><ScrollView contentContainerStyle={{ width: SCREEN_WIDTH }}>
+    
+    
+              {/* nav_bar */}
+              <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH, height: 50,paddingHorizontal:12}}>
+                  <TouchableOpacity onPress={()=> navigation.openDrawer()}
+                  style={{alignItems:'center',justifyContent:'center',width:'10%'}}>
+                  <Image
+                    style={{width:30, height:30}}
+                    resizeMode="contain"
+                    source={DrawerImage}
+                  />
+                   </TouchableOpacity>
+                  <TouchableOpacity onPress={()=>setState(prev => ({...prev, modalVisible: true}))}
+                  style={{justifyContent: 'center', alignItems: 'center',width:'70%'  }} >
+                  <Text style={{ color: DefaultColours.black }}>Click to reveal address modal</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{width:'10%',alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ top: 4, right: 4, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 18, height: 18, borderRadius: 9, backgroundColor: DefaultColours.pink }}>
+                      <Text style={{ color: DefaultColours.white, fontSize: 9 }}>10</Text>
+                    </View>
+                    <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bell" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <Path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+      <Path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+    </Svg>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={()=>setState(prev => ({...prev, search: true}))}
+                  style={{width:'10%',alignItems: 'center', justifyContent: 'center' }}>
+                  <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <Circle cx="10" cy="10" r="7" />
+      <Line x1="21" y1="21" x2="15" y2="15" />
+    </Svg></TouchableOpacity>
+              </View>
+              {/* nav_bar_ends */}
+    
+    
+              {/* search_bar }
+              <View  style={{ flex: 1, alignItems: 'center' }}>
+              <View style={{  borderRadius: 4, borderColor: 'grey', borderWidth: 1, padding: 1, width: SCREEN_WIDTH * 0.92 , height: 48 }}>
+              <TextInput style={{ fontSize: 13, color: DefaultColours.black }} value={state.searchText} onChangeText={text => setsearchText(text)} />
+              </View>
+              </View>
+              { search_bar_end */}
+    
+    
+              <FlatList
+                horizontal
+                ItemSeparatorComponent={
+                  () => <View style={{ padding: 5 }}/>
+                }
+                contentContainerStyle={{  padding:10 }}
+                data={sliderData}
+                renderItem={renderItem_sider1}
+                keyExtractor={item => item._id}
+                showsHorizontalScrollIndicator={false}
+                initialNumToRender={1}
               />
-               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>setState(prev => ({...prev, modalVisible: true}))}
-              style={{justifyContent: 'center', alignItems: 'center',width:'70%'  }} >
-              <Text style={{ color: DefaultColours.black }}>Click to reveal address modal</Text></TouchableOpacity>
-              <TouchableOpacity style={{width:'10%',alignItems: 'center', justifyContent: 'center' }}>
-                <View style={{ top: 4, right: 4, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 18, height: 18, borderRadius: 9, backgroundColor: DefaultColours.pink }}>
-                  <Text style={{ color: DefaultColours.white, fontSize: 9 }}>10</Text>
-                </View>
-                <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bell" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <Path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
-  <Path d="M9 17v1a3 3 0 0 0 6 0v-1" />
-</Svg>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={()=>setState(prev => ({...prev, search: true}))}
-              style={{width:'10%',alignItems: 'center', justifyContent: 'center' }}>
-              <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <Circle cx="10" cy="10" r="7" />
-  <Line x1="21" y1="21" x2="15" y2="15" />
-</Svg></TouchableOpacity>
-          </View>
-          {/* nav_bar_ends */}
-
-
-          {/* search_bar }
-          <View  style={{ flex: 1, alignItems: 'center' }}>
-          <View style={{  borderRadius: 4, borderColor: 'grey', borderWidth: 1, padding: 1, width: SCREEN_WIDTH * 0.92 , height: 48 }}>
-          <TextInput style={{ fontSize: 13, color: DefaultColours.black }} value={state.searchText} onChangeText={text => setsearchText(text)} />
-          </View>
-          </View>
-          { search_bar_end */}
-
-
-          <FlatList
-            horizontal
-            ItemSeparatorComponent={
-              () => <View style={{ padding: 5 }}/>
-            }
-            contentContainerStyle={{  padding:10 }}
-            data={sliderData}
-            renderItem={renderItem_sider1}
-            keyExtractor={item => item._id}
-            showsHorizontalScrollIndicator={false}
-            initialNumToRender={1}
-          />
-
-
-          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft: 12,marginTop:12 }}>
-            <Image source={require('@images/images/fire.png')} style={{ width: 20, height: 30  }} />
-            <Text style={{ paddingLeft: 10, color: DefaultColours.black , fontWeight: 'bold', fontSize : 17 }}>Trending</Text>
-          </View>
-
-          {/* trending */}
-
-
-          <FlatList
-            horizontal
-            ItemSeparatorComponent={
-              () => <View style={{ padding: 5 }}/>
-            }
-            contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
-            data={trendingData}
-            renderItem={renderItem_trending}
-            keyExtractor={item => item._id}
-            showsHorizontalScrollIndicator={false}
-
-          />
-
-
-
-          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft:10 }}>
-            <Image source={require('@images/images/toppicks.png')} style={{ width: 20, height: 20  }} />
-            <Text style={{ paddingLeft: 10, color: DefaultColours.black , fontWeight: 'bold', fontSize : 17 }}>Top Picks</Text>
-          </View>
-          <FlatList
-            horizontal
-            ItemSeparatorComponent={
-              () => <View style={{ padding: 5 }}/>
-            }
-            contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
-            data={toppicksData}
-            renderItem={renderItem_toppicks}
-            keyExtractor={item => item.id}
-            showsHorizontalScrollIndicator={false}
-
-          />
-
-
-
-          <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft:10 }}>
-            <Image source={require('@images/images/professional_services.png')} style={{ width: 20, height: 30  }} />
-            <Text style={{ paddingLeft: 10, color: DefaultColours.black , fontWeight: 'bold', fontSize : 17 }}>Professional Services</Text>
-          </View>
-          <FlatList
-            horizontal
-            ItemSeparatorComponent={
-              () => <View style={{ padding: 5 }}/>
-            }
-            contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
-            data={professionalservicesData}
-            renderItem={renderItem_professionalservices}
-            keyExtractor={item => item.id}
-            showsHorizontalScrollIndicator={false}
-
-          />
-
-          {/*<Text style={{ color: DefaultColours.black }} onPress={() => alert('under development')}>Home Screen</Text>
-          <TouchableOpacity onPress={logout}  style={{marginTop:20}}>
-          <Text>Logout</Text>
-          </TouchableOpacity>*/}
-
-
-          </ScrollView>
-        <View style={{ width:'100%',height:SCREEN_HIGHT*0.08, alignItems: 'center',flexDirection:'row' }}>
-        <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')}
-        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
-        {route.name=='HomeScreen'? <Image source={HomeActiveImg} style={styles.icon} resizeMode="contain"
-        />:<Image source={HomeInactiveImg} style={styles.icon} resizeMode="contain"/>}
-        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('SettingScreen')}
-        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
-        {route.name=='SettingScreen'? <Image source={AccountActiveImg} style={styles.icon} 
-        resizeMode="contain" />:<Image source={AccountInactiveImg} style={styles.icon} 
-        resizeMode="contain" />}
-        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Account</Text></TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('CartScreen')}
-        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
-        {route.name=='CartScreen'? <Image source={CartActiveImg} style={styles.icon} resizeMode="contain" />:
-                <Image source={CartInactiveImg} style={styles.icon} resizeMode="contain" />}
-        {state.cart&&state.cart.length==0? null:<View style={{position:'absolute',borderRadius:20,
-        backgroundColor:DefaultColours.blue0,paddingHorizontal:5,top:2,right:'30%',paddingVertical:2}}>
-        <Text style={{color:'#fff',fontSize:FontSize(7)}}>{state.cart&&state.cart.length}</Text></View>}
-        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Cart</Text></TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('ChatScreen')}
-        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
-        {route.name=='ChatScreen'? <Image source={ChatActiveImg} style={styles.icon} resizeMode="contain" />:
-                <Image source={ChatInavtiveImg} style={styles.icon} resizeMode="contain" />}
-        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Chat</Text></TouchableOpacity>
-        </View>
+    
+    
+              <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft: 12,marginTop:12 }}>
+                <Image source={require('@images/images/fire.png')} style={{ width: 20, height: 30  }} />
+                <Text style={{ paddingLeft: 10, color: DefaultColours.black , fontWeight: 'bold', fontSize : 17 }}>Trending</Text>
+              </View>
+    
+              {/* trending */}
+    
+    
+              <FlatList
+                horizontal
+                ItemSeparatorComponent={
+                  () => <View style={{ padding: 5 }}/>
+                }
+                contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
+                data={trendingData}
+                renderItem={renderItem_trending}
+                keyExtractor={item => item._id}
+                showsHorizontalScrollIndicator={false}
+    
+              />
+    
+    
+    
+              <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft:10 }}>
+                <Image source={require('@images/images/toppicks.png')} style={{ width: 20, height: 20  }} />
+                <Text style={{ paddingLeft: 10, color: DefaultColours.black , fontWeight: 'bold', fontSize : 17 }}>Top Picks</Text>
+              </View>
+              <FlatList
+                horizontal
+                ItemSeparatorComponent={
+                  () => <View style={{ padding: 5 }}/>
+                }
+                contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
+                data={toppicksData}
+                renderItem={renderItem_toppicks}
+                keyExtractor={item => item.id}
+                showsHorizontalScrollIndicator={false}
+    
+              />
+    
+    
+    
+              <View style={{ flex: 1, flexDirection: 'row', width: SCREEN_WIDTH * 0.9, justifyContent: 'flex-start', alignItems: 'center', maxHeight: 40, paddingLeft:10 }}>
+                <Image source={require('@images/images/professional_services.png')} style={{ width: 20, height: 30  }} />
+                <Text style={{ paddingLeft: 10, color: DefaultColours.black , fontWeight: 'bold', fontSize : 17 }}>Professional Services</Text>
+              </View>
+              <FlatList
+                horizontal
+                ItemSeparatorComponent={
+                  () => <View style={{ padding: 5 }}/>
+                }
+                contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
+                data={professionalservicesData}
+                renderItem={renderItem_professionalservices}
+                keyExtractor={item => item.id}
+                showsHorizontalScrollIndicator={false}
+    
+              />
+    
+              {/*<Text style={{ color: DefaultColours.black }} onPress={() => alert('under development')}>Home Screen</Text>
+              <TouchableOpacity onPress={logout}  style={{marginTop:20}}>
+              <Text>Logout</Text>
+              </TouchableOpacity>*/}
+    
+    
+              </ScrollView>
+            <View style={{ width:'100%',height:SCREEN_HIGHT*0.08, alignItems: 'center',flexDirection:'row' }}>
+            <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')}
+            style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+            {route.name=='HomeScreen'? <Image source={HomeActiveImg} style={styles.icon} resizeMode="contain"
+            />:<Image source={HomeInactiveImg} style={styles.icon} resizeMode="contain"/>}
+            <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('SettingScreen')}
+            style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+            {route.name=='SettingScreen'? <Image source={AccountActiveImg} style={styles.icon} 
+            resizeMode="contain" />:<Image source={AccountInactiveImg} style={styles.icon} 
+            resizeMode="contain" />}
+            <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Account</Text></TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('CartScreen')}
+            style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+            {route.name=='CartScreen'? <Image source={CartActiveImg} style={styles.icon} resizeMode="contain" />:
+                    <Image source={CartInactiveImg} style={styles.icon} resizeMode="contain" />}
+            {state.cart&&state.cart.length==0? null:<View style={{position:'absolute',borderRadius:20,
+            backgroundColor:DefaultColours.blue0,paddingHorizontal:5,top:2,right:'30%',paddingVertical:2}}>
+            <Text style={{color:'#fff',fontSize:FontSize(7)}}>{state.cart&&state.cart.length}</Text></View>}
+            <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Cart</Text></TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('ChatScreen')}
+            style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+            {route.name=='ChatScreen'? <Image source={ChatActiveImg} style={styles.icon} resizeMode="contain" />:
+                    <Image source={ChatInavtiveImg} style={styles.icon} resizeMode="contain" />}
+            <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Chat</Text></TouchableOpacity>
+            </View></>}
         </SafeAreaView>
 
       <Modal animationType="slide" style={{ margin: 0, padding: 0 }} transparent={true} visible={state.modalVisible} onRequestClose={() =>  setState(prev => ({...prev, modalVisible: false })) }>
