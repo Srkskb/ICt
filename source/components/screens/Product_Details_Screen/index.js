@@ -43,7 +43,7 @@ const ProductDetailScreen = ({ navigation,route }) => {
      var data = JSON.stringify({
   "userId": JSON.parse(res),
   "carts": {
-    "product": [route.params.data._id]
+    "product":route.params.data._id, units: 1
   }
 });
 var config = {
@@ -70,7 +70,7 @@ const addtocart = () => {
      var data = JSON.stringify({
   "userId": JSON.parse(res),
   "carts": {
-    "product": [route.params.data._id]
+    "product": route.params.data._id, units: 1
   }
 });
 var config = {

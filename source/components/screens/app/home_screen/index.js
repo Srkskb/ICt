@@ -40,11 +40,7 @@ const HomeScreen = ({navigation,route}) => {
 
   const [trendingData, settrendingData] = useState([])
   const [searchData, setSearchData] = useState([])
-  const [toppicksData, settoppicksData] = useState([
-    { id: 1, image: '@images/images/sample1.png', description: 'HP-Pavilion-i5-1035G115.6-Inch-4-GB-DDR41-TB-Win-10-Laptop-15-cs3056tx-2', price1: '1150', price2: '1350', rating: '4.9' },
-    { id: 2, image: '@images/images/sample2.png', description: 'boAt-Bluetooth-Headphone-Rockerz-518-Red', price1: '650', price2: '750', rating: '4.9' },
-    { id: 3, image: '@images/images/sample1.png', description: 'HP-Pavilion-i5-1035G115.6-Inch-4-GB-DDR41-TB-Win-1Laptop15-cs3056tx-2', price1: '1150', price2: '1350', rating: '4.9' },
-  ])
+  const [toppicksData, settoppicksData] = useState([])
   const [professionalservicesData, setprofessionalservicesData] = useState([
     { id: 1, image: '@images/images/sample1.png', badge: true, name: 'Denis Thompson', description: 'Computer Hardware Services', price1: '1150', price2: '1350', rating: '4.9' },
     { id: 2, image: '@images/images/sample2.png', badge: false, name: 'Craing William', description: 'Laptop Repair Services', price1: '650', price2: '750', rating: '4.9' },
@@ -60,6 +56,7 @@ const HomeScreen = ({navigation,route}) => {
     getBanner()
     getCategories()
     getCart()
+    getFeatured()
   }, []);
 
   const getlist = () => {
@@ -68,6 +65,22 @@ const HomeScreen = ({navigation,route}) => {
       .then(response => {
       //console.log('response list',response.data.data.list)
           settrendingData(response.data.data.list)
+
+      })
+    .catch(err => {
+        //console.log('error',err)
+      });
+    }
+    catch(error) {
+      //console.log('error2',error)
+    }
+  }
+  const getFeatured = () => {
+    try {
+     axios.post('http://3.16.105.232:8181/api/product/all/features-list')
+      .then(response => {
+      //console.log('response list',response.data.data.list)
+          settoppicksData(response.data.data.list)
 
       })
     .catch(err => {
@@ -183,16 +196,14 @@ const getCategories = () => {
 
   const renderItem_toppicks = ({item, index}) => {
     ////console.log('item ',item,index)
-    const addcart = () => {
+    const addcart = (list) => {
     AsyncStorage.getItem('userExist')
             .then(res =>{
                 try {
      var data = JSON.stringify({
   "userId": JSON.parse(res),
   "carts": {
-    "product": [
-      "61bb67b946eeef7ccbd2279a"
-    ]
+    "product": list._id, units: 1
   }
 });
 
@@ -211,7 +222,7 @@ axios(config)
   getCart()
 })
 .catch((error)=>{
-  //console.log(error);
+  //alert(error);
 });
     }
     catch(error) {
@@ -219,11 +230,11 @@ axios(config)
                 }}
   )}
     return (
-      <View key={item.id}
+      <View key={item._id}
       style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4,
         borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
         <TouchableOpacity onPress={()=>navigation.navigate('ProductDetailScreen', { data: item })}>
-        <TouchableOpacity onPress={addcart}
+        <TouchableOpacity onPress={()=>addcart(item)}
         style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -234,19 +245,17 @@ axios(config)
 </Svg>
         </TouchableOpacity>
             <View style={{ alignItems: 'center', padding: 10 }}>
-            {(index % 2 == 0) ?
-              <Image source={require('@images/images/sample1.png')} style={{ width: 100, height: 100}} />
-              :
-              <Image source={require('@images/images/sample2.png')} style={{ width: 100, height: 100}} />
-            }
+            <Image source={{uri:item.thumbnail}} style={{ width: 100, height: 100}} />
             </View>
           <Text numberOfLines={3}
           style={{ color: DefaultColours.black, fontSize: 13, color: 'black', padding: 5, lineHeight: 18 }}>
-          {item.description}</Text>
+          {item.title}</Text>
           <View style={{ flexDirection: 'row', padding: 5 ,justifyContent:'flex-end' , flex:1}}>
               <View style={{ flex: 1, justifyContent:'flex-end'}}>
-                  <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>AED <Text style={{ fontWeight: 'bold'}}>{item.price1}</Text></Text>
-                  <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through' }}>AED {item.price2}</Text>
+                  <Text style={{ color: DefaultColours.black, fontSize: 15,  }}>
+                  {item.currency} <Text style={{ fontWeight: 'bold'}}>{item.sellingPrice}</Text></Text>
+                  <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through' }}>
+                  {item.currency} {item.originalPrice}</Text>
               </View>
               <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
                 <Image source={require('@images/images/star.png')} style={{ width: 20, height: 20 }} />
@@ -261,14 +270,14 @@ axios(config)
 
   const renderItem_trending = ({item, index}) => {
     ////console.log('item ',item,index)
-    const addcart = () => {
+    const addcart = (list) => {
     AsyncStorage.getItem('userExist')
             .then(res =>{
                 try {
      var data = JSON.stringify({
   "userId": JSON.parse(res),
   "carts": {
-    "product": [item._id]
+    "product": list._id, units: 1
   }
 });
 
@@ -300,7 +309,7 @@ axios(config)
       style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4,
         borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
         <TouchableOpacity onPress={()=>navigation.navigate('ProductDetailScreen', { data: item })}>
-        <TouchableOpacity onPress={addcart}
+        <TouchableOpacity onPress={()=>addcart(item)}
         style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -336,14 +345,14 @@ axios(config)
 
   const renderItem_search = ({item, index}) => {
     ////console.log('item ',item,index)
-    const addcart = () => {
+    const addcart = (list) => {
     AsyncStorage.getItem('userExist')
             .then(res =>{
                 try {
      var data = JSON.stringify({
   "userId": JSON.parse(res),
   "carts": {
-    "product": [item._id]
+    "product": list._id, units: 1
   }
 });
 
@@ -375,7 +384,7 @@ axios(config)
       style={{ width: SCREEN_WIDTH * .44, minHeight: SCREEN_WIDTH * .4,
         borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4,marginRight:SCREEN_WIDTH * .02,
         marginBottom:SCREEN_WIDTH * .02 }}>
-        <TouchableOpacity onPress={addcart}
+        <TouchableOpacity onPress={()=>addcart(item)}
         style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -544,7 +553,7 @@ axios(config)
                   () => <View style={{ padding: 5 }}/>
                 }
                 contentContainerStyle={{  paddingHorizontal: 10, paddingVertical: 20 }}
-                data={trendingData}
+                data={trendingData.slice(0, 20)}
                 renderItem={renderItem_trending}
                 keyExtractor={item => item._id}
                 showsHorizontalScrollIndicator={false}

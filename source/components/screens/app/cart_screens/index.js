@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {View, Text,TouchableOpacity, Image, TextInput, FlatList, ScrollView,
   StyleSheet,KeyboardAvoidingView,Dimensions} from 'react-native';
 import {SafeAreaProvider,SafeAreaView} from 'react-native-safe-area-context';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT,FontSize} from '@constants';
 import {Loader} from '@global_components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -78,8 +81,8 @@ const getlist = () => {
 
   const renderList = list => {
 
-    let count=list.quantity
-    const removeItem=()=>{
+    
+    const removeItem=(list)=>{
 AsyncStorage.getItem('userExist')
             .then(res =>{
                 try {
@@ -109,37 +112,73 @@ axios(config)
                   //console.log('error2',error)
                 }}
   )}
-const addqty=()=>{
-  const config = {
-      headers : {'Authorization':`Bearer ${this.state.user.access_token}`}
-      };
-
-  const data={
-    id:list.id,
-    quantity:list.quantity+1
+const addqty=(list)=>{
+  AsyncStorage.getItem('userExist')
+            .then(res =>{
+                try {
+     var data = JSON.stringify({
+  "userId": JSON.parse(res),
+  "carts": {
+    "product": list._id, units: 1
   }
-  axios.post(`https://ecom.theaaura.com/api/v1/carts/change-quantity`,data,config).then(response=> {
-      this.getdata()
-      ToastAndroid.show('Added quantity by 1', ToastAndroid.SHORT)
-}).catch(error=> {
-  alert('Cannot Update Product Quantity');
 });
+
+var config = {
+  method: 'post',
+  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+axios(config)
+.then((response)=>{
+  //console.log(JSON.stringify(response.data))
+  Toast.show(response.data.message)
+  getlist()
+})
+.catch((error)=>{
+  //alert(error);
+});
+    }
+    catch(error) {
+                  //console.log('error2',error)
+                }}
+  )
 }
-const remqty=()=>{
-  const config = {
-      headers : {'Authorization':`Bearer ${this.state.user.access_token}`}
-      };
-
-  const data={
-    id:list.id,
-    quantity:list.quantity-1
+const remqty=(list)=>{
+  AsyncStorage.getItem('userExist')
+            .then(res =>{
+                try {
+     var data = JSON.stringify({
+  "userId": JSON.parse(res),
+  "carts": {
+    "product": list._id, units:Number(-1)
   }
-  axios.post(`https://ecom.theaaura.com/api/v1/carts/change-quantity`,data,config).then(response=> {
-      this.getdata()
-      ToastAndroid.show('Decreased quantity by 1', ToastAndroid.SHORT)
-}).catch(error=> {
-  alert('Cannot Update Product Quantity');
 });
+
+var config = {
+  method: 'post',
+  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+axios(config)
+.then((response)=>{
+  // console.log(JSON.stringify(response.data))
+  Toast.show(response.data.message)
+  getlist()
+})
+.catch((error)=>{
+  //alert(error);
+});
+    }
+    catch(error) {
+                  //console.log('error2',error)
+                }}
+  )
 }
 
     return(
@@ -150,46 +189,56 @@ const remqty=()=>{
         <View style={{width:'20%'}}><Image style={{height:100,borderRadius: 6}}
                 source={{uri:list.thumbnail}} resizeMode={'contain'}
                 /></View>
-        <View style={{width:'50%',paddingHorizontal:6,justifyContent: 'flex-start',alignItems: 'center'}}>
-        <Text numberOfLines={3}
-        style={{fontSize: 20,color:'#121212',fontFamily: "Montserrat-SemiBold"}}>
+        <View style={{width:'50%',paddingHorizontal:6,justifyContent: 'space-between',alignItems: 'center'}}>
+        <Text numberOfLines={5}
+        style={{fontSize: FontSize(14),color:'#121212',fontFamily: "Montserrat-SemiBold"}}>
                   {list.title}</Text>
-        
-                {/*<View style={{width:'100%',flexDirection:'row',justifyContent: 'flex-start',alignItems: 'center'}}>
+        {/*<View style={{width:'100%',flexDirection:'row',justifyContent: 'flex-start',alignItems: 'center'}}>
                 <TouchableOpacity onPress={remqty}
       style={{borderRadius: 20,flexDirection:'row',
           justifyContent: 'center',alignItems: 'center',paddingHorizontal:4,paddingVertical:4}}>
-      
+      <MaterialCommunityIcons name="minus-circle" size={24} color="black" />
       </TouchableOpacity>
                 <TouchableOpacity onPress={addqty}
       style={{borderRadius: 20,flexDirection:'row',
           justifyContent: 'center',alignItems: 'center',paddingHorizontal:4,paddingVertical:4}}>
-      
+      <MaterialCommunityIcons name="plus-circle" size={24} color="black" />
       </TouchableOpacity></View>*/}
-                <View style={{flexDirection:'row-reverse',width:'100%',justifyContent: 'flex-end' }}>
-                <TouchableOpacity onPress={removeItem}
+      <View style={{flexDirection:'row-reverse',width:'100%',justifyContent: 'flex-end' }}>
+                <TouchableOpacity onPress={()=>removeItem(list)}
       style={{borderRadius: 20,flexDirection:'row',
           justifyContent: 'flex-end',alignItems: 'center',paddingHorizontal:4,paddingVertical:4,width:'100%'}}>
-      <Text style={{fontSize: 16,color:'#f37121',paddingBottom:2,fontFamily: "Montserrat-Medium"}}>Remove</Text>
+      <Text style={{fontSize: FontSize(14),color:'#f37121',paddingBottom:2,fontFamily: "Montserrat-Medium"}}>Remove</Text>
       </TouchableOpacity>
       
                 </View></View>
 
         <View style={{width:'15%',paddingHorizontal:6,justifyContent: 'center',alignItems: 'center'}}>
-        <Text style={{fontSize: 16,color:'#121212',flexWrap: 'wrap',fontFamily: "Montserrat-Medium"}}>
+        <TouchableOpacity onPress={()=>remqty(list)}
+      style={{borderRadius: 20,flexDirection:'row',
+          justifyContent: 'center',alignItems: 'center',paddingHorizontal:4,paddingVertical:4}}>
+      <MaterialCommunityIcons name="minus-circle" size={20} color="black" />
+      </TouchableOpacity>
+      <Text style={{fontSize: FontSize(14),color:'#121212',flexWrap: 'wrap',
+        fontFamily: "Montserrat-Medium"}}>
                 {list.quantity}</Text>
+      <TouchableOpacity onPress={()=>addqty(list)}
+      style={{borderRadius: 20,flexDirection:'row',
+          justifyContent: 'center',alignItems: 'center',paddingHorizontal:4,paddingVertical:4}}>
+      <MaterialCommunityIcons name="plus-circle" size={20} color="black" />
+      </TouchableOpacity>
                 </View>
         <View style={{width:'15%',paddingHorizontal:6,justifyContent: 'center',alignItems: 'center'}}>
-        <Text style={{ color: 'black', fontSize: 15,textAlign:'center'}}>
+        <Text style={{ color: 'black', fontSize: FontSize(13),textAlign:'center'}}>
         {list.currency} <Text style={{ fontWeight: 'bold'}}>{list.sellingPrice}</Text></Text>
-        <Text style={{ color: 'grey', fontSize: 13, textDecorationLine: 'line-through',textAlign:'center'}}>
+        <Text style={{ color: 'grey', fontSize: FontSize(11), textDecorationLine: 'line-through',textAlign:'center'}}>
         {list.currency} {list.originalPrice}</Text>
         </View>
         </View></View>
                 )
   }
   
-  const total=state.cart.map(i=>i.sellingPrice).reduce((a, b) => a+b, 0)
+  const total=state.cart.map(i=>i.sellingPrice*i.quantity).reduce((a, b) => a+b, 0)
   const acart=state.cart.map((o,i)=>{
   const product = o._id
   const currency=o.currency
@@ -277,9 +326,9 @@ axios(config)
         <View style={{flex:1}}>
         <View style={{paddingHorizontal:height*0.02,paddingVertical:height*0.01}}>
         <Text style={{color:'#121212'}}>You have {state.cart.length} {state.cart.length>1? 'items':'item'} in the cart </Text></View>
-        <View style={{paddingHorizontal:height*0.02,paddingVertical:height*0.01}}>
+        <View style={{paddingHorizontal:height*0.02,paddingBottom:height*0.01}}>
         <Text style={{color:'#121212',fontSize:FontSize(width*0.054),color: '#5A429B'}}>
-        Sub Total : INR {total} </Text></View>
+        Sub Total : AED {total} </Text></View>
         <TouchableOpacity onPress={checkOut}
         style={{backgroundColor: '#5A429B',height:height*0.068,
         marginHorizontal:height*0.02,borderRadius:4,justifyContent:'center',alignItems:'center'}}>
