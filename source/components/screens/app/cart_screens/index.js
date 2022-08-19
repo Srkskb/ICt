@@ -49,7 +49,7 @@ const getlist = () => {
             
             var config = {
               method: 'post',
-              url: 'http://3.16.105.232:8181/api/user/cart',
+              url: 'https://api.ictkart.com/api/user/cart',
               headers: { 
                 'Content-Type': 'application/json'
               },
@@ -92,7 +92,7 @@ AsyncStorage.getItem('userExist')
 });
 var config = {
   method: 'post',
-  url: 'http://3.16.105.232:8181/api/user/remove/cart',
+  url: 'https://api.ictkart.com/api/user/remove/cart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -125,7 +125,7 @@ const addqty=(list)=>{
 
 var config = {
   method: 'post',
-  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  url: 'https://api.ictkart.com/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -157,9 +157,10 @@ const remqty=(list)=>{
   }
 });
 
+console.log(data)
 var config = {
   method: 'post',
-  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  url: 'https://api.ictkart.com/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -283,7 +284,7 @@ axios(config)
 });
      var config = {
   method: 'post',
-  url: 'http://3.16.105.232:8181/api/buyproduct/add',
+  url: 'https://api.ictkart.com/api/buyproduct/add',
   headers: { 
     'Content-Type': 'application/json'
   },

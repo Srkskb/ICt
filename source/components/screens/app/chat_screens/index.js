@@ -43,7 +43,7 @@ const ChatScreen = ({navigation,route}) => {
             
             var config = {
               method: 'post',
-              url: 'http://3.16.105.232:8181/api/user/cart',
+              url: 'https://api.ictkart.com/api/user/cart',
               headers: { 
                 'Content-Type': 'application/json'
               },

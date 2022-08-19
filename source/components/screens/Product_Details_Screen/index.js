@@ -48,7 +48,7 @@ const ProductDetailScreen = ({ navigation,route }) => {
 });
 var config = {
   method: 'post',
-  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  url: 'https://api.ictkart.com/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -75,7 +75,7 @@ const addtocart = () => {
 });
 var config = {
   method: 'post',
-  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  url: 'https://api.ictkart.com/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -96,7 +96,7 @@ const [data, setData] = React.useState([])
   const getProductInfo=()=>{
       AsyncStorage.getItem('userExist')
             .then(res =>{
-              axios.get(`http://3.16.105.232:8181/api/product/detail?productId=${route.params.data._id}&userId=${JSON.parse(res)}`)
+              axios.get(`https://api.ictkart.com/api/product/detail?productId=${route.params.data._id}&userId=${JSON.parse(res)}`)
       .then(response => {
       // console.log(response.data.data.product)
           setData(response.data.data.product)
@@ -121,7 +121,7 @@ const [data, setData] = React.useState([])
             
             var config = {
               method: 'post',
-              url: 'http://3.16.105.232:8181/api/user/cart',
+              url: 'https://api.ictkart.com/api/user/cart',
               headers: { 
                 'Content-Type': 'application/json'
               },

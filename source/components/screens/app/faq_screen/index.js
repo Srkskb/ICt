@@ -35,7 +35,7 @@ const FaqScreen = () => {
 
   const getlist = () => {
     try {
-     axios.get('http://3.16.105.232:8181/api/faq/list')
+     axios.get('https://api.ictkart.com/api/faq/list')
       .then(response => {
           //console.log('response faqs',response.data.data.faqs)
           var data = response.data.data.faqs

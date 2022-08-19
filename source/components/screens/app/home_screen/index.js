@@ -61,7 +61,7 @@ const HomeScreen = ({navigation,route}) => {
 
   const getlist = () => {
     try {
-     axios.post('http://3.16.105.232:8181/api/product/all/list')
+     axios.post('https://api.ictkart.com/api/product/all/list')
       .then(response => {
       //console.log('response list',response.data.data.list)
           settrendingData(response.data.data.list)
@@ -77,7 +77,7 @@ const HomeScreen = ({navigation,route}) => {
   }
   const getFeatured = () => {
     try {
-     axios.post('http://3.16.105.232:8181/api/product/all/features-list')
+     axios.post('https://api.ictkart.com/api/product/all/features-list')
       .then(response => {
       //console.log('response list',response.data.data.list)
           settoppicksData(response.data.data.list)
@@ -102,7 +102,7 @@ const HomeScreen = ({navigation,route}) => {
             
             var config = {
               method: 'post',
-              url: 'http://3.16.105.232:8181/api/user/cart',
+              url: 'https://api.ictkart.com/api/user/cart',
               headers: { 
                 'Content-Type': 'application/json'
               },
@@ -126,7 +126,7 @@ const HomeScreen = ({navigation,route}) => {
   )}
 const getBanner = () => {
     try {
-     axios.get('http://3.16.105.232:8181/api/banner/list?displayAt=home&status=true')
+     axios.get('https://api.ictkart.com/api/banner/list?displayAt=home&status=true')
       .then(response => {
       //console.log('response list',response.data.data.banners)
           setsliderData(response.data.data.banners)
@@ -142,7 +142,7 @@ const getBanner = () => {
   }
 const getCategories = () => {
     try {
-     axios.get('http://3.16.105.232:8181/api/categories/list')
+     axios.get('https://api.ictkart.com/api/categories/list')
       .then(response => {
       //console.log(response.data.data.list)
       setCategoryData(response.data.data.list)
@@ -209,7 +209,7 @@ const getCategories = () => {
 
 var config = {
   method: 'post',
-  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  url: 'https://api.ictkart.com/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -283,7 +283,7 @@ axios(config)
 
 var config = {
   method: 'post',
-  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  url: 'https://api.ictkart.com/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -358,7 +358,7 @@ axios(config)
 
 var config = {
   method: 'post',
-  url: 'http://3.16.105.232:8181/api/user/add/incart',
+  url: 'https://api.ictkart.com/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },
