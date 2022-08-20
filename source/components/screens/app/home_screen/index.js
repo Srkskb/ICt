@@ -142,7 +142,7 @@ const getBanner = () => {
   }
 const getCategories = () => {
     try {
-     axios.get('https://api.ictkart.com/api/categories/list')
+     axios.get('https://api.ictkart.com/api/categories/dropdown/list?type=product')
       .then(response => {
       //console.log(response.data.data.list)
       setCategoryData(response.data.data.list)
@@ -269,7 +269,7 @@ axios(config)
   }
 
   const renderItem_trending = ({item, index}) => {
-    ////console.log('item ',item,index)
+    // console.log('item ',item,index)
     const addcart = (list) => {
     AsyncStorage.getItem('userExist')
             .then(res =>{
@@ -280,7 +280,7 @@ axios(config)
     "product": list._id, units: 1
   }
 });
-
+console.log(data)
 var config = {
   method: 'post',
   url: 'https://api.ictkart.com/api/user/add/incart',
@@ -291,7 +291,7 @@ var config = {
 };
 axios(config)
 .then((response)=>{
-  //console.log(JSON.stringify(response.data))
+  console.log(JSON.stringify(response.data))
   Toast.show(response.data.message)
   getCart()
 })
@@ -420,7 +420,7 @@ axios(config)
   const renderItem_professionalservices = ({item, index}) => {
     ////console.log('item ',item,index)
     return (
-      <View key={item.id} style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4, borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
+      <View key={index} style={{ width: SCREEN_WIDTH * .45, minHeight: SCREEN_WIDTH * .4, borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4 }}>
             <View style={{ alignItems: 'center', padding: 10 }}>
             {(index % 2 == 0) ?
               <Image source={require('@images/images/s1.png')} style={{ borderRadius: 50, width: 100, height: 100}} />

@@ -58,9 +58,9 @@ const DrawerContent = ({navigation}) => {
                }
      }
 
-   const  getUserData= async  (currentUserData) =>{
-   //console.log('userID',currentUserData)
-   var response = await axios.get(`http://3.16.105.232:8181/api/user/detail?userId=${currentUserData}`)
+   const  getUserData= async (currentUserData) =>{
+   console.log('userID',currentUserData)
+   var response = await axios.get(`https://api.ictkart.com/api/user/detail?userId=${currentUserData}`)
    //console.log('response profile',response.data.data.user)
    if(typeof response.data !== 'undefined' && response.data !== null ){
 
@@ -97,10 +97,22 @@ const DrawerContent = ({navigation}) => {
     const [categories, setCategory] = useState([])
     const [subCategories, setSubCategory] = useState([])
     const [showCategory, setShow] = useState(false)
-    const category=async()=>{
-      var response = await axios.get(`http://3.16.105.232:8181/api/categories/dropdown/list?type=product`)
-      // console.log(response.data.data.list)
+    const [label, setLabel] = useState('')
+    const category=()=>{
+      try {
+     axios.get('https://api.ictkart.com/api/categories/dropdown/list?type=product')
+      .then(response => {
+      //console.log(response.data.data.list)
       setCategory(response.data.data.list)
+
+      })
+    .catch(err => {
+        //console.log('error',err)
+      });
+    }
+    catch(error) {
+      //console.log('error2',error)
+    }
     }
   return (
     <View>
@@ -132,7 +144,7 @@ const DrawerContent = ({navigation}) => {
           return(
             <>
       {subCategories.length>0&&<TouchableOpacity key={index}
-      onPress={()=>setSubCategory([])}
+      onPress={()=>{setSubCategory([])}}
             style={{  flexDirection: 'row', marginHorizontal:10, borderBottomColor: "grey", 
             alignItems:'center' , backgroundColor:'white', marginVertical:6 ,paddingLeft:12
             ,justifyContent:'space-between' }}>
@@ -140,14 +152,14 @@ const DrawerContent = ({navigation}) => {
             {item.subcategories&&item.subcategories.length>0&&<FontAwesome5 name='chevron-up' size={14} color={"grey"}/>}
           </TouchableOpacity>}
       {subCategories.length==0&&<TouchableOpacity key={index}
-      onPress={()=>item.subcategories&&item.subcategories.length>0? setSubCategory(item.subcategories):navigation.navigate('ProductScreen', { data: item })}
+      onPress={()=>{item.subcategories&&item.subcategories.length>0? setSubCategory(item.subcategories):navigation.navigate('ProductScreen', { data: item });setLabel(item.label)}}
             style={{  flexDirection: 'row', marginHorizontal:10, borderBottomColor: "grey", 
             alignItems:'center' , backgroundColor:'white', marginVertical:6 ,paddingLeft:12
             ,justifyContent:'space-between' }}>
             <Text style={{ fontSize: 16,  flexShrink: 1 }}>{item.label}</Text>
             {item.subcategories&&item.subcategories.length>0&&<FontAwesome5 name='chevron-down' size={14} color={"grey"}/>}
           </TouchableOpacity>}
-    {item.subcategories&&item.subcategories.length>0&&subCategories.map((item,index)=>{
+    {label==item.label&&item.subcategories&&item.subcategories.length>0&&subCategories.map((item,index)=>{
           return(
             <TouchableOpacity key={index} onPress={()=>navigation.navigate('ProductScreen', { data: item })}
       style={{  flexDirection: 'row', marginLeft:24, borderBottomColor: "grey", marginRight:10,
