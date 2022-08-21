@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text,TouchableOpacity, Image, TextInput, FlatList, ScrollView,
-  StyleSheet,KeyboardAvoidingView} from 'react-native';
+  StyleSheet,KeyboardAvoidingView,StatusBar} from 'react-native';
 import {SafeAreaProvider,SafeAreaView} from 'react-native-safe-area-context';
 
 import {DefaultColours, SCREEN_WIDTH,SCREEN_HIGHT,FontSize} from '@constants';
@@ -474,6 +474,7 @@ axios(config)
 
   return (
     <>
+    <StatusBar/>
     <SafeAreaView style={{
             flex: 1,
             backgroundColor: DefaultColours.white
