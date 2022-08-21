@@ -157,7 +157,6 @@ const remqty=(list)=>{
   }
 });
 
-console.log(data)
 var config = {
   method: 'post',
   url: 'https://api.ictkart.com/api/user/add/incart',

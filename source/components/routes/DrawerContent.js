@@ -59,7 +59,7 @@ const DrawerContent = ({navigation}) => {
      }
 
    const  getUserData= async (currentUserData) =>{
-   console.log('userID',currentUserData)
+   // console.log('userID',currentUserData)
    var response = await axios.get(`https://api.ictkart.com/api/user/detail?userId=${currentUserData}`)
    //console.log('response profile',response.data.data.user)
    if(typeof response.data !== 'undefined' && response.data !== null ){

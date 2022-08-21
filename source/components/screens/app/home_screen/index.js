@@ -280,7 +280,6 @@ axios(config)
     "product": list._id, units: 1
   }
 });
-console.log(data)
 var config = {
   method: 'post',
   url: 'https://api.ictkart.com/api/user/add/incart',
@@ -291,7 +290,7 @@ var config = {
 };
 axios(config)
 .then((response)=>{
-  console.log(JSON.stringify(response.data))
+  // console.log(JSON.stringify(response.data))
   Toast.show(response.data.message)
   getCart()
 })
