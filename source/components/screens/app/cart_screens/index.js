@@ -246,7 +246,7 @@ axios(config)
   const items=o.quantity
   const originalPrice=o.originalPrice
   const sellingPrice=o.sellingPrice
-  // const vendor=o.seller.id? o.seller.id:null
+  const vendor=null
   return {
     product,
     currency,
@@ -254,7 +254,7 @@ axios(config)
   items,
   originalPrice,
   sellingPrice,
-  // vendor,
+  vendor,
   }
 });
 
@@ -263,6 +263,7 @@ axios(config)
             .then(res =>{
               try {
      var data = JSON.stringify({
+  "product": {
   "user": JSON.parse(res),
   "transactionId": "TR1648301811161",
   "orderId": "OR1648301811161",
@@ -278,7 +279,51 @@ axios(config)
   "from": "bycart",
   "items": acart,
   "address": {
-    "address": {}
+    "address": {},
+      "name": "nitish",
+      "mobile": "8449434021",
+      "postcode": "0912",
+      "houseNo": "abc",
+      "locality": "mainroad",
+      "city": "meerut",
+      "state": "up",
+      "postalAddress": "abcbbcccdnklsdnkl",
+      "userId": "62ef65d1554f301a84d1eca9",
+      "long": 0,
+      "lat": 0
+    }
+  },
+  "token": {
+    "id": "tok_1LafzjIQlecXJ3PYF5gn9tZh",
+    "object": "token",
+    "card": {
+      "id": "card_1LafzjIQlecXJ3PYul7fwOZz",
+      "object": "card",
+      "address_city": null,
+      "address_country": null,
+      "address_line1": null,
+      "address_line1_check": null,
+      "address_line2": null,
+      "address_state": null,
+      "address_zip": null,
+      "address_zip_check": null,
+      "brand": "Visa",
+      "country": "US",
+      "cvc_check": "unchecked",
+      "dynamic_last4": null,
+      "exp_month": 12,
+      "exp_year": 2023,
+      "funding": "credit",
+      "last4": "4242",
+      "name": "nitish1@yopmail.com",
+      "tokenization_method": null
+    },
+    "client_ip": "106.211.27.82",
+    "created": 1661433675,
+    "email": "nitish1@yopmail.com",
+    "livemode": false,
+    "type": "card",
+    "used": false
   }
 });
      var config = {
@@ -299,7 +344,7 @@ axios(config)
   }
 })
 .catch((error)=>{
-  //console.log(error.response.data);
+  // console.log(error);
   Toast.show(error.response.data.message)
 });
     }
@@ -329,7 +374,7 @@ axios(config)
         <View style={{paddingHorizontal:height*0.02,paddingBottom:height*0.01}}>
         <Text style={{color:'#121212',fontSize:FontSize(width*0.054),color: '#5A429B'}}>
         Sub Total : AED {total} </Text></View>
-        <TouchableOpacity onPress={checkOut}
+        <TouchableOpacity onPress={()=>checkOut()}
         style={{backgroundColor: '#5A429B',height:height*0.068,
         marginHorizontal:height*0.02,borderRadius:4,justifyContent:'center',alignItems:'center'}}>
         <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.04),fontWeight:'400'}}>
