@@ -57,7 +57,7 @@ const getlist = () => {
             };
             
             axios(config)
-            .then(function (response) {
+            .then((response)=>{
               // console.log(response.data.data.list)
               if(JSON.stringify(response.data.status)==200){
                 setState(prev => ({...prev, cart:response.data.data.list}))
@@ -73,11 +73,13 @@ const getlist = () => {
   )}
 
   useEffect(() => {
-    setTimeout(() => {
-      setState(prev => ({...prev, loader: false}));
-    }, 2000);
-    getlist()
-  }, []);
+    if(navigation.isFocused()){
+        setTimeout(() => {
+          setState(prev => ({...prev, loader: false}));
+        }, 2000);
+        getlist()
+      }
+  }, [navigation]);
 
   const renderList = list => {
 
@@ -100,7 +102,7 @@ var config = {
 };
 axios(config)
 .then((response)=>{
-  //console.log(JSON.stringify(response.data))
+  // console.log(JSON.stringify(response.data))
   getlist()
   Toast.show(response.data.message)
 })
@@ -182,8 +184,8 @@ axios(config)
 }
 
     return(
-      <View elevation={5} style={{width: Dimensions.get('window').width-24,backgroundColor: '#fdfdfd',padding:6,
-      marginHorizontal:12,marginVertical:6,borderRadius: 6}}>
+      <View elevation={5} style={{backgroundColor: '#fdfdfd',padding:6,
+      marginHorizontal:height*0.02,marginVertical:height*0.01,borderRadius: 6}}>
         
         <View style={{flexDirection:'row',width:'100%',padding:6}}>
         <View style={{width:'20%'}}><Image style={{height:100,borderRadius: 6}}
@@ -217,19 +219,19 @@ axios(config)
         <TouchableOpacity onPress={()=>remqty(list)}
       style={{borderRadius: 20,flexDirection:'row',
           justifyContent: 'center',alignItems: 'center',paddingHorizontal:4,paddingVertical:4}}>
-      <MaterialCommunityIcons name="minus-circle" size={20} color="black" />
+      <MaterialCommunityIcons name="minus-circle" size={20} color="#5A429B" />
       </TouchableOpacity>
-      <Text style={{fontSize: FontSize(14),color:'#121212',flexWrap: 'wrap',
+      <Text style={{fontSize: FontSize(14),color:'#5A429B',flexWrap: 'wrap',
         fontFamily: "Montserrat-Medium"}}>
                 {list.quantity}</Text>
       <TouchableOpacity onPress={()=>addqty(list)}
       style={{borderRadius: 20,flexDirection:'row',
           justifyContent: 'center',alignItems: 'center',paddingHorizontal:4,paddingVertical:4}}>
-      <MaterialCommunityIcons name="plus-circle" size={20} color="black" />
+      <MaterialCommunityIcons name="plus-circle" size={20} color="#5A429B" />
       </TouchableOpacity>
                 </View>
         <View style={{width:'15%',paddingHorizontal:6,justifyContent: 'center',alignItems: 'center'}}>
-        <Text style={{ color: 'black', fontSize: FontSize(13),textAlign:'center'}}>
+        <Text style={{ color: '#5A429B', fontSize: FontSize(13),textAlign:'center'}}>
         {list.currency} <Text style={{ fontWeight: 'bold'}}>{list.sellingPrice}</Text></Text>
         <Text style={{ color: 'grey', fontSize: FontSize(11), textDecorationLine: 'line-through',textAlign:'center'}}>
         {list.currency} {list.originalPrice}</Text>

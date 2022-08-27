@@ -34,7 +34,7 @@ import {
 
 const HomeScreen = ({navigation,route}) => {
   const [state, setState] = useState({loader: true, modalVisible: false,search:false,cart:[]});
-  const [search, setsearchText] = useState('');
+  const [searchText, setsearchText] = useState('');
   const [sliderData, setsliderData] = useState([])
   const [categoryData, setCategoryData] = useState([])
 
@@ -383,6 +383,7 @@ axios(config)
       style={{ width: SCREEN_WIDTH * .44, minHeight: SCREEN_WIDTH * .4,
         borderRadius: 5, borderWidth: 1, borderColor: 'grey', padding: 4,marginRight:SCREEN_WIDTH * .02,
         marginBottom:SCREEN_WIDTH * .02 }}>
+      <TouchableOpacity onPress={()=>navigation.navigate('ProductDetailScreen', { data: item })}>
         <TouchableOpacity onPress={()=>addcart(item)}
         style={{ top: 8, right: 8, position: 'absolute', justifyContent: 'center', alignItems: 'center', width: 26, height: 26, borderRadius: 13, backgroundColor: DefaultColours.blue0 }}>
         <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="20" height="20" viewBox="0 0 24 24" stroke-width="3" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -412,6 +413,7 @@ axios(config)
                 {item.rating}</Text>
               </View>
           </View>
+          </TouchableOpacity>
       </View>
     )
   }
@@ -465,9 +467,25 @@ axios(config)
   }
 
   const searchItem=(item)=>{
-    let data=trendingData
-    var result = data.filter((e) => e.title.toLowerCase().includes(item.toLowerCase()));
-    setSearchData(result)
+    var data = JSON.stringify({
+      "search":item,
+      "sort": "popularity"
+      });
+    var config = {
+  method: 'post',
+  url: 'https://api.ictkart.com/api/product/all/list',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+axios(config)
+.then((response)=>{
+    setSearchData(response.data.data.list)
+})
+.catch((error)=>{
+  // console.log(error);
+});
     // console.log(result)
   }
 
@@ -688,12 +706,29 @@ axios(config)
   <Line x1="5" y1="12" x2="11" y2="6" />
 </Svg>
                 </TouchableOpacity>
-      <TextInput style={{ color: DefaultColours.blue0,width:'90%',
-        borderLeftWidth: 1,height:40,paddingLeft:12,fontSize: 14 }}
-      value={state.searchText}
+      <TextInput style={{ color: DefaultColours.blue0,width:'80%',
+        borderLeftWidth: 1,height:40,paddingLeft:12,fontSize: 14,borderRightWidth:1 }}
+      value={searchText}
       placeholder={'Search ICT Kart'}
       placeholderTextColor={DefaultColours.blue0}
-      onChangeText={text => searchItem(text)} />
+      onChangeText={text => setsearchText(text)} />
+  <TouchableOpacity
+                  style={{
+                          width:'10%',
+                          height: 48,
+                          borderRadius: 24,
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                      }}
+                  onPress={() =>searchItem(searchText)}>
+  <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" 
+  width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5A429B" 
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <Circle cx="10" cy="10" r="7" />
+  <Line x1="21" y1="21" x2="15" y2="15" />
+</Svg>
+                </TouchableOpacity>
   </View>
   <View style={{width:'100%',height:44,paddingTop:4,flexDirection:'row',paddingHorizontal:20}}>
       <View style={{width:'50%',alignItems:'flex-start',justifyContent:'center'}}>

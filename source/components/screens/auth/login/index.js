@@ -72,7 +72,7 @@ const LoginScreen = ({navigation}) => {
     try {
 
       var response = await axios.post('https://api.ictkart.com/api/user/login', data)
-      //console.log('response for ',response.data.data.user._id)
+      // console.log(response.data.data)
 
       if(typeof response === 'undefined'){
         Toast.show('There is some connection problem. Please try later.')
@@ -90,12 +90,12 @@ const LoginScreen = ({navigation}) => {
 
 
 
-      if(response.data.data === 'please verify you account first'){
-        Toast.show(response.data.data)
-        navigation.navigate('VerifyScreen', {token: response.data.data.token, email})
-        setLoadingtypeoverlay(false);
-        return;
-      }
+      // if(response.data.data === 'please verify you account first'){
+      //   Toast.show(response.data.data)
+      //   navigation.navigate('VerifyScreen', {token: response.data.data.token, email})
+      //   setLoadingtypeoverlay(false);
+      //   return;
+      // }
 
         //console.log('token',response.data.data.token)
         //if(response.data !== null && response.status == 200 && ){
@@ -106,13 +106,13 @@ const LoginScreen = ({navigation}) => {
 
           Toast.show('User login successfully.')
           setLoadingtypeoverlay(false);
-          navigation.navigate('App')
+          navigation.replace('App')
         //}
 
 
     }
       catch(error)  {
-        //console.log('error',error)
+        // console.log('error',error.response.data)
           Toast.show('There is some connection problem. Please try later.')
           setLoadingtypeoverlay(false);
       }

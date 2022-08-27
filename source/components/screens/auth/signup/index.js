@@ -144,12 +144,12 @@ const SignupScreen = ({navigation}) => {
         //console.log('response',response)
         Toast.show('Your Account Register successfully. Please Verify your account')
         setLoadingtypeoverlay(false);
-        navigation.navigate('VerifyScreen',{ email})
+        // navigation.navigate('VerifyScreen',{ email})
         })
       .catch(err => {
           //console.log('error',err)
           setLoadingtypeoverlay(false);
-          Toast.show('This account allready exit')
+          Toast.show('This account already exit')
         });
       }
       catch(error)  {
