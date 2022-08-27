@@ -38,6 +38,14 @@ let {height, width} = Dimensions.get('window');
 const CartScreen = ({navigation,route}) => {
   const [state, setState] = useState({loader: true,cart:[]});
   const [id, setID] = useState('');
+  const [name, setName] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [houseNo, setHouseNo] = useState('');
+  const [locality, setLocality] = useState('');
+  const [city, setCity] = useState('');
+  const [cstate, setcState] = useState('');
+  const [code, setCode] = useState('');
+  const [view, setView] = useState('cart');
 
 const getlist = () => {
   AsyncStorage.getItem('userExist')
@@ -184,8 +192,8 @@ axios(config)
 }
 
     return(
-      <View elevation={5} style={{backgroundColor: '#fdfdfd',padding:6,
-      marginHorizontal:height*0.02,marginVertical:height*0.01,borderRadius: 6}}>
+      <View elevation={5} style={{marginHorizontal:height*0.02,backgroundColor: '#fdfdfd',padding:6,
+      marginVertical:height*0.01,borderRadius: 6}}>
         
         <View style={{flexDirection:'row',width:'100%',padding:6}}>
         <View style={{width:'20%'}}><Image style={{height:100,borderRadius: 6}}
@@ -241,6 +249,7 @@ axios(config)
   }
   
   const total=state.cart.map(i=>i.sellingPrice*i.quantity).reduce((a, b) => a+b, 0)
+  const ototal=state.cart.map(i=>i.originalPrice*i.quantity).reduce((a, b) => a+b, 0)
   const acart=state.cart.map((o,i)=>{
   const product = o._id
   const currency=o.currency
@@ -282,15 +291,15 @@ axios(config)
   "items": acart,
   "address": {
     "address": {},
-      "name": "nitish",
-      "mobile": "8449434021",
-      "postcode": "0912",
-      "houseNo": "abc",
-      "locality": "mainroad",
-      "city": "meerut",
-      "state": "up",
-      "postalAddress": "abcbbcccdnklsdnkl",
-      "userId": "62ef65d1554f301a84d1eca9",
+      "name":name,
+      "mobile":mobile,
+      "postcode":code,
+      "houseNo":houseNo,
+      "locality":locality,
+      "city":city,
+      "state":state,
+      // "postalAddress": "abcbbcccdnklsdnkl",
+      "userId":JSON.parse(res),
       "long": 0,
       "lat": 0
     }
@@ -343,6 +352,7 @@ axios(config)
   Toast.show(response.data.message)
   if(response.data.status==200){
     getlist()
+    setView('cart')
   }
 })
 .catch((error)=>{
@@ -367,55 +377,222 @@ axios(config)
       <Line x1="5" y1="12" x2="11" y2="6" />
     </Svg>
         </View>*/}
-    {state.cart&&state.cart.length==0? <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <Text>You have no items in the cart </Text>
-        </View>:
-        <View style={{flex:1}}>
-        <View style={{paddingHorizontal:height*0.02,paddingVertical:height*0.01}}>
-        <Text style={{color:'#121212'}}>You have {state.cart.length} {state.cart.length>1? 'items':'item'} in the cart </Text></View>
-        <View style={{paddingHorizontal:height*0.02,paddingBottom:height*0.01}}>
-        <Text style={{color:'#121212',fontSize:FontSize(width*0.054),color: '#5A429B'}}>
-        Sub Total : AED {total} </Text></View>
-        <TouchableOpacity onPress={()=>checkOut()}
-        style={{backgroundColor: '#5A429B',height:height*0.068,
-        marginHorizontal:height*0.02,borderRadius:4,justifyContent:'center',alignItems:'center'}}>
-        <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.04),fontWeight:'400'}}>
-        Proceed to buy ( {state.cart.length} {state.cart.length>1? 'items':'item'} )</Text>
-        </TouchableOpacity>
-        <FlatList
-            data={state.cart}
-            KeyExtractor={(item,index) => index.toString()}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => renderList(item) }
-            />
-        </View>}
-      <View style={{ width:'100%',height:'8%', alignItems: 'center',flexDirection:'row' }}>
-        <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')}
-        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
-        {route.name=='HomeScreen'? <Image source={HomeActiveImg} style={styles.icon} resizeMode="contain"
-        />:<Image source={HomeInactiveImg} style={styles.icon} resizeMode="contain"/>}
-        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('SettingScreen')}
-        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
-        {route.name=='SettingScreen'? <Image source={AccountActiveImg} style={styles.icon} 
-        resizeMode="contain" />:<Image source={AccountInactiveImg} style={styles.icon} 
-        resizeMode="contain" />}
-        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Account</Text></TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('CartScreen')}
-        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
-        {route.name=='CartScreen'? <Image source={CartActiveImg} style={styles.icon} resizeMode="contain" />:
-                <Image source={CartInactiveImg} style={styles.icon} resizeMode="contain" />}
-        {state.cart&&state.cart.length==0? null:<View style={{position:'absolute',borderRadius:20,
-        backgroundColor:DefaultColours.blue0,paddingHorizontal:5,top:2,right:'30%',paddingVertical:2}}>
-        <Text style={{color:'#fff',fontSize:FontSize(7)}}>{state.cart&&state.cart.length}</Text></View>}
-        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Cart</Text></TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('ChatScreen')}
-        style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
-        {route.name=='ChatScreen'? <Image source={ChatActiveImg} style={styles.icon} resizeMode="contain" />:
-                <Image source={ChatInavtiveImg} style={styles.icon} resizeMode="contain" />}
-        <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Chat</Text></TouchableOpacity>
-        </View>
+    <View style={{width: '100%',height:'92%', alignItems: 'center'}}>
+    {view=='cart'&&<>{state.cart&&state.cart.length==0? <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+            <Text>You have no items in the cart </Text>
+            </View>:
+            <View style={{flex:1}}>
+            <View style={{paddingHorizontal:height*0.02,paddingVertical:height*0.01}}>
+            <Text style={{color:'#121212'}}>You have {state.cart.length} {state.cart.length>1? 'items':'item'} in the cart </Text></View>
+            <View style={{paddingHorizontal:height*0.02,paddingBottom:height*0.01}}>
+            <Text style={{color:'#121212',fontSize:FontSize(width*0.054),color: '#5A429B'}}>
+            Sub Total : AED {total} </Text></View>
+            <TouchableOpacity onPress={()=>setView('address')}
+            style={{marginHorizontal:height*0.02,backgroundColor: '#5A429B',height:height*0.068,borderRadius:4,
+            justifyContent:'center',alignItems:'center'}}>
+            <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.04),fontWeight:'400'}}>
+            Proceed to buy ( {state.cart.length} {state.cart.length>1? 'items':'item'} )</Text>
+            </TouchableOpacity>
+            <FlatList
+                data={state.cart}
+                KeyExtractor={(item,index) => index.toString()}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => renderList(item) }
+                />
+            </View>}</>}
+    {view=='address'&&<>
+    <View style={{paddingHorizontal:height*0.02,height:'7%',flexDirection:'row'}}>
+    <TouchableOpacity onPress={()=>setView('cart')}
+    style={{ width:'10%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+    <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left"
+                  width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5A429B"
+                  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <Line x1="5" y1="12" x2="19" y2="12" />
+  <Line x1="5" y1="12" x2="11" y2="18" />
+  <Line x1="5" y1="12" x2="11" y2="6" />
+</Svg>
+    </TouchableOpacity>
+    <View style={{ width:'80%',height:'100%', alignItems: 'center',justifyContent:'center'}}>
+            <Text style={{color:'#121212',fontSize:FontSize(width*0.05),color: '#5A429B'}}>
+    Delivery Address</Text></View>
+    <View style={{ width:'10%',height:'100%', alignItems: 'center',flexDirection:'row' }}></View>
+    </View>
+    <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
+    <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
+    fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
+      value={name}
+      placeholder={'Name'}
+      placeholderTextColor={DefaultColours.blue0}
+      onChangeText={text => setName(text)} />
+    </View>
+    <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
+    <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
+    fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
+      value={mobile}
+      placeholder={'Mobile Number'}
+      placeholderTextColor={DefaultColours.blue0}
+      onChangeText={text => setMobile(text)}
+      keyboardType={'numeric'}
+       />
+    </View>
+    <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row' }}>
+    <View style={{ width:'50%', alignItems: 'center',flexDirection:'row',marginTop:8 }}>
+    <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
+    fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
+      value={houseNo}
+      placeholder={'House No'}
+      placeholderTextColor={DefaultColours.blue0}
+      keyboardType={'numeric'}
+      onChangeText={text => setHouseNo(text)} />
+    </View>
+    <View style={{ width:'50%', alignItems: 'center',flexDirection:'row',marginTop:8 }}>
+    <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
+    fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
+      value={code}
+      placeholder={'Pin Code'}
+      placeholderTextColor={DefaultColours.blue0}
+      keyboardType={'numeric'}
+      onChangeText={text => setCode(text)} />
+    </View></View>
+    <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
+    <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
+    fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
+      value={locality}
+      placeholder={'Locality'}
+      placeholderTextColor={DefaultColours.blue0}
+      onChangeText={text => setLocality(text)} />
+    </View>
+    <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
+    <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
+    fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
+      value={city}
+      placeholder={'City'}
+      placeholderTextColor={DefaultColours.blue0}
+      onChangeText={text => setCity(text)} />
+    </View>
+    <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
+    <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
+    fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
+      value={cstate}
+      placeholder={'State'}
+      placeholderTextColor={DefaultColours.blue0}
+      onChangeText={text => setcState(text)} />
+    </View>
+    <TouchableOpacity onPress={()=>setView('summary')} style={{backgroundColor: '#5A429B',
+    height:height*0.068,borderRadius:4,justifyContent:'center',width: '100%',
+      alignItems:'center',paddingHorizontal: '6%',marginTop:'2%'}}>
+            <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.04),fontWeight:'400'}}>
+            Continue</Text>
+            </TouchableOpacity>
+    </>}
+    {view=='summary'&&<>
+    <View style={{marginHorizontal:height*0.02,height:'7%',flexDirection:'row'}}>
+    <TouchableOpacity onPress={()=>setView('address')}
+    style={{ width:'10%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+    <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left"
+                  width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5A429B"
+                  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <Line x1="5" y1="12" x2="19" y2="12" />
+  <Line x1="5" y1="12" x2="11" y2="18" />
+  <Line x1="5" y1="12" x2="11" y2="6" />
+</Svg>
+    </TouchableOpacity>
+    <View style={{ width:'80%',height:'100%', alignItems: 'center',justifyContent:'center'}}>
+            <Text style={{fontSize:FontSize(width*0.05),color: '#5A429B'}}>
+    Order Summary</Text></View>
+    <View style={{ width:'10%',height:'100%', alignItems: 'center',flexDirection:'row' }}></View>
+    </View>
+    <View style={{width:'100%',height:'84%'}}>
+    <View style={{width:'100%',height:'60%'}}>
+    <FlatList
+                data={state.cart}
+                KeyExtractor={(item,index) => index.toString()}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => renderList(item) }
+                />
+    </View>
+    <View style={{width:'100%',height:'40%',paddingHorizontal:height*0.03,backgroundColor: '#fdfdfd',
+    paddingTop:'2%'}}>
+    <View style={{ width:'100%', alignItems: 'center',flexDirection:'row',marginBottom: '1%' }}>
+    <View style={{width:'50%'}}>
+    <Text style={{color:'#121212',fontSize:FontSize(width*0.038)}}>
+    Original Price</Text>
+    </View>
+    <View style={{width:'50%'}}>
+    <Text style={{color:'#121212',fontSize:FontSize(width*0.038),textAlign:'right'}}>
+    AED {ototal}</Text>
+    </View>
+    </View>
+    <View style={{ width:'100%', alignItems: 'center',flexDirection:'row',marginBottom: '1%' }}>
+    <View style={{width:'50%'}}>
+    <Text style={{color:'#121212',fontSize:FontSize(width*0.038)}}>
+    Savings</Text>
+    </View>
+    <View style={{width:'50%'}}>
+    <Text style={{color:'#121212',fontSize:FontSize(width*0.038),textAlign:'right'}}>
+    - AED {ototal-total}</Text>
+    </View>
+    </View>
+    <View style={{ width:'100%', alignItems: 'center',flexDirection:'row',marginBottom: '2%',
+    borderBottomWidth:1,paddingBottom: '2%' }}>
+    <View style={{width:'50%'}}>
+    <Text style={{color:'#121212',fontSize:FontSize(width*0.038)}}>
+    Store Pick-Up</Text>
+    </View>
+    <View style={{width:'50%'}}>
+    <Text style={{color:'#121212',fontSize:FontSize(width*0.038),textAlign:'right'}}>
+    FREE</Text>
+    </View>
+    </View>
+    <View style={{ width:'100%', alignItems: 'center',flexDirection:'row',marginBottom: '1%' }}>
+    <View style={{width:'50%'}}>
+    <Text style={{color:'#121212',fontSize:FontSize(width*0.038),fontWeight:'bold'}}>
+    Total</Text>
+    </View>
+    <View style={{width:'50%'}}>
+    <Text style={{color:'#121212',fontSize:FontSize(width*0.038),textAlign:'right',fontWeight:'bold'}}>
+    AED {total}</Text>
+    </View>
+    </View>
+    </View>
+    </View>
+    <TouchableOpacity onPress={()=>checkOut()} style={{backgroundColor: '#5A429B',
+    height:'7%',borderRadius:4,justifyContent:'center',alignItems:'center',marginTop:'1%',
+    width:'100%'}}>
+            <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.036),fontWeight:'400'}}>
+            Make Payment ( AED {total} )</Text>
+            </TouchableOpacity>
+    </>}
+          </View>
+          <View style={{ width:'100%',height:'8%', alignItems: 'center',flexDirection:'row' }}>
+            <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')}
+            style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+            {route.name=='HomeScreen'? <Image source={HomeActiveImg} style={styles.icon} resizeMode="contain"
+            />:<Image source={HomeInactiveImg} style={styles.icon} resizeMode="contain"/>}
+            <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('SettingScreen')}
+            style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+            {route.name=='SettingScreen'? <Image source={AccountActiveImg} style={styles.icon} 
+            resizeMode="contain" />:<Image source={AccountInactiveImg} style={styles.icon} 
+            resizeMode="contain" />}
+            <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Account</Text></TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('CartScreen')}
+            style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+            {route.name=='CartScreen'? <Image source={CartActiveImg} style={styles.icon} resizeMode="contain" />:
+                    <Image source={CartInactiveImg} style={styles.icon} resizeMode="contain" />}
+            {state.cart&&state.cart.length==0? null:<View style={{position:'absolute',borderRadius:20,
+            backgroundColor:DefaultColours.blue0,paddingHorizontal:5,top:2,right:'30%',paddingVertical:2}}>
+            <Text style={{color:'#fff',fontSize:FontSize(7)}}>{state.cart&&state.cart.length}</Text></View>}
+            <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Cart</Text></TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('ChatScreen')}
+            style={{ width:'25%',height:'100%', alignItems: 'center',justifyContent:'center' }}>
+            {route.name=='ChatScreen'? <Image source={ChatActiveImg} style={styles.icon} resizeMode="contain" />:
+                    <Image source={ChatInavtiveImg} style={styles.icon} resizeMode="contain" />}
+            <Text style={{color: 'grey' ,fontSize :FontSize(10),paddingTop:2 }}>Chat</Text></TouchableOpacity>
+            </View>
     </SafeAreaView>
   );
 };
