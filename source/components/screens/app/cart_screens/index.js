@@ -34,6 +34,7 @@ import {
   ChatInavtiveImg,
 } from '@images';
 let {height, width} = Dimensions.get('window');
+import RazorpayCheckout from 'react-native-razorpay';
 
 const CartScreen = ({navigation,route}) => {
   const [state, setState] = useState({loader: true,cart:[]});
@@ -345,10 +346,23 @@ axios(config)
   },
   data : data
 };
-
+var options = {
+    // image: 'https://i.imgur.com/Yh6YyiN.png',
+    currency: 'INR',
+    key: 'rzp_test_8Lwiuz3VZWGJHK',
+    amount: total*100,
+    name: 'ICT Kart',
+    prefill: {
+      email: 'test@email.com',
+      contact: '9191919191',
+    },
+    theme: {color: '#5A429B'}
+  }
+RazorpayCheckout.open(options).then((res) => {
 axios(config)
 .then((response)=>{
-  //console.log(JSON.stringify(response.data));
+  // console.log(res)
+
   Toast.show(response.data.message)
   if(response.data.status==200){
     getlist()
@@ -358,6 +372,7 @@ axios(config)
 .catch((error)=>{
   // console.log(error);
   Toast.show(error.response.data.message)
+});
 });
     }
     catch(error) {
@@ -415,7 +430,7 @@ axios(config)
     </TouchableOpacity>
     <View style={{ width:'80%',height:'100%', alignItems: 'center',justifyContent:'center'}}>
             <Text style={{color:'#121212',fontSize:FontSize(width*0.05),color: '#5A429B'}}>
-    Delivery Address</Text></View>
+    Shipping Address</Text></View>
     <View style={{ width:'10%',height:'100%', alignItems: 'center',flexDirection:'row' }}></View>
     </View>
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
@@ -455,6 +470,15 @@ axios(config)
       keyboardType={'numeric'}
       onChangeText={text => setCode(text)} />
     </View></View>
+    <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
+    <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
+    fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
+      // value={locality}
+      placeholder={'Address'}
+      placeholderTextColor={DefaultColours.blue0}
+      // onChangeText={text => setLocality(text)} 
+      />
+    </View>
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}

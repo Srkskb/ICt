@@ -17,7 +17,7 @@ import { StackActions } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen,SettingScreen, 
-  ContactusScreen,DetailScreen,ProductScreen} from '@AppScreens';
+  ContactusScreen,DetailScreen,ProductScreen,Myordersscreen} from '@AppScreens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -169,7 +169,11 @@ const DrawerContent = ({navigation}) => {
     </>
             )
         })}
-    <TouchableOpacity  onPress={()=>navigation.navigate('FaqScreen')}
+    <TouchableOpacity  onPress={()=>navigation.navigate('Myordersscreen')}
+      style={{  flexDirection: 'row', padding:10, borderBottomColor: "grey", alignItems:'center' , backgroundColor:'white', marginTop:5  }}>
+      <Text style={{ fontSize: 16,  flexShrink: 1 }}>My Orders</Text>
+    </TouchableOpacity>
+<TouchableOpacity  onPress={()=>navigation.navigate('FaqScreen')}
       style={{  flexDirection: 'row', padding:10, borderBottomColor: "grey", alignItems:'center' , backgroundColor:'white', marginTop:5  }}>
       <Text style={{ fontSize: 16,  flexShrink: 1 }}>FAQ</Text>
     </TouchableOpacity>

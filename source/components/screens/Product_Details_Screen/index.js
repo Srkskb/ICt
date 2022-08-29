@@ -387,7 +387,7 @@ name='chevron-down' size={width*0.09}
             Reviews
           </Text>
 </View>
-<View style={{width:"20%",backgroundColor:"#ffffff"}}>
+{/*<View style={{width:"20%",backgroundColor:"#ffffff"}}>
             <View style={{alignItems:'center',justifyContent:"center"}}>
               <TouchableOpacity>
               <MaterialCommunityIcons
@@ -395,7 +395,7 @@ name='chevron-down' size={width*0.09}
 />
 </TouchableOpacity>
 </View>
-</View>
+</View>*/}
 </View>
 <View style={{borderBottomWidth:1,borderBottomColor:"#DCDCDC",marginHorizontal:width*0.03,paddingTop:width*0.01}}>
 

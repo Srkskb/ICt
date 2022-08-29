@@ -12,6 +12,8 @@ target 'ICTCIRCLE' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-razorpay', :path => '../node_modules/react-native-razorpay'
+
   target 'ICTCIRCLETests' do
     inherit! :complete
     # Pods for testing

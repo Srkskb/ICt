@@ -16,7 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerContent from './DrawerContent';
 import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen, SettingScreen,ProductDetailScreen,
   ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen,ServiceScreen,SubServices,
-ProductScreen} from '@AppScreens';
+ProductScreen,Myordersscreen} from '@AppScreens';
 
 
 
@@ -72,6 +72,7 @@ const RootNavigator = () => {
           <Drawer.Screen name="AccountScreen" component={AccountScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Account"}} />
           <Drawer.Screen name="ChatScreen" component={ChatScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Chat"}} />
           <Drawer.Screen name="FaqScreen" component={FaqScreen} options={{headerShown: true, unmountOnBlur:true, title: "FAQ"}} />
+          <Drawer.Screen name="Myordersscreen" component={Myordersscreen} options={{headerShown: true, unmountOnBlur:true, title: "My Orders"}} />
           <Drawer.Screen name="SettingScreen" component={SettingScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Account"}} />
           <Drawer.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{headerShown: false, unmountOnBlur:true, title: "Change Password"}} />
           <Drawer.Screen name="AboutScreen" component={AboutScreen} options={{headerShown: true, unmountOnBlur:true,title: "About"}} />

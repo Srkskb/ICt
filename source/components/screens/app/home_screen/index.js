@@ -35,8 +35,19 @@ import {
 const HomeScreen = ({navigation,route}) => {
   const [state, setState] = useState({loader: true, modalVisible: false,search:false,cart:[]});
   const [searchText, setsearchText] = useState('');
+  const [sortText, setSortText] = useState('');
+  const [minPrice, setminPrice] = useState('');
+  const [maxPrice, setmaxPrice] = useState('');
   const [sliderData, setsliderData] = useState([])
   const [categoryData, setCategoryData] = useState([])
+  const [mview, setMview] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('')
+
+  const [categories, setCategory] = useState([])
+  const [brand, setBrand] = useState([])
+  const [brandarr, setBrandarray] = useState([])
+  const [categoryarr, setCategoryarr] = useState([])
+  const [subCategories, setSubCategory] = useState([])
 
   const [trendingData, settrendingData] = useState([])
   const [searchData, setSearchData] = useState([])
@@ -56,9 +67,42 @@ const HomeScreen = ({navigation,route}) => {
     getBanner()
     getCategories()
     getCart()
+    category()
+    getBrands()
     getFeatured()
   }, []);
+  const category=()=>{
+      try {
+     axios.get('https://api.ictkart.com/api/categories/dropdown/list?type=product')
+      .then(response => {
+      //console.log(response.data.data.list)
+      setCategory(response.data.data.list)
 
+      })
+    .catch(err => {
+        //console.log('error',err)
+      });
+    }
+    catch(error) {
+      //console.log('error2',error)
+    }
+    }
+  const getBrands=()=>{
+      try {
+     axios.get('https://api.ictkart.com/api/brand/dropdown/list')
+      .then(response => {
+      // console.log(response.data.data)
+      setBrand(response.data.data)
+
+      })
+    .catch(err => {
+        //console.log('error',err)
+      });
+    }
+    catch(error) {
+      //console.log('error2',error)
+    }
+    }
   const getlist = () => {
     try {
      axios.post('https://api.ictkart.com/api/product/all/list')
@@ -466,26 +510,90 @@ axios(config)
       }
   }
 
-  const searchItem=(item)=>{
+  const searchItem=(item,text)=>{
+    setSortText(text)
+    if(item!=''){
+      var data = JSON.stringify({
+          "search":item,
+          "sort": text=='pop' ?"popularity":text=='new' ?'new':text=='high'?"high_to_low":text=='low'?"low_to_high":'popularity'
+          });
+        var config = {
+      method: 'post',
+      url: 'https://api.ictkart.com/api/product/all/list',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    axios(config)
+    .then((response)=>{
+        setSearchData(response.data.data.list)
+    })
+    .catch((error)=>{
+      // console.log(error);
+    });}else{
+      Toast.show('Enter Search Text')
+    }
+    // console.log(result)
+  }
+
+  const setBrandArr=(item)=>{
+    setState(prev => ({...prev, loader: true}));
+
+    let check=brandarr.includes(item)
+    if(check==true){
+      let arr=brandarr.filter(i=>i!=item)
+      setBrandarray(arr)
+    setState(prev => ({...prev, loader: false}));
+      }else{
+        let arr=brandarr
+      arr.push(item)
+      setBrandarray(arr)
+    setState(prev => ({...prev, loader: false}));
+          }
+  }
+const setCategArr=(item)=>{
+   setState(prev => ({...prev, loader: true}));
+    let check=categoryarr.includes(item)
+    if(check==true){
+      let arr=categoryarr.filter(i=>i!=item)
+      setCategoryarr(arr)
+      setState(prev => ({...prev, loader: false}));
+      }else{
+      categoryarr.push(item)
+      setCategoryarr(categoryarr)
+      setState(prev => ({...prev, loader: false}));
+    }
+  }
+  const filtersearch=()=>{
+    setState(prev => ({...prev, loader: true}));
     var data = JSON.stringify({
-      "search":item,
-      "sort": "popularity"
-      });
-    var config = {
-  method: 'post',
-  url: 'https://api.ictkart.com/api/product/all/list',
-  headers: { 
-    'Content-Type': 'application/json'
+          "search": {
+    "minPrice": minPrice,
+    "maxPrice": maxPrice,
+    "category": categoryarr,
+    "brand": brandarr
   },
-  data : data
-};
-axios(config)
-.then((response)=>{
-    setSearchData(response.data.data.list)
-})
-.catch((error)=>{
-  // console.log(error);
+  "sort": sortText
 });
+        var config = {
+      method: 'post',
+      url: 'https://api.ictkart.com/api/product/all/list',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    axios(config)
+    .then((response)=>{
+        setSearchData(response.data.data.list)
+        setMview('')
+        setState(prev => ({...prev, loader: false}));
+    })
+    .catch((error)=>{
+      // console.log(error);
+      setState(prev => ({...prev, loader: false}));
+    });
     // console.log(result)
   }
 
@@ -682,14 +790,13 @@ axios(config)
       </Modal>
 <Modal animationType="slide" style={{ position: 'absolute',margin: 0, padding:0 }} transparent={true} visible={state.search} onRequestClose={() =>  setState(prev => ({...prev, search: false })) }>
   <View style={{ width:'100%',height:SCREEN_HIGHT, backgroundColor:'#fdfdfd', elevation: 2 }}>
-<View style={{ width:'100%',height:SCREEN_HIGHT, alignItems: 'center' }}>
-  <View style={{  height:60,borderRadius: 4, borderColor: 'grey',
-  flexDirection:'row',justifyContent:'space-between', alignItems: 'center',
-  marginHorizontal:16,borderBottomWidth:1 }}>
+<View style={{width:SCREEN_WIDTH,height:SCREEN_HIGHT, alignItems: 'center' }}>
+  <View style={{ width:'100%',height:54,borderRadius: 4, borderColor: 'grey',
+  flexDirection:'row',justifyContent:'center', alignItems: 'center',borderBottomWidth:1 }}>
       <TouchableOpacity
                   style={{
                           width:'10%',
-                          height: 48,
+                          height: 44,
                           borderRadius: 24,
                           alignItems: 'center',
                           justifyContent: 'center'
@@ -706,21 +813,22 @@ axios(config)
   <Line x1="5" y1="12" x2="11" y2="6" />
 </Svg>
                 </TouchableOpacity>
-      <TextInput style={{ color: DefaultColours.blue0,width:'80%',
-      borderLeftWidth: 1,height:40,paddingLeft:12,fontSize: 14,borderRightWidth:1 }}
+    <View style={{width: '80%'}}>
+      <TextInput style={{ color: DefaultColours.blue0,width:'100%',
+      borderLeftWidth: 1,height:44,paddingLeft:12,fontSize: 14,borderRightWidth:1 }}
       value={searchText}
       placeholder={'Search ICT Kart'}
       placeholderTextColor={DefaultColours.blue0}
-      onChangeText={text => setsearchText(text)} />
+      onChangeText={text => setsearchText(text)} /></View>
   <TouchableOpacity
                   style={{
                           width:'10%',
-                          height: 48,
+                          height: 44,
                           borderRadius: 24,
                           alignItems: 'center',
                           justifyContent: 'center'
                       }}
-                  onPress={() =>searchItem(searchText)}>
+                  onPress={() =>searchItem(searchText,'pop')}>
   <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" 
   width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5A429B" 
   fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -730,28 +838,152 @@ axios(config)
 </Svg>
                 </TouchableOpacity>
   </View>
-  <View style={{width:'100%',height:44,paddingTop:4,flexDirection:'row',paddingHorizontal:20}}>
-      <View style={{width:'50%',alignItems:'flex-start',justifyContent:'center'}}>
-      <Text style={{ color: DefaultColours.black , fontWeight: 'bold', fontSize : 16 }}>
-      Results</Text></View>
-      <View style={{width:'50%',alignItems:'flex-end',justifyContent:'center'}}>
-      {/*<Text style={{ color: DefaultColours.blue0 , fontWeight: '400', fontSize : 16 }}>
-      Filter</Text>*/}
-      </View>
-  </View>
-  <View style={{width:'100%',height:SCREEN_HIGHT-104,paddingTop:4}}>
+  <View style={{height:42,paddingTop:4,flexDirection:'row',paddingHorizontal:20}}>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <TouchableOpacity onPress={()=>searchItem(searchText,'pop')}
+        style={{paddingHorizontal:10,alignItems:'center',justifyContent:'center',borderWidth:1,
+        borderRadius:10,marginRight:6,borderColor:sortText=='pop'? DefaultColours.blue0:DefaultColours.black}}>
+        <Text style={{ color: sortText=='pop'? DefaultColours.blue0:DefaultColours.black , fontWeight: '400', fontSize : 16 }}>
+        Popularity</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>searchItem(searchText,'new')}
+        style={{paddingHorizontal:10,alignItems:'flex-start',justifyContent:'center',borderWidth:1,
+        borderRadius:10,marginRight:6,borderColor:sortText=='new'? DefaultColours.blue0:DefaultColours.black}}>
+        <Text style={{ color:sortText=='new'? DefaultColours.blue0:DefaultColours.black , fontWeight: '400', fontSize : 16 }}>
+        Newest First</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>searchItem(searchText,'high')}
+        style={{paddingHorizontal:10,alignItems:'flex-start',justifyContent:'center',borderWidth:1,
+        borderRadius:10,marginRight:6,borderColor:sortText=='high'? DefaultColours.blue0:DefaultColours.black}}>
+        <Text style={{ color:sortText=='high'? DefaultColours.blue0:DefaultColours.black , fontWeight: '400', fontSize : 16 }}>
+        Price--High to Low</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>searchItem(searchText,'low')}
+        style={{paddingHorizontal:10,alignItems:'flex-start',justifyContent:'center',borderWidth:1,
+        borderRadius:10,marginRight:6,borderColor:sortText=='low'? DefaultColours.blue0:DefaultColours.black}}>
+        <Text style={{ color:sortText=='low'? DefaultColours.blue0:DefaultColours.black , fontWeight: '400', fontSize : 16 }}>
+        Price--Low to High</Text></TouchableOpacity></ScrollView>
+    <TouchableOpacity onPress={()=>setMview('filter')}
+        style={{paddingHorizontal:10,alignItems:'flex-start',justifyContent:'center',borderWidth:1,
+        borderRadius:10,marginLeft:2,
+        borderColor:mview=='filter'? DefaultColours.blue0:DefaultColours.black}}>
+        <Text style={{ color:mview=='filter'? DefaultColours.blue0:DefaultColours.black , fontWeight: '400', fontSize : 16 }}>
+        Filter</Text></TouchableOpacity>
+    </View>
+  <View style={{width:'100%',height:SCREEN_HIGHT-100,paddingTop:4}}>
       <FlatList
             ItemSeparatorComponent={
               () => <View style={{ padding:2}}/>
             }
             numColumns={2}
             contentContainerStyle={{paddingHorizontal:16,paddingVertical:4 }}
-            data={searchData.length>0? searchData:trendingData}
+            data={searchData}
             renderItem={renderItem_search}
             keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}
 
           />
+  {mview=='filter'&&<View style={{position: 'absolute',width: '100%',height: '100%',
+  justifyContent:'flex-end',alignItems:'center',zIndex:40}}>
+  <View style={{width: '100%',justifyContent:'center',alignItems:'center',backgroundColor: '#efefef',
+  paddingVertical:20,paddingHorizontal:20,borderTopLeftRadius:40,borderTopRightRadius:40}}>
+  <View style={{width:'100%',paddingVertical:8}} >
+  <Text style={{ color: DefaultColours.black, fontWeight: 'bold', fontSize :FontSize(16) }}>
+  Filter</Text>  
+  </View>
+  <View style={{width:'100%',flexDirection: 'row',height:44}}>
+  <View style={{width:'20%',justifyContent:'center',alignItems:'flex-start'}}>
+  <Text style={{ color: DefaultColours.black, fontWeight: '400', fontSize :FontSize(16) }}>
+  Price</Text>  
+  </View>
+  <View style={{width:'30%'}}>
+  <TextInput style={{ color: DefaultColours.blue0,width:'100%',
+      borderWidth: 1,height:44,paddingLeft:12,fontSize: 14,borderRadius: 8}}
+      value={minPrice}
+      placeholder={'Min'}
+      placeholderTextColor={DefaultColours.blue0}
+      keyboardType={'numeric'}
+      onChangeText={text => setminPrice(text)} />  
+  </View>
+  <View style={{width:'20%',justifyContent:'center',alignItems:'center'}}>
+  <Text style={{ color: DefaultColours.black, fontWeight: '400', fontSize :FontSize(16) }}>
+  To</Text>  
+  </View>
+  <View style={{width:'30%'}}>
+  <TextInput style={{ color: DefaultColours.blue0,width:'100%',
+      borderWidth: 1,height:44,paddingLeft:12,fontSize: 14,borderRadius: 8}}
+      value={maxPrice}
+      placeholder={'Max'}
+      placeholderTextColor={DefaultColours.blue0}
+      keyboardType={'numeric'}
+      onChangeText={text => setmaxPrice(text)} /> 
+  </View>
+  </View>
+  <View style={{width:'100%'}}>
+  <View style={{width:'20%',justifyContent:'center',alignItems:'flex-start',height:44}}>
+  <Text style={{ color: DefaultColours.black, fontWeight: '400', fontSize :FontSize(16) }}>
+  Brand</Text>
+  </View>
+  <View style={{width:'100%'}}>
+  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+  {brand.map((item,index)=>{
+          return(
+    <TouchableOpacity key={index} onPress={()=>setBrandArr(item.value)}
+        style={{paddingHorizontal:10,alignItems:'flex-start',justifyContent:'center',borderWidth:1,
+  borderRadius:10,marginRight:6,borderColor:brandarr.includes(item.value)?DefaultColours.blue0:DefaultColours.black,height:40}}>
+    <Text style={{ color:brandarr.includes(item.value)? DefaultColours.blue0:DefaultColours.black , fontWeight: '400',
+    fontSize : 16 }}>
+    {item.label}</Text></TouchableOpacity>        
+            )})}
+  </ScrollView>
+  </View>
+  </View>
+  <View style={{width:'100%'}}>
+  <View style={{width:'20%',justifyContent:'center',alignItems:'flex-start',height:44}}>
+  <Text style={{ color: DefaultColours.black, fontWeight: '400', fontSize :FontSize(16) }}>
+  Category</Text>
+  </View>
+  <View style={{width:'100%'}}>
+  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+  {categoryData.map((item,index)=>{
+          return(
+    <TouchableOpacity key={index} onPress={()=>{setSubCategory(item.subcategories);setSelectedCategory(item.label)}}
+        style={{paddingHorizontal:10,alignItems:'flex-start',justifyContent:'center',borderWidth:1,
+  borderRadius:10,marginRight:6,borderColor:selectedCategory==item.label?DefaultColours.blue0:DefaultColours.black,height:40}}>
+    <Text style={{ color:selectedCategory==item.label? DefaultColours.blue0:DefaultColours.black , fontWeight: '400',
+    fontSize : 16 }}>
+    {item.label}</Text></TouchableOpacity>        
+            )})}
+  </ScrollView>
+  </View>
+  <View style={{width:'100%',paddingTop:8}}>
+  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+  {subCategories.map((item,index)=>{
+          return(
+    <TouchableOpacity key={index} onPress={()=>setCategArr(item.value)}
+        style={{paddingHorizontal:10,alignItems:'flex-start',justifyContent:'center',borderWidth:1,
+  borderRadius:10,marginRight:6,borderColor:categoryarr.includes(item.value)?DefaultColours.blue0:DefaultColours.black,height:40}}>
+    <Text style={{ color:categoryarr.includes(item.value)? DefaultColours.blue0:DefaultColours.black , fontWeight: '400',
+    fontSize : 16 }}>
+    {item.label}</Text></TouchableOpacity>        
+            )})}
+  </ScrollView>
+  </View>
+  <View style={{width:'100%',paddingTop:8,flexDirection:'row',alignItems:'center',
+  justifyContent:'space-between'}}>
+  <TouchableOpacity onPress={()=>setMview('')} style={{backgroundColor: '#5A429B',
+    height:40,borderRadius:4,justifyContent:'center',width: '49%',
+      alignItems:'center',paddingHorizontal: '6%',marginTop:'2%'}}>
+            <Text style={{color:'#fdfdfd',fontSize:FontSize(16),fontWeight:'400'}}>
+            Close</Text>
+            </TouchableOpacity>
+  <TouchableOpacity onPress={()=>filtersearch()} style={{backgroundColor: '#5A429B',
+    height:40,borderRadius:4,justifyContent:'center',width: '49%',
+      alignItems:'center',paddingHorizontal: '6%',marginTop:'2%'}}>
+            <Text style={{color:'#fdfdfd',fontSize:FontSize(16),fontWeight:'400'}}>
+            Apply</Text>
+            </TouchableOpacity>
+  </View>
+  </View>
+  </View>
+  </View>}
   </View>
           </View>
 </View>

@@ -12,6 +12,7 @@ import ProductDetailScreen from '../Product_Details_Screen';
 import ProductScreen from '../Product_Screen';
 import ServiceScreen  from '../Service_Screen';
 import SubServices from '../Sub_Services';
+import Myordersscreen from './myorders_screen';
 export {HomeScreen, AccountScreen, CartScreen, ChatScreen,FaqScreen, SettingScreen,ProductScreen,
 	ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen,ProductDetailScreen,
-	ServiceScreen,SubServices};
+	ServiceScreen,SubServices,Myordersscreen};

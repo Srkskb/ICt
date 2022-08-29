@@ -5599,6 +5599,11 @@ react-native-modal@^13.0.0:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
 
+react-native-razorpay@^2.2.9:
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/react-native-razorpay/-/react-native-razorpay-2.2.9.tgz#895ba57084466ad89777c158edc56e9ceaad4999"
+  integrity sha512-88k38mW+XcENaJPfEN7qaOjMT2e8ueEcFTIGAov2H8h4+NnMlwQ1cjEHK0T5oixCJrekWBh2lpZAf2pVEUR84w==
+
 react-native-reanimated@^2.2.4:
   version "2.2.4"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.2.4.tgz"
