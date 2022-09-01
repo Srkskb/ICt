@@ -142,6 +142,17 @@ const getlist = () => {
               // console.log(response.data.data.list)
               if(JSON.stringify(response.data.status)==200){
                 setAddress(response.data.data.list)
+                if(response.data.data.list!==null){
+                  let data=response.data.data.list
+                  setName(data[0].name)
+                  setMobile(data[0].mobile)
+                  setHouseNo(data[0].address.houseNo)
+                  setLocality(data[0].address.locality)
+                  setPostalAddress(data[0].address.postalAddress)
+                  setCity(data[0].address.city)
+                  setcState(data[0].address.state)
+                  setCode(data[0].address.postcode)
+                }
               }
             })
             .catch(function (error) {
@@ -542,7 +553,7 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={address[0].name}
+      value={name}
       placeholder={'Name'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setName(text)} />
@@ -550,7 +561,7 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={address[0].mobile}
+      value={mobile}
       placeholder={'Mobile Number'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setMobile(text)}
@@ -561,7 +572,7 @@ axios(config)
     <View style={{ width:'50%', alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={address[0].address.houseNo}
+      value={houseNo}
       placeholder={'House Number'}
       placeholderTextColor={DefaultColours.blue0}
       keyboardType={'numeric'}
@@ -570,7 +581,7 @@ axios(config)
     <View style={{ width:'50%', alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={address[0].address.postcode}
+      value={code}
       placeholder={'Postal Code'}
       placeholderTextColor={DefaultColours.blue0}
       keyboardType={'numeric'}
@@ -579,7 +590,7 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={address[0].address.postalAddress}
+      value={postalAddress}
       placeholder={'Address (Area and Street)'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setPostalAddress(text)}
@@ -588,7 +599,7 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={address[0].address.locality}
+      value={locality}
       placeholder={'Locality'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setLocality(text)} />
@@ -596,7 +607,7 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={address[0].address.city}
+      value={city}
       placeholder={'City/District/Town'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setCity(text)} />
@@ -604,7 +615,7 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={address[0].address.state}
+      value={cstate}
       placeholder={'State'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setcState(text)} />
