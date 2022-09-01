@@ -126,12 +126,12 @@ def enableHermes = project.ext.react.get("enableHermes", false);
 def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitectures")
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
-
+    dexOptions {
+    javaMaxHeapSize "4g"
+  }
     defaultConfig {
         applicationId "com.ictcircle"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -139,7 +139,6 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
-        targetSdkVersion 27
 
     }
     splits {
@@ -207,7 +206,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
+    implementation(project(':stripe_stripe-react-native')) { exclude module: 'appcompat' }
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }

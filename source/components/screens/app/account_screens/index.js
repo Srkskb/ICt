@@ -265,22 +265,25 @@ const  loginCheck = async () => {
             textStyle={{ color: 'white' }}
           />
     <View style={{width:SCREEN_WIDTH,justifyContent:'center',flexDirection:'row',alignItems:'center', height:50,  }}>
-    <TouchableOpacity onPress={()=> navigation.goBack()} style={{alignItems:'flex-start', flex:0.1,marginLeft:10 }}>
+    <TouchableOpacity onPress={()=> navigation.goBack()}
+    style={{width:SCREEN_WIDTH*0.1,justifyContent:'center',alignItems:'center' }}>
     <Image
-      style={{width:30, height:50}}
+      style={{width:SCREEN_WIDTH*0.07, height:SCREEN_WIDTH*0.07}}
       resizeMode="contain"
       source={BackButtonImg}
     />
     </TouchableOpacity>
-    <View style={{flex:1}}>
-    <Text style={{textAlign:'center', color:'black', paddingRight:15, fontSize:20}}>Profile</Text>
+    <View style={{width:SCREEN_WIDTH*0.8,justifyContent:'center',alignItems:'center',height: '100%'}}>
+    <Text style={{textAlign:'center', color:'black', fontSize:20}}>Profile</Text>
+    </View>
+    <View style={{width:SCREEN_WIDTH*0.1,justifyContent:'center',alignItems:'center' }}>
     </View>
     </View>
     <View style={{flex:1, alignItems:'center', marginTop:40}}>
     <TouchableOpacity  onPress={opentheGallery} style={{width:30, height:30, borderRadius:30, backgroundColor:'#493d88', alignItems:'center', justifyContent:'center'}}>
       {selectedimages !== null ?
         <Image source={{uri: selectedimages.path }} style={{ width: 100, height: 100, borderRadius:50 }} />
-      : profileImage !== null ?
+      : profileImage != '' ?
         <Image source={{uri: profileImage }} style={{ width: 100, height: 100, borderRadius:50 }} />
       : <Image source={AccountInactiveImg} style={{ width: 100, height: 100, borderRadius:50 }} />
       }

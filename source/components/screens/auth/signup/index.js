@@ -136,14 +136,59 @@ const SignupScreen = ({navigation}) => {
         hearAboutICT: "hear about ICT",
         role: "user"
      }
+     var ldata={
+        email: email,
+        password: password,
+        role: 'user'
+    }
          //console.log('data', data)
 
       try {
        axios.post('https://api.ictkart.com/api/user/add', data)
         .then(response => {
         //console.log('response',response)
-        Toast.show('Your Account Register successfully. Please Verify your account')
+        Toast.show('Your Account Register successfully. Signing into your account')
+        // setLoadingtypeoverlay(false);
+        try {
+
+      axios.post('https://api.ictkart.com/api/user/login', data)
+      .then(res => {
+      // console.log(response.data.data)
+
+      if(res.data.status !== 200){
+        Toast.show('error to login account')
         setLoadingtypeoverlay(false);
+        return
+      }
+
+
+
+      // if(response.data.data === 'please verify you account first'){
+      //   Toast.show(response.data.data)
+      //   navigation.navigate('VerifyScreen', {token: response.data.data.token, email})
+      //   setLoadingtypeoverlay(false);
+      //   return;
+      // }
+
+        //console.log('token',response.data.data.token)
+        //if(response.data !== null && response.status == 200 && ){
+          AsyncStorage.setItem('token', JSON.stringify(res.data.data.token ));
+          AsyncStorage.setItem('userExist', JSON.stringify(res.data.data.user._id));
+
+
+
+          Toast.show('User login successfully.')
+          setLoadingtypeoverlay(false);
+          navigation.replace('App')
+        //}
+
+
+    })}
+      catch(error)  {
+        // console.log('error',error.response.data)
+          Toast.show('There is some connection problem. Please try later.')
+          setLoadingtypeoverlay(false);
+      }
         // navigation.navigate('VerifyScreen',{ email})
         })
       .catch(err => {

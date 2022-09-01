@@ -253,7 +253,7 @@ const onForgot = async() => {
               source={FacebookImg}
             />
           </TouchableOpacity>
-          <TouchableOpacity
+          {/*<TouchableOpacity
             style={styles.socialMediaButton}
             onPress={() => alert('go to signup')}>
             <Image
@@ -261,7 +261,7 @@ const onForgot = async() => {
               resizeMode="contain"
               source={LinkedInImg}
             />
-          </TouchableOpacity>
+          </TouchableOpacity>*/}
         </View>
         <Text
           style={styles.bottomText}

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text,TouchableOpacity, Image, TextInput, FlatList, ScrollView,
-  StyleSheet,KeyboardAvoidingView,Dimensions} from 'react-native';
+  StyleSheet,KeyboardAvoidingView,Dimensions,Alert} from 'react-native';
 import {SafeAreaProvider,SafeAreaView} from 'react-native-safe-area-context';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -35,7 +35,8 @@ import {
 } from '@images';
 let {height, width} = Dimensions.get('window');
 import RazorpayCheckout from 'react-native-razorpay';
-
+import { initStripe,CardField,useStripe,useConfirmPayment,StripeProvider  } from '@stripe/stripe-react-native';
+import StripeCheckout from 'react-native-stripe-checkout-webview';
 const CartScreen = ({navigation,route}) => {
   const [state, setState] = useState({loader: true,cart:[]});
   const [id, setID] = useState('');
@@ -43,11 +44,64 @@ const CartScreen = ({navigation,route}) => {
   const [mobile, setMobile] = useState('');
   const [houseNo, setHouseNo] = useState('');
   const [locality, setLocality] = useState('');
+  const [postalAddress, setPostalAddress] = useState('');
   const [city, setCity] = useState('');
   const [cstate, setcState] = useState('');
   const [code, setCode] = useState('');
   const [view, setView] = useState('cart');
+  const [cardView, setCardView] = useState(false)
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const [loading, setLoading] = useState(false)
+  const [address, setAddress] = useState([])
 
+  
+  const fetchPaymentIntentClientSecret = async () => {
+    const total=state.cart.map(i=>i.sellingPrice*i.quantity).reduce((a, b) => a+b, 0)
+    const response = await fetch(`https://ictsripepay.netlify.app/.netlify/functions/stripe`, {
+      method: 'POST',
+        body: JSON.stringify({
+          "amount": total*100,
+          "currency": "INR",
+          "payment_method_types": ["card"]
+        }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const { paymentIntent, ephemeralKey, customer} = await response.json();
+    return {
+      paymentIntent
+    };
+  };
+  const initializePaymentSheet = async () => {
+    const {
+      paymentIntent
+    } = await fetchPaymentIntentClientSecret();
+    // await new Promise((resolve) => setTimeout(resolve, 2500));
+    const { error } = await initPaymentSheet({
+      paymentIntentClientSecret: (paymentIntent),
+      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+      //methods that complete payment after a delay, like SEPA Debit and Sofort.
+      // customerId: customer,
+      customFlow: false,
+      merchantDisplayName: 'Ict',
+      style: 'alwaysDark',
+    });
+    if (!error) {
+      setLoading(true);
+    }
+  };
+
+  const openPaymentSheet = async () => {
+    const { error } = await presentPaymentSheet();
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      Alert.alert('Success', 'Your order is confirmed!');
+      checkOut()
+    }
+  };
 const getlist = () => {
   AsyncStorage.getItem('userExist')
             .then(res =>{
@@ -64,12 +118,30 @@ const getlist = () => {
               },
               data : data
             };
+            var config1 = {
+              method: 'post',
+              url: 'https://api.ictkart.com/api/address/list',
+              headers: { 
+                'Content-Type': 'application/json'
+              },
+              data : data
+            };
             
             axios(config)
             .then((response)=>{
               // console.log(response.data.data.list)
               if(JSON.stringify(response.data.status)==200){
                 setState(prev => ({...prev, cart:response.data.data.list}))
+              }
+            })
+            .catch(function (error) {
+              //console.log(error);
+            });
+            axios(config1)
+            .then((response)=>{
+              // console.log(response.data.data.list)
+              if(JSON.stringify(response.data.status)==200){
+                setAddress(response.data.data.list)
               }
             })
             .catch(function (error) {
@@ -87,6 +159,10 @@ const getlist = () => {
           setState(prev => ({...prev, loader: false}));
         }, 2000);
         getlist()
+        initStripe({
+      publishableKey: 'pk_test_51Gze4PEdL6oaZOjizb9kCMyTAwKEzo0Lcl0ZTBKsHJNtGfrqIfNcoYRAh6XtguOXVGjAuOha5wqUIcP3YCahaHne00FSYLR15v'
+    });
+        // initializePaymentSheet()
       }
   }, [navigation]);
 
@@ -298,8 +374,8 @@ axios(config)
       "houseNo":houseNo,
       "locality":locality,
       "city":city,
-      "state":state,
-      // "postalAddress": "abcbbcccdnklsdnkl",
+      "state":cstate,
+      "postalAddress":postalAddress,
       "userId":JSON.parse(res),
       "long": 0,
       "lat": 0
@@ -346,19 +422,6 @@ axios(config)
   },
   data : data
 };
-var options = {
-    // image: 'https://i.imgur.com/Yh6YyiN.png',
-    currency: 'INR',
-    key: 'rzp_test_8Lwiuz3VZWGJHK',
-    amount: total*100,
-    name: 'ICT Kart',
-    prefill: {
-      email: 'test@email.com',
-      contact: '9191919191',
-    },
-    theme: {color: '#5A429B'}
-  }
-RazorpayCheckout.open(options).then((res) => {
 axios(config)
 .then((response)=>{
   // console.log(res)
@@ -367,18 +430,61 @@ axios(config)
   if(response.data.status==200){
     getlist()
     setView('cart')
+    navigation.navigate('Myordersscreen')
   }
 })
 .catch((error)=>{
   // console.log(error);
   Toast.show(error.response.data.message)
 });
-});
     }
     catch(error) {
                   //console.log('error2',error)
                 }
             })
+  }
+  const addAddress=()=>{
+    AsyncStorage.getItem('userExist')
+            .then(res =>{
+    var data = JSON.stringify({
+  
+  "name": name,
+  "mobile":mobile,
+  "temporaryMobile": "",
+  "userId":JSON.parse(res),
+  "type": "Point",
+  "coordinates": [ 0,0],
+  "houseNo":houseNo,
+  "locality":locality,
+  "city":city,
+  "state":cstate,
+  "postcode":code,
+  "postalAddress":postalAddress,
+  "country":"India",
+  "long": 0,
+  "lat": 0
+});
+
+var config = {
+  method: 'post',
+  url: 'https://api.ictkart.com/api/address/add',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then((response)=>{
+  if(response.data.status==200){
+    Toast.show(response.data.message)}else{
+      Toast.show(response.data.message)
+    }
+})
+.catch((error)=>{
+  Toast.show(error.response.data);
+});
+})
   }
 
 
@@ -436,7 +542,7 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={name}
+      value={address[0].name}
       placeholder={'Name'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setName(text)} />
@@ -444,7 +550,7 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={mobile}
+      value={address[0].mobile}
       placeholder={'Mobile Number'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setMobile(text)}
@@ -455,8 +561,8 @@ axios(config)
     <View style={{ width:'50%', alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={houseNo}
-      placeholder={'House No'}
+      value={address[0].address.houseNo}
+      placeholder={'House Number'}
       placeholderTextColor={DefaultColours.blue0}
       keyboardType={'numeric'}
       onChangeText={text => setHouseNo(text)} />
@@ -464,8 +570,8 @@ axios(config)
     <View style={{ width:'50%', alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={code}
-      placeholder={'Pin Code'}
+      value={address[0].address.postcode}
+      placeholder={'Postal Code'}
       placeholderTextColor={DefaultColours.blue0}
       keyboardType={'numeric'}
       onChangeText={text => setCode(text)} />
@@ -473,16 +579,16 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      // value={locality}
-      placeholder={'Address'}
+      value={address[0].address.postalAddress}
+      placeholder={'Address (Area and Street)'}
       placeholderTextColor={DefaultColours.blue0}
-      // onChangeText={text => setLocality(text)} 
+      onChangeText={text => setPostalAddress(text)}
       />
     </View>
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={locality}
+      value={address[0].address.locality}
       placeholder={'Locality'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setLocality(text)} />
@@ -490,20 +596,26 @@ axios(config)
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={city}
-      placeholder={'City'}
+      value={address[0].address.city}
+      placeholder={'City/District/Town'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setCity(text)} />
     </View>
     <View style={{paddingHorizontal:height*0.02, alignItems: 'center',flexDirection:'row',marginTop:8 }}>
     <TextInput style={{ color: DefaultColours.blue0,width:'100%',height:44,paddingLeft:12,
     fontSize: 14 ,borderBottomWidth:1,borderRadius:4}}
-      value={cstate}
+      value={address[0].address.state}
       placeholder={'State'}
       placeholderTextColor={DefaultColours.blue0}
       onChangeText={text => setcState(text)} />
     </View>
-    <TouchableOpacity onPress={()=>setView('summary')} style={{backgroundColor: '#5A429B',
+    <TouchableOpacity onPress={()=>addAddress()} style={{backgroundColor: '#5A429B',
+    height:height*0.068,borderRadius:4,justifyContent:'center',width: '100%',
+      alignItems:'center',paddingHorizontal: '6%',marginTop:'4%'}}>
+            <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.04),fontWeight:'400'}}>
+            Save and Deliver here</Text>
+            </TouchableOpacity>
+    <TouchableOpacity onPress={()=>{setView('summary');initializePaymentSheet();}} style={{backgroundColor: '#5A429B',
     height:height*0.068,borderRadius:4,justifyContent:'center',width: '100%',
       alignItems:'center',paddingHorizontal: '6%',marginTop:'2%'}}>
             <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.04),fontWeight:'400'}}>
@@ -582,13 +694,20 @@ axios(config)
     </View>
     </View>
     </View>
-    <TouchableOpacity onPress={()=>checkOut()} style={{backgroundColor: '#5A429B',
-    height:'7%',borderRadius:4,justifyContent:'center',alignItems:'center',marginTop:'1%',
-    width:'100%'}}>
-            <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.036),fontWeight:'400'}}>
-            Make Payment ( AED {total} )</Text>
-            </TouchableOpacity>
+    {loading?<TouchableOpacity onPress={()=>openPaymentSheet()} style={{backgroundColor: '#5A429B',
+        height:'7%',borderRadius:4,justifyContent:'center',alignItems:'center',marginTop:'1%',
+        width:'100%'}}>
+                <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.036),fontWeight:'400'}}>
+                Make Payment ( AED {total} )</Text>
+                </TouchableOpacity>:
+            <TouchableOpacity style={{backgroundColor: '#999',
+        height:'7%',borderRadius:4,justifyContent:'center',alignItems:'center',marginTop:'1%',
+        width:'100%'}}>
+                <Text style={{color:'#fdfdfd',fontSize:FontSize(width*0.036),fontWeight:'400'}}>
+                Make Payment ( AED {total} )</Text>
+                </TouchableOpacity>}
     </>}
+
           </View>
           <View style={{ width:'100%',height:'8%', alignItems: 'center',flexDirection:'row' }}>
             <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')}

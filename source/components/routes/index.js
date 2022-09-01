@@ -16,7 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerContent from './DrawerContent';
 import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen, SettingScreen,ProductDetailScreen,
   ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen,ServiceScreen,SubServices,
-ProductScreen,Myordersscreen} from '@AppScreens';
+ProductScreen,Myordersscreen,PaymentScreen} from '@AppScreens';
 
 
 
@@ -69,6 +69,7 @@ const RootNavigator = () => {
           {/*<Drawer.Screen name="AppTab" navigation={navigation} component={AppTabNavigator} options={{headerShown: false, unmountOnBlur:true}} />*/}
           <Drawer.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false, unmountOnBlur:true,}} />
           <Drawer.Screen name="CartScreen" component={CartScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Cart"}} />
+          <Drawer.Screen name="PaymentScreen" component={PaymentScreen} options={{headerShown: true, unmountOnBlur:true, title: "Payment"}} />
           <Drawer.Screen name="AccountScreen" component={AccountScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Account"}} />
           <Drawer.Screen name="ChatScreen" component={ChatScreen} options={{headerShown: true, unmountOnBlur:true, title: "My Chat"}} />
           <Drawer.Screen name="FaqScreen" component={FaqScreen} options={{headerShown: true, unmountOnBlur:true, title: "FAQ"}} />

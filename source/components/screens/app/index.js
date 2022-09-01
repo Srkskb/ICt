@@ -1,6 +1,7 @@
 import HomeScreen from './home_screen';
 import AccountScreen from './account_screens';
 import CartScreen from './cart_screens';
+import PaymentScreen from './payment_screens';
 import ChatScreen from './chat_screens';
 import FaqScreen from './faq_screen';
 import SettingScreen from './setting_screen'
@@ -15,4 +16,4 @@ import SubServices from '../Sub_Services';
 import Myordersscreen from './myorders_screen';
 export {HomeScreen, AccountScreen, CartScreen, ChatScreen,FaqScreen, SettingScreen,ProductScreen,
 	ChangePasswordScreen, AboutScreen, ContactusScreen,DetailScreen,ProductDetailScreen,
-	ServiceScreen,SubServices,Myordersscreen};
+	ServiceScreen,SubServices,Myordersscreen,PaymentScreen};

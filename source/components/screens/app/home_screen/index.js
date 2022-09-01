@@ -35,7 +35,7 @@ import {
 const HomeScreen = ({navigation,route}) => {
   const [state, setState] = useState({loader: true, modalVisible: false,search:false,cart:[]});
   const [searchText, setsearchText] = useState('');
-  const [sortText, setSortText] = useState('');
+  const [sortText, setSortText] = useState('popularity');
   const [minPrice, setminPrice] = useState('');
   const [maxPrice, setmaxPrice] = useState('');
   const [sliderData, setsliderData] = useState([])
@@ -515,7 +515,7 @@ axios(config)
     if(item!=''){
       var data = JSON.stringify({
           "search":item,
-          "sort": text=='pop' ?"popularity":text=='new' ?'new':text=='high'?"high_to_low":text=='low'?"low_to_high":'popularity'
+          "sort": text=='pop' ?"popularity":text=='new' ?'new':text=='high'?"high_to_low":text=='low'?"low_to_high":'popularity',"limit":24
           });
         var config = {
       method: 'post',
@@ -574,7 +574,7 @@ const setCategArr=(item)=>{
     "category": categoryarr,
     "brand": brandarr
   },
-  "sort": sortText
+  "sort": sortText,"limit":24
 });
         var config = {
       method: 'post',
@@ -586,7 +586,7 @@ const setCategArr=(item)=>{
     };
     axios(config)
     .then((response)=>{
-        setSearchData(response.data.data.list)
+      setSearchData(response.data.data.list)
         setMview('')
         setState(prev => ({...prev, loader: false}));
     })
@@ -874,7 +874,7 @@ const setCategArr=(item)=>{
             }
             numColumns={2}
             contentContainerStyle={{paddingHorizontal:16,paddingVertical:4 }}
-            data={searchData}
+            data={searchData.length>0? searchData:trendingData}
             renderItem={renderItem_search}
             keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}

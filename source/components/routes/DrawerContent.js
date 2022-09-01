@@ -17,7 +17,7 @@ import { StackActions } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import {HomeScreen, AccountScreen, CartScreen, ChatScreen, FaqScreen,SettingScreen, 
-  ContactusScreen,DetailScreen,ProductScreen,Myordersscreen} from '@AppScreens';
+  ContactusScreen,DetailScreen,ProductScreen,Myordersscreen,PaymentScreen} from '@AppScreens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
