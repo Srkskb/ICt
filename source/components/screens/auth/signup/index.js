@@ -14,6 +14,7 @@ import {BackButtonImg, TickMarkImg} from '@images';
 import CountryPicker from 'react-native-region-country-picker';
 import Toast from 'react-native-simple-toast';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const SignupScreen = ({navigation}) => {
@@ -144,14 +145,14 @@ const SignupScreen = ({navigation}) => {
          //console.log('data', data)
 
       try {
-       axios.post('https://api.ictkart.com/api/user/add', data)
+       axios.post('http://3.20.89.137:8181/api/user/add', data)
         .then(response => {
         //console.log('response',response)
         Toast.show('Your Account Register successfully. Signing into your account')
         // setLoadingtypeoverlay(false);
         try {
 
-      axios.post('https://api.ictkart.com/api/user/login', data)
+      axios.post('http://3.20.89.137:8181/api/user/login', data)
       .then(res => {
       // console.log(response.data.data)
 

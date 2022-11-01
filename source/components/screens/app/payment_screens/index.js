@@ -171,7 +171,7 @@ const PaymentScreen = ({navigation,route}) => {
 });
      var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/buyproduct/add',
+  url: 'http://3.20.89.137:8181/api/buyproduct/add',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -244,7 +244,7 @@ const getlist = () => {
             
             var config = {
               method: 'post',
-              url: 'https://api.ictkart.com/api/user/cart',
+              url: 'http://3.20.89.137:8181/api/user/cart',
               headers: { 
                 'Content-Type': 'application/json'
               },

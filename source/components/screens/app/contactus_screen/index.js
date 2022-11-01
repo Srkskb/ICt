@@ -75,7 +75,7 @@ const  loginCheck = async () => {
 
  const  getUserData= async  (currentUserData) =>{
  //console.log('userID',currentUserData)
- var response = await axios.get(`https://api.ictkart.com/api/user/detail?userId=${currentUserData}`)
+ var response = await axios.get(`http://3.20.89.137:8181/api/user/detail?userId=${currentUserData}`)
  //console.log('response profile',response.data.data.user)
  if(typeof response.data !== 'undefined' && response.data !== null ){
 
@@ -162,7 +162,7 @@ const  loginCheck = async () => {
 
          //console.log('data', data)
          try {
-          axios.post('https://api.ictkart.com/api/contact/add', data)
+          axios.post('http://3.20.89.137:8181/api/contact/add', data)
            .then(response => {
            //console.log('response',response)
            Toast.show('admin will contact you shortly.')

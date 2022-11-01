@@ -60,7 +60,7 @@ const DrawerContent = ({navigation}) => {
 
    const  getUserData= async (currentUserData) =>{
    // console.log('userID',currentUserData)
-   var response = await axios.get(`https://api.ictkart.com/api/user/detail?userId=${currentUserData}`)
+   var response = await axios.get(`http://3.20.89.137:8181/api/user/detail?userId=${currentUserData}`)
    //console.log('response profile',response.data.data.user)
    if(typeof response.data !== 'undefined' && response.data !== null ){
 
@@ -100,7 +100,7 @@ const DrawerContent = ({navigation}) => {
     const [label, setLabel] = useState('')
     const category=()=>{
       try {
-     axios.get('https://api.ictkart.com/api/categories/dropdown/list?type=product')
+     axios.get('http://3.20.89.137:8181/api/categories/dropdown/list?type=product')
       .then(response => {
       //console.log(response.data.data.list)
       setCategory(response.data.data.list)

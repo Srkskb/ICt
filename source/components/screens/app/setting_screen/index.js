@@ -51,7 +51,7 @@ const getCart = () => {
             
             var config = {
               method: 'post',
-              url: 'https://api.ictkart.com/api/user/cart',
+              url: 'http://3.20.89.137:8181/api/user/cart',
               headers: { 
                 'Content-Type': 'application/json'
               },

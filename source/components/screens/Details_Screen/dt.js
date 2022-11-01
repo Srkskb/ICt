@@ -21,7 +21,7 @@ const DetailScreen = ({ navigation,route }) => {
 
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/user/add/incart',
+  url: 'http://3.20.89.137:8181/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },

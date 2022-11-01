@@ -62,7 +62,7 @@ const Myordersscreen = ({navigation,route}) => {
 
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/buyproduct/list',
+  url: 'http://3.20.89.137:8181/api/buyproduct/list',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -93,7 +93,7 @@ axios(config)
   const getDetails=(id)=>{
     var config = {
   method: 'get',
-  url: `https://api.ictkart.com/api/buyproduct/order-details/${id}`,
+  url: `http://3.20.89.137:8181/api/buyproduct/order-details/${id}`,
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -124,7 +124,7 @@ axios(config)
     path: `${dirs.DownloadDir}/${id}.pdf`,
     },
   })
-    .fetch('GET', `https://api.ictkart.com/api/invoice/download/${id}`, {})
+    .fetch('GET', `http://3.20.89.137:8181/api/invoice/download/${id}`, {})
     .then((res) => {
       Toast.show('The file saved to downloads');
       //FileViewer.open(res.path())

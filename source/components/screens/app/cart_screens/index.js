@@ -112,7 +112,7 @@ const getlist = () => {
             
             var config = {
               method: 'post',
-              url: 'https://api.ictkart.com/api/user/cart',
+              url: 'http://3.20.89.137:8181/api/user/cart',
               headers: { 
                 'Content-Type': 'application/json'
               },
@@ -120,7 +120,7 @@ const getlist = () => {
             };
             var config1 = {
               method: 'post',
-              url: 'https://api.ictkart.com/api/address/list',
+              url: 'http://3.20.89.137:8181/api/address/list',
               headers: { 
                 'Content-Type': 'application/json'
               },
@@ -190,7 +190,7 @@ AsyncStorage.getItem('userExist')
 });
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/user/remove/cart',
+  url: 'http://3.20.89.137:8181/api/user/remove/cart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -223,7 +223,7 @@ const addqty=(list)=>{
 
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/user/add/incart',
+  url: 'http://3.20.89.137:8181/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -257,7 +257,7 @@ const remqty=(list)=>{
 
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/user/add/incart',
+  url: 'http://3.20.89.137:8181/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -427,7 +427,7 @@ axios(config)
 });
      var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/buyproduct/add',
+  url: 'http://3.20.89.137:8181/api/buyproduct/add',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -478,7 +478,7 @@ axios(config)
 
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/address/add',
+  url: 'http://3.20.89.137:8181/api/address/add',
   headers: { 
     'Content-Type': 'application/json'
   },

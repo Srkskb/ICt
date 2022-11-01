@@ -56,7 +56,7 @@ const ProductScreen = ({ navigation,route }) => {
             
             var config = {
               method: 'post',
-              url: 'https://api.ictkart.com/api/user/cart',
+              url: 'http://3.20.89.137:8181/api/user/cart',
               headers: { 
                 'Content-Type': 'application/json'
               },
@@ -88,7 +88,7 @@ const ProductScreen = ({ navigation,route }) => {
 
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/product/all/list',
+  url: 'http://3.20.89.137:8181/api/product/all/list',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -116,7 +116,7 @@ axios(config)
 
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/product/all/list',
+  url: 'http://3.20.89.137:8181/api/product/all/list',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -144,7 +144,7 @@ axios(config)
 
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/product/all/list',
+  url: 'http://3.20.89.137:8181/api/product/all/list',
   headers: { 
     'Content-Type': 'application/json'
   },
@@ -190,7 +190,7 @@ if(item=='low'){
 
 var config = {
   method: 'post',
-  url: 'https://api.ictkart.com/api/user/add/incart',
+  url: 'http://3.20.89.137:8181/api/user/add/incart',
   headers: { 
     'Content-Type': 'application/json'
   },

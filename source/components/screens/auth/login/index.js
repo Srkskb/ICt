@@ -71,7 +71,7 @@ const LoginScreen = ({navigation}) => {
 
     try {
 
-      var response = await axios.post('https://api.ictkart.com/api/user/login', data)
+      var response = await axios.post('http://3.20.89.137:8181/api/user/login', data)
       // console.log(response.data.data)
 
       if(typeof response === 'undefined'){
@@ -145,7 +145,7 @@ const onForgot = async() => {
 
   try {
 
-    var response = await axios.post('https://api.ictkart.com/api/user/forgot/password', data)
+    var response = await axios.post('http://3.20.89.137:8181/api/user/forgot/password', data)
     if(response){
       //console.log('response',response.data)
       //if(response.data !== null && response.status == 200 && ){

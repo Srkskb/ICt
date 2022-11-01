@@ -81,7 +81,7 @@ const ForgotScreen = ({navigation}) => {
 
     try {
 
-      var response = await axios.post('https://api.ictkart.com/api/user/forgot/password', data)
+      var response = await axios.post('http://3.20.89.137:8181/api/user/forgot/password', data)
       if(response){
         //console.log('response',response.data.data.token)
         //if(response.data !== null && response.status == 200 && ){

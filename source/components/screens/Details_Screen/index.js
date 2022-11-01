@@ -13,7 +13,7 @@ export default class index extends Component {
   }
   getBanner(){
     try {
-     axios.get('https://api.ictkart.com/api/banner/list?displayAt=service&status=true')
+     axios.get('http://3.20.89.137:8181/api/banner/list?displayAt=service&status=true')
       .then(response => {
       // console.log(response.data.data.banners[0].bannerImage)
       this.setState({bimage:response.data.data.banners[0].bannerImage})
@@ -29,7 +29,7 @@ export default class index extends Component {
   }
   getCategories(){
     try {
-     axios.get('https://api.ictkart.com/api/categories/dropdown/list?type=service')
+     axios.get('http://3.20.89.137:8181/api/categories/dropdown/list?type=service')
       .then(response => {
       // console.log(response.data.data.list)
       this.setState({category:response.data.data.list})

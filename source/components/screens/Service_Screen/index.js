@@ -58,7 +58,7 @@ const ServiceScreen = ({navigation}) => {
 
   const getlist = () => {
     try {
-     axios.post('https://api.ictkart.com/api/product/all/list')
+     axios.post('http://3.20.89.137:8181/api/product/all/list')
       .then(response => {
       //console.log('response list',response.data.data.list)
           settrendingData(response.data.data.list)
@@ -74,7 +74,7 @@ const ServiceScreen = ({navigation}) => {
   }
 const getBanner = () => {
     try {
-     axios.get('https://api.ictkart.com/api/banner/list?displayAt=home&status=true')
+     axios.get('http://3.20.89.137:8181/api/banner/list?displayAt=home&status=true')
       .then(response => {
       //console.log('response list',response.data.data.banners)
           setsliderData(response.data.data.banners)
@@ -90,7 +90,7 @@ const getBanner = () => {
   }
 const getCategories = () => {
     try {
-     axios.get('https://api.ictkart.com/api/categories/list')
+     axios.get('http://3.20.89.137:8181/api/categories/list')
       .then(response => {
       // console.log(response.data.data.list)
       setCategoryData(response.data.data.list)
@@ -159,7 +159,7 @@ const getCategories = () => {
 
 // var config = {
 //   method: 'post',
-//   url: 'https://api.ictkart.com/api/user/add/incart',
+//   url: 'http://3.20.89.137:8181/api/user/add/incart',
 //   headers: { 
 //     'Content-Type': 'application/json'
 //   },
@@ -232,7 +232,7 @@ const getCategories = () => {
 
 // var config = {
 //   method: 'post',
-//   url: 'https://api.ictkart.com/api/user/add/incart',
+//   url: 'http://3.20.89.137:8181/api/user/add/incart',
 //   headers: { 
 //     'Content-Type': 'application/json'
 //   },
@@ -306,7 +306,7 @@ const getCategories = () => {
 
 // var config = {
 //   method: 'post',
-//   url: 'https://api.ictkart.com/api/user/add/incart',
+//   url: 'http://3.20.89.137:8181/api/user/add/incart',
 //   headers: { 
 //     'Content-Type': 'application/json'
 //   },

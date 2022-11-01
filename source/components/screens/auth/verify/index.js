@@ -46,7 +46,7 @@ var data={
 }
 
 try {
-  var response = await axios.post('https://api.ictkart.com/api/user/otp', data)
+  var response = await axios.post('http://3.20.89.137:8181/api/user/otp', data)
   if(response){
     //console.log('response',response.data)
     //if(response.data !== null && response.status == 200 && ){
@@ -95,7 +95,7 @@ try {
 
     try {
 
-      var response = await axios.post('https://api.ictkart.com/api/user/verify/otp', data)
+      var response = await axios.post('http://3.20.89.137:8181/api/user/verify/otp', data)
       if(response){
         //console.log('response',response.data)
         //if(response.data !== null && response.status == 200 && ){

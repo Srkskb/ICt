@@ -147,7 +147,7 @@ const ProfileScreen = ({navigation}) => {
          //console.log('data', data)
 
       try {
-       axios.post('https://api.ictkart.com/api/user/add', data)
+       axios.post('http://3.20.89.137:8181/api/user/add', data)
         .then(response => {
         //console.log('response',response)
         Toast.show('Your Account Register successfully. Please Verify your account')
