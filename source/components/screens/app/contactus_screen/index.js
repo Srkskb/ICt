@@ -1,5 +1,14 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Text,TextInput, TouchableOpacity,SafeAreaView, Image, StyleSheet,StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+  Image,
+  StyleSheet,
+  StatusBar,
+} from 'react-native';
 import {Loader} from '@global_components';
 import {DefaultColours, SCREEN_WIDTH, FontSize} from '@constants';
 import {
@@ -11,7 +20,7 @@ import {
   LinkedInImg,
   BackButtonImg,
   AccountActiveImg,
-  AccountInactiveImg
+  AccountInactiveImg,
 } from '@images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CountryPicker from 'react-native-region-country-picker';
@@ -23,21 +32,19 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 const AccountScreen = ({navigation}) => {
   const [state, setState] = useState({loader: true});
-  const [logged, setLogged] = useState(false)
-  const [companyname, setCompanyName] = useState('')
+  const [logged, setLogged] = useState(false);
+  const [companyname, setCompanyName] = useState('');
 
-  const [firstname, setFirstName] = useState('')
-  const [lastname, setLastName] = useState('')
-  const [mobile, setMobile] = useState('')
-  const [countryCallingCode, setcountryCallingCode] = useState('')
-  const [countryCode, setCountryCode] = useState('IN')
-  const [countryName, setCountryName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [userid, setUserId] = useState(null)
-  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false)
-
-
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [countryCallingCode, setcountryCallingCode] = useState('');
+  const [countryCode, setCountryCode] = useState('IN');
+  const [countryName, setCountryName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [userid, setUserId] = useState(null);
+  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false);
 
   let countryPickerRef = null;
   const companynameRef = useRef(null);
@@ -49,302 +56,281 @@ const AccountScreen = ({navigation}) => {
   const messageRef = useRef(null);
 
   useEffect(() => {
-    loginCheck()
+    loginCheck();
   }, []);
 
+  const loginCheck = async () => {
+    //console.log('triggering loginCheck')
+    try {
+      var currentUserData = await AsyncStorage.getItem('userExist');
+      //console.log('currentUserData',currentUserData)
+      if (currentUserData !== null) {
+        currentUserData = JSON.parse(currentUserData);
+        //console.log(currentUserData,'currentUserData')
+        setLogged(true);
 
-const  loginCheck = async () => {
-             //console.log('triggering loginCheck')
-             try {
-               var currentUserData =  await AsyncStorage.getItem('userExist')
-               //console.log('currentUserData',currentUserData)
-               if(currentUserData !== null){
-                   currentUserData = JSON.parse(currentUserData)
-                   //console.log(currentUserData,'currentUserData')
-                   setLogged(true);
+        getUserData(currentUserData);
+      } else {
+        setLogged(false);
+      }
+    } catch (error) {
+      //console.log('Error loginCheck',error)
+    }
+  };
 
-                   getUserData(currentUserData)
-               } else {
-                 setLogged(false);
+  const getUserData = async currentUserData => {
+    //console.log('userID',currentUserData)
+    var response = await axios.get(
+      `http://Ictkart.com/api/user/detail?userId=${currentUserData}`,
+    );
+    //console.log('response profile',response.data.data.user)
+    if (typeof response.data !== 'undefined' && response.data !== null) {
+      setFirstName(response.data.data.user.firstName);
+      setLastName(response.data.data.user.lastName);
+      setMobile(response.data.data.user.mobile);
+      setEmail(response.data.data.user.email);
+      setUserId(response.data.data.user.id);
+      setcountryCallingCode(response.data.data.user.dialCode);
+      setCountryName(response.data.data.user.countryName);
 
-               }
-             } catch(error) {
-               //console.log('Error loginCheck',error)
-             }
-   }
+      // //console.log(response.data.Response[0].UserId)
+    }
+  };
 
- const  getUserData= async  (currentUserData) =>{
- //console.log('userID',currentUserData)
- var response = await axios.get(`http://3.20.89.137:8181/api/user/detail?userId=${currentUserData}`)
- //console.log('response profile',response.data.data.user)
- if(typeof response.data !== 'undefined' && response.data !== null ){
-
-    setFirstName(response.data.data.user.firstName)
-    setLastName(response.data.data.user.lastName)
-    setMobile(response.data.data.user.mobile)
-    setEmail(response.data.data.user.email)
-    setUserId(response.data.data.user.id)
-    setcountryCallingCode(response.data.data.user.dialCode)
-    setCountryName(response.data.data.user.countryName)
-
-
-
-   // //console.log(response.data.Response[0].UserId)
- }
- }
-
- const  submitForm = async  () =>{
-   //console.log('update api ')
-   setLoadingtypeoverlay(true);
-    var mobile_test = (String(mobile).trim()).length ==  10
-    if ( mobile_test === false  ) {
-    setLoadingtypeoverlay(false);
-    //console.log('email_test',mobile_test)
-      setTimeout(()=> {
-        Toast.show('Invalid phone number')
-        },200)
-        return
+  const submitForm = async () => {
+    //console.log('update api ')
+    setLoadingtypeoverlay(true);
+    var mobile_test = String(mobile).trim().length == 10;
+    if (mobile_test === false) {
+      setLoadingtypeoverlay(false);
+      //console.log('email_test',mobile_test)
+      setTimeout(() => {
+        Toast.show('Invalid phone number');
+      }, 200);
+      return;
     }
 
-    var firstname_test = (String(firstname).trim()).length > 2
-    if ( firstname_test === false  ) {
-    setLoadingtypeoverlay(false);
-    //console.log('firstname_test',firstname_test)
-      setTimeout(()=> {
-        Toast.show('Invalid first name')
-        },200)
-        return
+    var firstname_test = String(firstname).trim().length > 2;
+    if (firstname_test === false) {
+      setLoadingtypeoverlay(false);
+      //console.log('firstname_test',firstname_test)
+      setTimeout(() => {
+        Toast.show('Invalid first name');
+      }, 200);
+      return;
     }
 
-    var lastname_test = (String(lastname).trim()).length  > 2
-    if ( lastname_test === false  ) {
-    setLoadingtypeoverlay(false);
-    //console.log('lastname_test',lastname_test)
-      setTimeout(()=> {
-        Toast.show('Invalid last name')
-        },200)
-        return
+    var lastname_test = String(lastname).trim().length > 2;
+    if (lastname_test === false) {
+      setLoadingtypeoverlay(false);
+      //console.log('lastname_test',lastname_test)
+      setTimeout(() => {
+        Toast.show('Invalid last name');
+      }, 200);
+      return;
     }
 
-    var message_test = (String(message).trim()).length  > 2
-    if ( message_test === false  ) {
-    setLoadingtypeoverlay(false);
-    //console.log('message_test',message_test)
-      setTimeout(()=> {
-        Toast.show('Enter your query')
-        },200)
-        return
+    var message_test = String(message).trim().length > 2;
+    if (message_test === false) {
+      setLoadingtypeoverlay(false);
+      //console.log('message_test',message_test)
+      setTimeout(() => {
+        Toast.show('Enter your query');
+      }, 200);
+      return;
     }
 
-    var companyname_test = (String(companyname).trim()).length  > 2
-    if ( companyname_test === false  ) {
-    setLoadingtypeoverlay(false);
-    //console.log('companyname_test',companyname_test)
-      setTimeout(()=> {
-        Toast.show('Enter company name')
-        },200)
-        return
+    var companyname_test = String(companyname).trim().length > 2;
+    if (companyname_test === false) {
+      setLoadingtypeoverlay(false);
+      //console.log('companyname_test',companyname_test)
+      setTimeout(() => {
+        Toast.show('Enter company name');
+      }, 200);
+      return;
     }
 
-      // go ahead
+    // go ahead
 
-      var data = new FormData();
-       data.append('id',userid);
-       data.append('firstName',firstname);
-       data.append('lastName',lastname);
-       data.append('dialCode',countryCallingCode)
-       data.append('mobile',mobile)
-       data.append('companyName',companyname)
-       data.append('message',message)
+    var data = new FormData();
+    data.append('id', userid);
+    data.append('firstName', firstname);
+    data.append('lastName', lastname);
+    data.append('dialCode', countryCallingCode);
+    data.append('mobile', mobile);
+    data.append('companyName', companyname);
+    data.append('message', message);
 
-
-
-
-         //console.log('data', data)
-         try {
-          axios.post('http://3.20.89.137:8181/api/contact/add', data)
-           .then(response => {
-           //console.log('response',response)
-           Toast.show('admin will contact you shortly.')
-           setLoadingtypeoverlay(false);
-           navigation.navigate("HomeScreen")
-
-           })
-         .catch(err => {
-             //console.log('error',err)
-             setLoadingtypeoverlay(false);
-             Toast.show('some problem')
-           });
-         }
-         catch(error)  {
-           //console.log('error',error)
-             Toast.show('There is some connection problem. Please try later.')
-             setLoadingtypeoverlay(false);
-         }
-
- }
-
-
-
-
-
-
+    //console.log('data', data)
+    try {
+      axios
+        .post('http://Ictkart.com/api/contact/add', data)
+        .then(response => {
+          //console.log('response',response)
+          Toast.show('admin will contact you shortly.');
+          setLoadingtypeoverlay(false);
+          navigation.navigate('HomeScreen');
+        })
+        .catch(err => {
+          //console.log('error',err)
+          setLoadingtypeoverlay(false);
+          Toast.show('some problem');
+        });
+    } catch (error) {
+      //console.log('error',error)
+      Toast.show('There is some connection problem. Please try later.');
+      setLoadingtypeoverlay(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-    <Spinner
-            visible={loadingtypeoverlay}
-            textContent={'Loading...' }
-            textStyle={{ color: 'white' }}
+      <Spinner
+        visible={loadingtypeoverlay}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+      />
+
+      <View style={{marginTop: 40}}>
+        <View style={styles.textInputBoxContainer}>
+          <TextInput
+            ref={companynameRef}
+            style={styles.textInputBoxStyle}
+            value={companyname}
+            autoCorrect={false}
+            onChangeText={val => setCompanyName(val)}
+            placeholder={'Company Name'}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'next'}
+            keyboardType={'default'}
+            maxLength={90}
+            autoCapitalize={'none'}
+            autoCompleteType={'off'}
+            secureTextEntry={false}
           />
+        </View>
+        <View style={styles.textInputBoxContainer}>
+          <TextInput
+            ref={firstnameRef}
+            style={styles.textInputBoxStyle}
+            value={firstname}
+            autoCorrect={false}
+            onChangeText={val => setFirstName(val)}
+            placeholder={'First Name'}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'next'}
+            keyboardType={'default'}
+            maxLength={90}
+            autoCapitalize={'none'}
+            autoCompleteType={'off'}
+            secureTextEntry={false}
+          />
+        </View>
 
+        <View style={styles.textInputBoxContainer}>
+          <TextInput
+            ref={lastnameRef}
+            style={styles.textInputBoxStyle}
+            value={lastname}
+            autoCorrect={false}
+            onChangeText={val => setLastName(val)}
+            placeholder={'Last Name'}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'next'}
+            keyboardType={'default'}
+            maxLength={90}
+            autoCapitalize={'none'}
+            autoCompleteType={'off'}
+            secureTextEntry={false}
+          />
+        </View>
+        <View style={styles.textInputBoxContainer}>
+          <TextInput
+            ref={emailRef}
+            style={styles.textInputBoxStyle}
+            value={email}
+            autoCorrect={false}
+            placeholder={'Email Address'}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'next'}
+            keyboardType={'default'}
+            maxLength={150}
+            autoCapitalize={'none'}
+            autoCompleteType={'off'}
+            secureTextEntry={false}
+          />
+        </View>
+        <View style={styles.textInputBoxContainer}>
+          <CountryPicker
+            countryPickerRef={ref => {
+              countryPickerRef = ref;
+            }}
+            enable={true}
+            darkMode={false}
+            countryCode={countryCode}
+            containerConfig={{
+              showFlag: false,
+              showCallingCode: true,
+              showCountryName: false,
+              showCountryCode: false,
+            }}
+            modalConfig={{
+              showFlag: true,
+              showCallingCode: true,
+              showCountryName: true,
+              showCountryCode: false,
+            }}
+            onSelectCountry={data => {
+              //console.log('#. onSelectCountry : ', data);
+              setCountryName(data.name);
+              setCountryCode(data.code);
+              setcountryCallingCode(data.callingCode);
+            }}
+            containerStyle={{
+              container: {marginLeft: 5},
+            }}
+            title={'Country'}
+            searchPlaceholder={'Search'}
+            showCloseButton={true}
+            showModalTitle={true}
+          />
+          <TextInput
+            ref={mobileRef}
+            style={[styles.textInputBoxStyle, {width: SCREEN_WIDTH / 1.3}]}
+            value={mobile}
+            autoCorrect={false}
+            onChangeText={val => setMobile(val)}
+            placeholder={'Mobile Number'}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'next'}
+            keyboardType={'default'}
+            maxLength={10}
+            autoCapitalize={'none'}
+            autoCompleteType={'off'}
+            secureTextEntry={false}
+          />
+        </View>
 
-    <View style={{marginTop:40}}>
-    <View style={styles.textInputBoxContainer}>
-      <TextInput
-        ref={companynameRef}
-        style={styles.textInputBoxStyle}
-        value={companyname}
-        autoCorrect={false}
-        onChangeText={val => setCompanyName(val)}
-        placeholder={'Company Name'}
-        placeholderTextColor={DefaultColours.black}
-        returnKeyType={'next'}
-        keyboardType={'default'}
-        maxLength={90}
-        autoCapitalize={'none'}
-        autoCompleteType={'off'}
-        secureTextEntry={false}
-      />
-    </View>
-    <View style={styles.textInputBoxContainer}>
-      <TextInput
-        ref={firstnameRef}
-        style={styles.textInputBoxStyle}
-        value={firstname}
-        autoCorrect={false}
-        onChangeText={val => setFirstName(val)}
-        placeholder={'First Name'}
-        placeholderTextColor={DefaultColours.black}
-        returnKeyType={'next'}
-        keyboardType={'default'}
-        maxLength={90}
-        autoCapitalize={'none'}
-        autoCompleteType={'off'}
-        secureTextEntry={false}
-      />
-    </View>
+        <View style={styles.textInputBoxContainer}>
+          <TextInput
+            ref={messageRef}
+            style={styles.textInputBoxStyle}
+            value={message}
+            autoCorrect={false}
+            onChangeText={val => setMessage(val)}
+            placeholder={'Enter your query'}
+            multiline
+            numberOfLines={10}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'next'}
+            keyboardType={'default'}
+          />
+        </View>
+      </View>
 
-    <View style={styles.textInputBoxContainer}>
-      <TextInput
-        ref={lastnameRef}
-        style={styles.textInputBoxStyle}
-        value={lastname}
-        autoCorrect={false}
-        onChangeText={val => setLastName(val)}
-        placeholder={'Last Name'}
-        placeholderTextColor={DefaultColours.black}
-        returnKeyType={'next'}
-        keyboardType={'default'}
-        maxLength={90}
-        autoCapitalize={'none'}
-        autoCompleteType={'off'}
-        secureTextEntry={false}
-      />
-    </View>
-    <View style={styles.textInputBoxContainer}>
-      <TextInput
-        ref={emailRef}
-        style={styles.textInputBoxStyle}
-        value={email}
-        autoCorrect={false}
-        placeholder={'Email Address'}
-        placeholderTextColor={DefaultColours.black}
-        returnKeyType={'next'}
-        keyboardType={'default'}
-        maxLength={150}
-        autoCapitalize={'none'}
-        autoCompleteType={'off'}
-        secureTextEntry={false}
-      />
-    </View>
-    <View style={styles.textInputBoxContainer}>
-      <CountryPicker
-        countryPickerRef={ref => {
-          countryPickerRef = ref;
-        }}
-        enable={true}
-        darkMode={false}
-        countryCode={countryCode}
-        containerConfig={{
-          showFlag: false,
-          showCallingCode: true,
-          showCountryName: false,
-          showCountryCode: false,
-        }}
-        modalConfig={{
-          showFlag: true,
-          showCallingCode: true,
-          showCountryName: true,
-          showCountryCode: false,
-        }}
-        onSelectCountry={data => {
-          //console.log('#. onSelectCountry : ', data);
-          setCountryName(data.name)
-          setCountryCode(data.code)
-          setcountryCallingCode(data.callingCode)
-        }}
-        containerStyle={{
-          container: {marginLeft: 5},
-        }}
-        title={'Country'}
-        searchPlaceholder={'Search'}
-        showCloseButton={true}
-        showModalTitle={true}
-      />
-      <TextInput
-        ref={mobileRef}
-        style={[styles.textInputBoxStyle, {width: SCREEN_WIDTH / 1.3}]}
-        value={mobile}
-        autoCorrect={false}
-        onChangeText={val => setMobile(val)}
-        placeholder={'Mobile Number'}
-        placeholderTextColor={DefaultColours.black}
-        returnKeyType={'next'}
-        keyboardType={'default'}
-        maxLength={10}
-        autoCapitalize={'none'}
-        autoCompleteType={'off'}
-        secureTextEntry={false}
-      />
-    </View>
-
-    <View style={styles.textInputBoxContainer}>
-      <TextInput
-        ref={messageRef}
-        style={styles.textInputBoxStyle}
-        value={message}
-        autoCorrect={false}
-        onChangeText={val => setMessage(val)}
-        placeholder={'Enter your query'}
-        multiline
-        numberOfLines={10}
-        placeholderTextColor={DefaultColours.black}
-        returnKeyType={'next'}
-        keyboardType={'default'}
-
-
-      />
-    </View>
-
-  </View>
-
-    <TouchableOpacity
-      style={styles.buttonContainer}
-      onPress={submitForm}>
-      <Text style={styles.buttonText}>Submit</Text>
+      <TouchableOpacity style={styles.buttonContainer} onPress={submitForm}>
+        <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
-
     </SafeAreaView>
   );
 };

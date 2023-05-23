@@ -18,17 +18,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const SignupScreen = ({navigation}) => {
-  const [firstname, setFirstName] = useState('')
-  const [lastname, setLastName] = useState('')
-  const [mobile, setMobile] = useState('')
-  const [countryCallingCode, setcountryCallingCode] = useState('91')
-  const [countryCode, setCountryCode] = useState('IN')
-  const [countryName, setCountryName] = useState('India')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPass, setConfirmPass] = useState('')
-  const [termsConditionReadStatus, setTermsConditionReadStatus] = useState(false)
-  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false)
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [countryCallingCode, setcountryCallingCode] = useState('91');
+  const [countryCode, setCountryCode] = useState('IN');
+  const [countryName, setCountryName] = useState('India');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
+  const [termsConditionReadStatus, setTermsConditionReadStatus] =
+    useState(false);
+  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false);
 
   let countryPickerRef = null;
 
@@ -41,169 +42,166 @@ const SignupScreen = ({navigation}) => {
 
   useEffect(() => {
     //console.log('this is didmount')
-   }, []);
+  }, []);
 
-   useEffect(() => {
-      //console.log('this will run after country code update',countryCode)
-   }, [countryCode]);
+  useEffect(() => {
+    //console.log('this will run after country code update',countryCode)
+  }, [countryCode]);
 
-  const onSubmit = async() => {
+  const onSubmit = async () => {
+    //console.log('hit login api in else part');
+    setLoadingtypeoverlay(true);
 
-      //console.log('hit login api in else part');
-      setLoadingtypeoverlay(true);
+    var email_test = String(email).trim().toLowerCase();
+    // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // var email_test = re.test(email)
 
-      var email_test = String(email).trim().toLowerCase()
-      // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      // var email_test = re.test(email)
-
-      if ( email_test === false  ) {
+    if (email_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('email_test',email_test)
-        setTimeout(()=> {
-          Toast.show('Invalid email')
-          },200)
-          return
-      }
-      // var firstname = String(firstname).trim()
-      // var lastname = String(lastname).trim()
-      //
-      // var firstname_test = firstname.length > 2
-      // var lastname_test = lastname.length > 2
-      //
-      // if ( firstname_test === false  ) {
-      // setLoadingtypeoverlay(false);
-      // //console.log('firstname_test',firstname_test)
-      //   setTimeout(()=> {
-      //     Toast.show('Invalid first name')
-      //     },200)
-      //     return
-      // }
-      //
-      //
-      // if ( lastname_test === false  ) {
-      // setLoadingtypeoverlay(false);
-      // //console.log('lastname_test',lastname_test)
-      //   setTimeout(()=> {
-      //     Toast.show('Invalid last name')
-      //     },200)
-      //     return
-      // }
+      setTimeout(() => {
+        Toast.show('Invalid email');
+      }, 200);
+      return;
+    }
+    // var firstname = String(firstname).trim()
+    // var lastname = String(lastname).trim()
+    //
+    // var firstname_test = firstname.length > 2
+    // var lastname_test = lastname.length > 2
+    //
+    // if ( firstname_test === false  ) {
+    // setLoadingtypeoverlay(false);
+    // //console.log('firstname_test',firstname_test)
+    //   setTimeout(()=> {
+    //     Toast.show('Invalid first name')
+    //     },200)
+    //     return
+    // }
+    //
+    //
+    // if ( lastname_test === false  ) {
+    // setLoadingtypeoverlay(false);
+    // //console.log('lastname_test',lastname_test)
+    //   setTimeout(()=> {
+    //     Toast.show('Invalid last name')
+    //     },200)
+    //     return
+    // }
 
-    
-
-      var password_test = (String(password).trim()).length > 5
-      if ( password_test === false  ) {
+    var password_test = String(password).trim().length > 5;
+    if (password_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('password_test',password_test)
-        setTimeout(()=> {
-          Toast.show('Invalid password')
-          },200)
-          return
-      }
+      setTimeout(() => {
+        Toast.show('Invalid password');
+      }, 200);
+      return;
+    }
 
-      var confirmPass_test = (String(confirmPass).trim()).length > 5
-      if ( confirmPass_test === false  ) {
+    var confirmPass_test = String(confirmPass).trim().length > 5;
+    if (confirmPass_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('confirmPass_test',confirmPass_test)
-        setTimeout(()=> {
-          Toast.show('Invalid confirm password')
-          },200)
-          return
-      }
+      setTimeout(() => {
+        Toast.show('Invalid confirm password');
+      }, 200);
+      return;
+    }
 
-      var mobile_test = (String(mobile).trim()).length ==  10
-      if ( mobile_test === false  ) {
+    var mobile_test = String(mobile).trim().length == 10;
+    if (mobile_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('email_test',mobile_test)
-        setTimeout(()=> {
-          Toast.show('Invalid phone number')
-          },200)
-          return
-      }
-
-      if( password !== confirmPass  ){
-         Toast.show('confirm password does not match with password');
-        return;
-       }
-
-      var data={
-        firstName: firstname,
-        lastName: lastname,
-        dialCode: countryCallingCode,
-        mobile: mobile,
-        country: countryName,
-        email: email,
-        password: password,
-        hearAboutICT: "hear about ICT",
-        role: "user"
-     }
-     var ldata={
-        email: email,
-        password: password,
-        role: 'user'
+      setTimeout(() => {
+        Toast.show('Invalid phone number');
+      }, 200);
+      return;
     }
-         //console.log('data', data)
 
-      try {
-       axios.post('http://3.20.89.137:8181/api/user/add', data)
+    if (password !== confirmPass) {
+      Toast.show('confirm password does not match with password');
+      return;
+    }
+
+    var data = {
+      firstName: firstname,
+      lastName: lastname,
+      dialCode: countryCallingCode,
+      mobile: mobile,
+      country: countryName,
+      email: email,
+      password: password,
+      hearAboutICT: 'hear about ICT',
+      role: 'user',
+    };
+    var ldata = {
+      email: email,
+      password: password,
+      role: 'user',
+    };
+    //console.log('data', data)
+
+    try {
+      axios
+        .post('http://Ictkart.com/api/user/add', data)
         .then(response => {
-        //console.log('response',response)
-        Toast.show('Your Account Register successfully. Signing into your account')
-        // setLoadingtypeoverlay(false);
-        try {
+          //console.log('response',response)
+          Toast.show(
+            'Your Account Register successfully. Signing into your account',
+          );
+          // setLoadingtypeoverlay(false);
+          try {
+            axios.post('http://Ictkart.com/api/user/login', data).then(res => {
+              // console.log(response.data.data)
 
-      axios.post('http://3.20.89.137:8181/api/user/login', data)
-      .then(res => {
-      // console.log(response.data.data)
+              if (res.data.status !== 200) {
+                Toast.show('error to login account');
+                setLoadingtypeoverlay(false);
+                return;
+              }
 
-      if(res.data.status !== 200){
-        Toast.show('error to login account')
-        setLoadingtypeoverlay(false);
-        return
-      }
+              // if(response.data.data === 'please verify you account first'){
+              //   Toast.show(response.data.data)
+              //   navigation.navigate('VerifyScreen', {token: response.data.data.token, email})
+              //   setLoadingtypeoverlay(false);
+              //   return;
+              // }
 
+              //console.log('token',response.data.data.token)
+              //if(response.data !== null && response.status == 200 && ){
+              AsyncStorage.setItem(
+                'token',
+                JSON.stringify(res.data.data.token),
+              );
+              AsyncStorage.setItem(
+                'userExist',
+                JSON.stringify(res.data.data.user._id),
+              );
 
-
-      // if(response.data.data === 'please verify you account first'){
-      //   Toast.show(response.data.data)
-      //   navigation.navigate('VerifyScreen', {token: response.data.data.token, email})
-      //   setLoadingtypeoverlay(false);
-      //   return;
-      // }
-
-        //console.log('token',response.data.data.token)
-        //if(response.data !== null && response.status == 200 && ){
-          AsyncStorage.setItem('token', JSON.stringify(res.data.data.token ));
-          AsyncStorage.setItem('userExist', JSON.stringify(res.data.data.user._id));
-
-
-
-          Toast.show('User login successfully.')
-          setLoadingtypeoverlay(false);
-          navigation.replace('App')
-        //}
-
-
-    })}
-      catch(error)  {
-        // console.log('error',error.response.data)
-          Toast.show('There is some connection problem. Please try later.')
-          setLoadingtypeoverlay(false);
-      }
-        // navigation.navigate('VerifyScreen',{ email})
+              Toast.show('User login successfully.');
+              setLoadingtypeoverlay(false);
+              navigation.replace('App');
+              //}
+            });
+          } catch (error) {
+            // console.log('error',error.response.data)
+            Toast.show('There is some connection problem. Please try later.');
+            setLoadingtypeoverlay(false);
+          }
+          // navigation.navigate('VerifyScreen',{ email})
         })
-      .catch(err => {
+        .catch(err => {
           //console.log('error',err)
           setLoadingtypeoverlay(false);
-          Toast.show('This account already exit')
+          Toast.show('This account already exit');
         });
-      }
-      catch(error)  {
-        //console.log('error',error)
-          Toast.show('There is some connection problem. Please try later.')
-          setLoadingtypeoverlay(false);
-      }
-  }
+    } catch (error) {
+      //console.log('error',error)
+      Toast.show('There is some connection problem. Please try later.');
+      setLoadingtypeoverlay(false);
+    }
+  };
   const changeTermnConditionReadStatus = () =>
     setTermsConditionReadStatus(prev => ({
       ...prev,
@@ -212,11 +210,11 @@ const SignupScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-    <Spinner
-            visible={loadingtypeoverlay}
-            textContent={'Loading...' }
-            textStyle={{ color: 'white' }}
-          />
+      <Spinner
+        visible={loadingtypeoverlay}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 50}}>
@@ -290,9 +288,9 @@ const SignupScreen = ({navigation}) => {
             }}
             onSelectCountry={data => {
               //console.log('#. onSelectCountry : ', data);
-              setCountryName(data.name)
-              setCountryCode(data.code)
-              setcountryCallingCode(data.callingCode)
+              setCountryName(data.name);
+              setCountryCode(data.code);
+              setcountryCallingCode(data.callingCode);
             }}
             containerStyle={{
               container: {marginLeft: 5},
@@ -385,9 +383,7 @@ const SignupScreen = ({navigation}) => {
             I have read terms & conditions
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={onSubmit}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={onSubmit}>
           <Text style={styles.buttonText}>Signup</Text>
         </TouchableOpacity>
         <Text

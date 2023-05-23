@@ -25,70 +25,64 @@ import Spinner from 'react-native-loading-spinner-overlay';
 //import HomeScreen from '../../app/home_screen'
 
 const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false);
 
-// const [states, setStates] = useState({loadingtypeoverlay: false, email: '', password: ''});
+  // const [states, setStates] = useState({loadingtypeoverlay: false, email: '', password: ''});
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
+  const onSubmit = async () => {
+    //console.log('hit login api in else part');
+    setLoadingtypeoverlay(true);
 
+    var email_test = String(email).trim().toLowerCase();
+    // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // var email_test = re.test(email)
 
-  const onSubmit = async() => {
-
-      //console.log('hit login api in else part');
-      setLoadingtypeoverlay(true)
-
-      var email_test = String(email).trim().toLowerCase()
-      // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      // var email_test = re.test(email)
-
-      if ( email_test === false  ) {
-        setLoadingtypeoverlay(false);
-        setTimeout(()=> {
-          Toast.show('Invalid email')
-          },200)
-          return
-      }
-
-
-      var password_test = String(password).trim().toLowerCase()
-      if ( password_test === false  ) {
-        setLoadingtypeoverlay(false);
-        setTimeout(()=> {
-          Toast.show('Invalid password')
-          },200)
-          return
-      }
-
-    var data={
-        email: email,
-        password: password,
-        role: 'user'
+    if (email_test === false) {
+      setLoadingtypeoverlay(false);
+      setTimeout(() => {
+        Toast.show('Invalid email');
+      }, 200);
+      return;
     }
+
+    var password_test = String(password).trim().toLowerCase();
+    if (password_test === false) {
+      setLoadingtypeoverlay(false);
+      setTimeout(() => {
+        Toast.show('Invalid password');
+      }, 200);
+      return;
+    }
+
+    var data = {
+      email: email,
+      password: password,
+      role: 'user',
+    };
     //console.log('data',data)
 
     try {
-
-      var response = await axios.post('http://3.20.89.137:8181/api/user/login', data)
+      var response = await axios.post(
+        'http://Ictkart.com/api/user/login',
+        data,
+      );
       // console.log(response.data.data)
 
-      if(typeof response === 'undefined'){
-        Toast.show('There is some connection problem. Please try later.')
-        return
+      if (typeof response === 'undefined') {
+        Toast.show('There is some connection problem. Please try later.');
+        return;
         setLoadingtypeoverlay(false);
       }
 
-
-
-      if(response.data.status !== 200){
-        Toast.show('error to login account')
+      if (response.data.status !== 200) {
+        Toast.show('error to login account');
         setLoadingtypeoverlay(false);
-        return
+        return;
       }
-
-
 
       // if(response.data.data === 'please verify you account first'){
       //   Toast.show(response.data.data)
@@ -97,80 +91,75 @@ const LoginScreen = ({navigation}) => {
       //   return;
       // }
 
-        //console.log('token',response.data.data.token)
-        //if(response.data !== null && response.status == 200 && ){
-          await AsyncStorage.setItem('token', JSON.stringify(response.data.data.token ));
-          await AsyncStorage.setItem('userExist', JSON.stringify(response.data.data.user._id));
+      //console.log('token',response.data.data.token)
+      //if(response.data !== null && response.status == 200 && ){
+      await AsyncStorage.setItem(
+        'token',
+        JSON.stringify(response.data.data.token),
+      );
+      await AsyncStorage.setItem(
+        'userExist',
+        JSON.stringify(response.data.data.user._id),
+      );
 
-
-
-          Toast.show('User login successfully.')
-          setLoadingtypeoverlay(false);
-          navigation.replace('App')
-        //}
-
-
+      Toast.show('User login successfully.');
+      setLoadingtypeoverlay(false);
+      navigation.replace('App');
+      //}
+    } catch (error) {
+      // console.log('error',error.response.data)
+      Toast.show('There is some connection problem. Please try later.');
+      setLoadingtypeoverlay(false);
     }
-      catch(error)  {
-        // console.log('error',error.response.data)
-          Toast.show('There is some connection problem. Please try later.')
-          setLoadingtypeoverlay(false);
-      }
+  };
 
-
-}
-
-const onForgot = async() => {
-
+  const onForgot = async () => {
     //console.log('hit onForgot api in else part');
-    setLoadingtypeoverlay(true)
+    setLoadingtypeoverlay(true);
 
-    var email_test = String(email).trim().toLowerCase()
+    var email_test = String(email).trim().toLowerCase();
     // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     // var email_test = re.test(email)
 
-    if ( email_test === false  ) {
+    if (email_test === false) {
       setLoadingtypeoverlay(false);
-      setTimeout(()=> {
-        Toast.show('Invalid email')
-        },200)
-        return
+      setTimeout(() => {
+        Toast.show('Invalid email');
+      }, 200);
+      return;
     }
 
+    var data = {
+      email: email,
+    };
 
+    try {
+      var response = await axios.post(
+        'http://Ictkart.com/api/user/forgot/password',
+        data,
+      );
+      if (response) {
+        //console.log('response',response.data)
+        //if(response.data !== null && response.status == 200 && ){
 
-      var data={
-          email: email,
-      }
-
-  try {
-
-    var response = await axios.post('http://3.20.89.137:8181/api/user/forgot/password', data)
-    if(response){
-      //console.log('response',response.data)
-      //if(response.data !== null && response.status == 200 && ){
-
-        Toast.show('Password Has Been Sent To Your Mail.')
+        Toast.show('Password Has Been Sent To Your Mail.');
         setLoadingtypeoverlay(false);
         //navigation.navigate('ForgotScreen')
-      //}
-    }
-  }
-    catch(error)  {
+        //}
+      }
+    } catch (error) {
       //console.log('error',error)
-        Toast.show('There is some connection problem. Please try later.')
-        setLoadingtypeoverlay(false);
+      Toast.show('There is some connection problem. Please try later.');
+      setLoadingtypeoverlay(false);
     }
-
-
-}
+  };
   return (
     <View style={styles.container}>
-    <Spinner
-            visible={loadingtypeoverlay}
-            textContent={'Loading...' }
-            textStyle={{ color: 'white' }}
-          />
+      <Spinner
+        visible={loadingtypeoverlay}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 50}}>
@@ -225,12 +214,10 @@ const onForgot = async() => {
             secureTextEntry={true}
           />
           <TouchableOpacity onPress={onForgot}>
-          <Text style={styles.forgetText}>Forgot ?</Text>
+            <Text style={styles.forgetText}>Forgot ?</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={onSubmit}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={onSubmit}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <Text style={styles.orLogin}>or Login with...</Text>

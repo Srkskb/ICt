@@ -7,7 +7,7 @@ import {
   Image,
   TextInput,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -19,7 +19,7 @@ import {
   GoogleImg,
   FacebookImg,
   LinkedInImg,
-  BackButtonImg
+  BackButtonImg,
 } from '@images';
 import Toast from 'react-native-simple-toast';
 import axios from 'axios';
@@ -27,11 +27,11 @@ import Spinner from 'react-native-loading-spinner-overlay';
 //import HomeScreen from '../../app/home_screen'
 
 const ForgotScreen = ({navigation}) => {
-  const [confirmPass, setConfirmPass] = useState(null)
-  const [password, setPassword] = useState(null)
-  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false)
+  const [confirmPass, setConfirmPass] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false);
 
-// const [states, setStates] = useState({loadingtypeoverlay: false, email: '', password: ''});
+  // const [states, setStates] = useState({loadingtypeoverlay: false, email: '', password: ''});
   const passwordRef = useRef(null);
   const confirmPassRef = useRef(null);
 
@@ -42,89 +42,102 @@ const ForgotScreen = ({navigation}) => {
     setStates(prev => ({...prev, password: val}));
   };
 
-  const onSubmit = async() => {
+  const onSubmit = async () => {
+    //console.log('hit login api in else part');
+    setLoadingtypeoverlay(true);
 
-      //console.log('hit login api in else part');
-      setLoadingtypeoverlay(true)
-
-      var password_test = (String(password).trim()).length > 5
-      if ( password_test === false  ) {
+    var password_test = String(password).trim().length > 5;
+    if (password_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('password_test',password_test)
-        setTimeout(()=> {
-          Toast.show('Invalid password')
-          },200)
-          return
-      }
+      setTimeout(() => {
+        Toast.show('Invalid password');
+      }, 200);
+      return;
+    }
 
-      var confirmPass_test = (String(confirmPass).trim()).length > 5
-      if ( confirmPass_test === false  ) {
+    var confirmPass_test = String(confirmPass).trim().length > 5;
+    if (confirmPass_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('confirmPass_test',confirmPass_test)
-        setTimeout(()=> {
-          Toast.show('Invalid confirm password')
-          },200)
-          return
-      }
-
-
-      if( password !== confirmPass  ){
-         Toast.show('confirm password does not match with password');
-        return;
-       }
-
-    var data={
-
-        password: password,
-        role: 'user'
+      setTimeout(() => {
+        Toast.show('Invalid confirm password');
+      }, 200);
+      return;
     }
+
+    if (password !== confirmPass) {
+      Toast.show('confirm password does not match with password');
+      return;
+    }
+
+    var data = {
+      password: password,
+      role: 'user',
+    };
 
     try {
-
-      var response = await axios.post('http://3.20.89.137:8181/api/user/forgot/password', data)
-      if(response){
+      var response = await axios.post(
+        'http://Ictkart.com/api/user/forgot/password',
+        data,
+      );
+      if (response) {
         //console.log('response',response.data.data.token)
         //if(response.data !== null && response.status == 200 && ){
-          await AsyncStorage.setItem('token', JSON.stringify(response.data.data.token));
-            await AsyncStorage.setItem('userExist', JSON.stringify(response.data.data.user._id));
+        await AsyncStorage.setItem(
+          'token',
+          JSON.stringify(response.data.data.token),
+        );
+        await AsyncStorage.setItem(
+          'userExist',
+          JSON.stringify(response.data.data.user._id),
+        );
 
-          Toast.show('User login successfully.')
-          setLoadingtypeoverlay(false);
-          navigation.navigate('App')
+        Toast.show('User login successfully.');
+        setLoadingtypeoverlay(false);
+        navigation.navigate('App');
         //}
       }
+    } catch (error) {
+      //console.log('error',error)
+      Toast.show('There is some connection problem. Please try later.');
+      setLoadingtypeoverlay(false);
     }
-      catch(error)  {
-        //console.log('error',error)
-          Toast.show('There is some connection problem. Please try later.')
-          setLoadingtypeoverlay(false);
-      }
-
-
-}
-
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-    <Spinner
-            visible={loadingtypeoverlay}
-            textContent={'Loading...' }
-            textStyle={{ color: 'white' }}
-          />
+      <Spinner
+        visible={loadingtypeoverlay}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 0}}>
-        <View style={{width:SCREEN_WIDTH,justifyContent:'center',flexDirection:'row',alignItems:'center', height:90,  }}>
-        <TouchableOpacity onPress={()=> navigation.goBack()} style={{alignItems:'flex-start', flex:0.1,marginLeft:10 }}>
-        <Image
-          style={{width:30, height:50}}
-          resizeMode="contain"
-          source={BackButtonImg}
-        />
-        </TouchableOpacity>
-        <View style={{flex:1}}>
-        <Text style={{textAlign:'center', color:'black', paddingRight:15}}>New Password</Text>
-        </View>
+        <View
+          style={{
+            width: SCREEN_WIDTH,
+            justifyContent: 'center',
+            flexDirection: 'row',
+            alignItems: 'center',
+            height: 90,
+          }}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{alignItems: 'flex-start', flex: 0.1, marginLeft: 10}}>
+            <Image
+              style={{width: 30, height: 50}}
+              resizeMode="contain"
+              source={BackButtonImg}
+            />
+          </TouchableOpacity>
+          <View style={{flex: 1}}>
+            <Text
+              style={{textAlign: 'center', color: 'black', paddingRight: 15}}>
+              New Password
+            </Text>
+          </View>
         </View>
 
         <Image
@@ -132,55 +145,48 @@ const ForgotScreen = ({navigation}) => {
           resizeMode="contain"
           source={LoginLogoImg}
         />
-        <View style={{alignItems:'center'}}>
+        <View style={{alignItems: 'center'}}>
           <Text style={styles.headerTitle}>Fill the following field to</Text>
           <Text style={styles.headerTitle}>get new password</Text>
         </View>
         <View style={styles.textInputBoxContainer}>
-        <TextInput
-          ref={passwordRef}
-          style={styles.textInputBoxStyle}
-          value={password}
-          autoCorrect={false}
-          onChangeText={val => setPassword(val)}
-          placeholder={'New Password'}
-          placeholderTextColor={DefaultColours.black}
-          returnKeyType={'go'}
-          keyboardType={'visible-password'}
-          maxLength={12}
-          autoCapitalize={'none'}
-          autoCompleteType={'off'}
-          secureTextEntry={true}
-        />
-
+          <TextInput
+            ref={passwordRef}
+            style={styles.textInputBoxStyle}
+            value={password}
+            autoCorrect={false}
+            onChangeText={val => setPassword(val)}
+            placeholder={'New Password'}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'go'}
+            keyboardType={'visible-password'}
+            maxLength={12}
+            autoCapitalize={'none'}
+            autoCompleteType={'off'}
+            secureTextEntry={true}
+          />
         </View>
         <View style={styles.textInputBoxContainer}>
-        <TextInput
-          ref={confirmPassRef}
-          style={styles.textInputBoxStyle}
-          value={confirmPass}
-          autoCorrect={false}
-          onChangeText={val => setConfirmPass(val)}
-          placeholder={'Confirm Password'}
-          placeholderTextColor={DefaultColours.black}
-          returnKeyType={'go'}
-          keyboardType={'visible-password'}
-          maxLength={12}
-          autoCapitalize={'none'}
-          autoCompleteType={'off'}
-          secureTextEntry={true}
-        />
-
+          <TextInput
+            ref={confirmPassRef}
+            style={styles.textInputBoxStyle}
+            value={confirmPass}
+            autoCorrect={false}
+            onChangeText={val => setConfirmPass(val)}
+            placeholder={'Confirm Password'}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'go'}
+            keyboardType={'visible-password'}
+            maxLength={12}
+            autoCapitalize={'none'}
+            autoCompleteType={'off'}
+            secureTextEntry={true}
+          />
         </View>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={onSubmit}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={onSubmit}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-
-
       </ScrollView>
-
     </SafeAreaView>
   );
 };

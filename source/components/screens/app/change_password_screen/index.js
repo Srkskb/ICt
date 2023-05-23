@@ -7,7 +7,7 @@ import {
   Image,
   TextInput,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -19,24 +19,24 @@ import {
   GoogleImg,
   FacebookImg,
   LinkedInImg,
-  BackButtonImg
+  BackButtonImg,
 } from '@images';
 import Toast from 'react-native-simple-toast';
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
 //import HomeScreen from '../../app/home_screen'
-import { StackActions } from '@react-navigation/native';
+import {StackActions} from '@react-navigation/native';
 
 const ChangePasswordScreen = ({navigation}) => {
-  const [oldPass, setOldPass] = useState(null)
-  const [password, setPassword] = useState(null)
-  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false)
+  const [oldPass, setOldPass] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false);
 
-// const [states, setStates] = useState({loadingtypeoverlay: false, email: '', password: ''});
+  // const [states, setStates] = useState({loadingtypeoverlay: false, email: '', password: ''});
   const passwordRef = useRef(null);
   const oldPassRef = useRef(null);
-  const [logged, setLogged] = useState(false)
-  const [userid, setUserId] = useState(null)
+  const [logged, setLogged] = useState(false);
+  const [userid, setUserId] = useState(null);
 
   const handleChangeId = val => {
     setStates(prev => ({...prev, oldPass: val}));
@@ -45,118 +45,118 @@ const ChangePasswordScreen = ({navigation}) => {
     setStates(prev => ({...prev, password: val}));
   };
   useEffect(() => {
-    loginCheck()
+    loginCheck();
   }, []);
 
-  const  loginCheck = async () => {
-         //console.log('triggering loginCheck')
-         try {
-           var currentUserData =  await AsyncStorage.getItem('userExist')
-           //console.log('currentUserData',currentUserData)
-           if(currentUserData !== null){
-               currentUserData = JSON.parse(currentUserData)
-               //console.log(currentUserData,'currentUserData')
-               setLogged(true);
-               setUserId(currentUserData)
+  const loginCheck = async () => {
+    //console.log('triggering loginCheck')
+    try {
+      var currentUserData = await AsyncStorage.getItem('userExist');
+      //console.log('currentUserData',currentUserData)
+      if (currentUserData !== null) {
+        currentUserData = JSON.parse(currentUserData);
+        //console.log(currentUserData,'currentUserData')
+        setLogged(true);
+        setUserId(currentUserData);
+      } else {
+        setLogged(false);
+      }
+    } catch (error) {
+      //console.log('Error loginCheck',error)
+    }
+  };
 
+  const onSubmit = async () => {
+    //console.log('hit login api in else part');
+    setLoadingtypeoverlay(true);
 
-           } else {
-             setLogged(false);
-
-           }
-         } catch(error) {
-           //console.log('Error loginCheck',error)
-         }
-     }
-
-
-  const onSubmit = async() => {
-
-      //console.log('hit login api in else part');
-      setLoadingtypeoverlay(true)
-
-      var password_test = (String(password).trim()).length > 5
-      if ( password_test === false  ) {
+    var password_test = String(password).trim().length > 5;
+    if (password_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('password_test',password_test)
-        setTimeout(()=> {
-          Toast.show('Invalid password')
-          },200)
-          return
-      }
+      setTimeout(() => {
+        Toast.show('Invalid password');
+      }, 200);
+      return;
+    }
 
-      var oldPass_test = (String(oldPass).trim()).length > 5
-      if ( oldPass_test === false  ) {
+    var oldPass_test = String(oldPass).trim().length > 5;
+    if (oldPass_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('oldPass_test',oldPass_test)
-        setTimeout(()=> {
-          Toast.show('Invalid old Pass password')
-          },200)
-          return
-      }
+      setTimeout(() => {
+        Toast.show('Invalid old Pass password');
+      }, 200);
+      return;
+    }
 
-
-      // if( password !== oldPass  ){
-      //    Toast.show('confirm password does not match with password');
-      //   return;
-      //  }
-
-
+    // if( password !== oldPass  ){
+    //    Toast.show('confirm password does not match with password');
+    //   return;
+    //  }
 
     var data = {
-        userId: userid,
-        oldPassword: oldPass,
-        newPassword: password
-      }
-      //console.log('data', data)
+      userId: userid,
+      oldPassword: oldPass,
+      newPassword: password,
+    };
+    //console.log('data', data)
     try {
-
-      var response = await axios.post('http://3.20.89.137:8181/api/user/update/password', data)
-      if(response){
+      var response = await axios.post(
+        'http://Ictkart.com/api/user/update/password',
+        data,
+      );
+      if (response) {
         //console.log('response',response.data)
         //if(response.data !== null && response.status == 200 && ){
 
-          Toast.show('Password change successfully.')
-          setLoadingtypeoverlay(false);
-          await AsyncStorage.removeItem('token');
-          await AsyncStorage.removeItem('userExist');
-          navigation.dispatch(
-            StackActions.replace('Auth')
-          );
+        Toast.show('Password change successfully.');
+        setLoadingtypeoverlay(false);
+        await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('userExist');
+        navigation.dispatch(StackActions.replace('Auth'));
         //}
       }
+    } catch (error) {
+      //console.log('error',error)
+      Toast.show('There is some connection problem. Please try later.');
+      setLoadingtypeoverlay(false);
     }
-      catch(error)  {
-        //console.log('error',error)
-          Toast.show('There is some connection problem. Please try later.')
-          setLoadingtypeoverlay(false);
-      }
-
-
-}
-
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-    <Spinner
-            visible={loadingtypeoverlay}
-            textContent={'Loading...' }
-            textStyle={{ color: 'white' }}
-          />
+      <Spinner
+        visible={loadingtypeoverlay}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 0}}>
-        <View style={{width:SCREEN_WIDTH,justifyContent:'center',flexDirection:'row',alignItems:'center', height:90,  }}>
-        <TouchableOpacity onPress={()=> navigation.goBack()} style={{alignItems:'flex-start', flex:0.1,marginLeft:10 }}>
-        <Image
-          style={{width:30, height:50}}
-          resizeMode="contain"
-          source={BackButtonImg}
-        />
-        </TouchableOpacity>
-        <View style={{flex:1}}>
-        <Text style={{textAlign:'center', color:'black', paddingRight:15}}>New Password</Text>
-        </View>
+        <View
+          style={{
+            width: SCREEN_WIDTH,
+            justifyContent: 'center',
+            flexDirection: 'row',
+            alignItems: 'center',
+            height: 90,
+          }}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{alignItems: 'flex-start', flex: 0.1, marginLeft: 10}}>
+            <Image
+              style={{width: 30, height: 50}}
+              resizeMode="contain"
+              source={BackButtonImg}
+            />
+          </TouchableOpacity>
+          <View style={{flex: 1}}>
+            <Text
+              style={{textAlign: 'center', color: 'black', paddingRight: 15}}>
+              New Password
+            </Text>
+          </View>
         </View>
 
         <Image
@@ -164,56 +164,49 @@ const ChangePasswordScreen = ({navigation}) => {
           resizeMode="contain"
           source={LoginLogoImg}
         />
-        <View style={{alignItems:'center'}}>
+        <View style={{alignItems: 'center'}}>
           <Text style={styles.headerTitle}>Fill the following field to</Text>
           <Text style={styles.headerTitle}>get new password</Text>
         </View>
         <View style={styles.textInputBoxContainer}>
-        <TextInput
-          ref={oldPassRef}
-          style={styles.textInputBoxStyle}
-          value={oldPass}
-          autoCorrect={false}
-          onChangeText={val => setOldPass(val)}
-          placeholder={'Old Password'}
-          placeholderTextColor={DefaultColours.black}
-          returnKeyType={'go'}
-          keyboardType={'visible-password'}
-          maxLength={12}
-          autoCapitalize={'none'}
-          autoCompleteType={'off'}
-          secureTextEntry={true}
-        />
-
+          <TextInput
+            ref={oldPassRef}
+            style={styles.textInputBoxStyle}
+            value={oldPass}
+            autoCorrect={false}
+            onChangeText={val => setOldPass(val)}
+            placeholder={'Old Password'}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'go'}
+            keyboardType={'visible-password'}
+            maxLength={12}
+            autoCapitalize={'none'}
+            autoCompleteType={'off'}
+            secureTextEntry={true}
+          />
         </View>
         <View style={styles.textInputBoxContainer}>
-        <TextInput
-          ref={passwordRef}
-          style={styles.textInputBoxStyle}
-          value={password}
-          autoCorrect={false}
-          onChangeText={val => setPassword(val)}
-          placeholder={'New Password'}
-          placeholderTextColor={DefaultColours.black}
-          returnKeyType={'go'}
-          keyboardType={'visible-password'}
-          maxLength={12}
-          autoCapitalize={'none'}
-          autoCompleteType={'off'}
-          secureTextEntry={true}
-        />
-
+          <TextInput
+            ref={passwordRef}
+            style={styles.textInputBoxStyle}
+            value={password}
+            autoCorrect={false}
+            onChangeText={val => setPassword(val)}
+            placeholder={'New Password'}
+            placeholderTextColor={DefaultColours.black}
+            returnKeyType={'go'}
+            keyboardType={'visible-password'}
+            maxLength={12}
+            autoCapitalize={'none'}
+            autoCompleteType={'off'}
+            secureTextEntry={true}
+          />
         </View>
 
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={onSubmit}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={onSubmit}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-
-
       </ScrollView>
-
     </SafeAreaView>
   );
 };

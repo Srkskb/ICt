@@ -7,7 +7,7 @@ import {
   Image,
   TextInput,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -24,11 +24,11 @@ import Toast from 'react-native-simple-toast';
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
 //import HomeScreen from '../../app/home_screen'
-const {width, height, scale} = Dimensions.get("window");
+const {width, height, scale} = Dimensions.get('window');
 
 const VerifyScreen = ({route, navigation}) => {
-  const [otp, setOtp] = useState(null)
-  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false)
+  const [otp, setOtp] = useState(null);
+  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false);
 
   const otpRef = useRef(null);
 
@@ -36,139 +36,131 @@ const VerifyScreen = ({route, navigation}) => {
     //console.log('props',route.params)
   }, []);
 
+  const onResend = async () => {
+    //console.log('hit login api in else part');
+    setLoadingtypeoverlay(true);
 
-const onResend = async()=> {
-  //console.log('hit login api in else part');
-  setLoadingtypeoverlay(true)
-
-var data={
-    email: route.params.email,
-}
-
-try {
-  var response = await axios.post('http://3.20.89.137:8181/api/user/otp', data)
-  if(response){
-    //console.log('response',response.data)
-    //if(response.data !== null && response.status == 200 && ){
-
-      Toast.show('OTP resend successfully.')
-      setLoadingtypeoverlay(false);
-      //navigation.navigate('VerifyScreen', { })
-    //}
-  }
-}
-  catch(error)  {
-    //console.log('error',error)
-      Toast.show('There is some connection problem. Please try later.')
-      setLoadingtypeoverlay(false);
-  }
-}
-
-  const onSubmit = async() => {
-
-      //console.log('hit login api in else part');
-      setLoadingtypeoverlay(true)
-
-      var otp_test = (String(otp).trim()).length ==  4
-
-      // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      // var otp_test = re.test(otp)
-
-      if ( otp_test === false  ) {
-        setLoadingtypeoverlay(false);
-        setTimeout(()=> {
-          Toast.show('Invalid otp')
-          },200)
-          return
-      }
-
-
-
-
-    var data={
-        otp: otp,
-        email: route.params.email,
-    }
-
-    //console.log('otp data', data)
-
+    var data = {
+      email: route.params.email,
+    };
 
     try {
-
-      var response = await axios.post('http://3.20.89.137:8181/api/user/verify/otp', data)
-      if(response){
+      var response = await axios.post('http://Ictkart.com/api/user/otp', data);
+      if (response) {
         //console.log('response',response.data)
         //if(response.data !== null && response.status == 200 && ){
 
-          Toast.show('User login successfully.')
-          setLoadingtypeoverlay(false);
-          await AsyncStorage.setItem('token', JSON.stringify(response.data.data.token ));
-          await AsyncStorage.setItem('userExist', JSON.stringify(response.data.data.user._id));
-          navigation.navigate('App')
+        Toast.show('OTP resend successfully.');
+        setLoadingtypeoverlay(false);
+        //navigation.navigate('VerifyScreen', { })
+        //}
+      }
+    } catch (error) {
+      //console.log('error',error)
+      Toast.show('There is some connection problem. Please try later.');
+      setLoadingtypeoverlay(false);
+    }
+  };
 
+  const onSubmit = async () => {
+    //console.log('hit login api in else part');
+    setLoadingtypeoverlay(true);
+
+    var otp_test = String(otp).trim().length == 4;
+
+    // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // var otp_test = re.test(otp)
+
+    if (otp_test === false) {
+      setLoadingtypeoverlay(false);
+      setTimeout(() => {
+        Toast.show('Invalid otp');
+      }, 200);
+      return;
+    }
+
+    var data = {
+      otp: otp,
+      email: route.params.email,
+    };
+
+    //console.log('otp data', data)
+
+    try {
+      var response = await axios.post(
+        'http://Ictkart.com/api/user/verify/otp',
+        data,
+      );
+      if (response) {
+        //console.log('response',response.data)
+        //if(response.data !== null && response.status == 200 && ){
+
+        Toast.show('User login successfully.');
+        setLoadingtypeoverlay(false);
+        await AsyncStorage.setItem(
+          'token',
+          JSON.stringify(response.data.data.token),
+        );
+        await AsyncStorage.setItem(
+          'userExist',
+          JSON.stringify(response.data.data.user._id),
+        );
+        navigation.navigate('App');
 
         //}
       }
+    } catch (error) {
+      //console.log('error',error)
+      Toast.show('There is some connection problem. Please try later.');
+      setLoadingtypeoverlay(false);
     }
-      catch(error)  {
-        //console.log('error',error)
-          Toast.show('There is some connection problem. Please try later.')
-          setLoadingtypeoverlay(false);
-      }
-
-
-}
-
+  };
 
   return (
     <View style={styles.container}>
-    <Spinner
-            visible={loadingtypeoverlay}
-            textContent={'Loading...' }
-            textStyle={{ color: 'white' }}
-          />
+      <Spinner
+        visible={loadingtypeoverlay}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 0}}>
-        <View style={{alignItems:'center', justifyContent:'center', height}}>
-        <Text style={styles.headerTitle}>Verification</Text>
-        <Text style={styles.headerSubtitle}>Please enter your code sent to otp ID</Text>
-        <View style={{}}>
-
-          <TextInput
-            ref={otpRef}
-            style={styles.textInputBoxStyle}
-            value={otp}
-            autoCorrect={false}
-            onChangeText={val => setOtp(val)}
-            placeholder={''}
-            placeholderTextColor={DefaultColours.borderColor}
-            returnKeyType={'next'}
-            keyboardType={'numeric'}
-            maxLength={4}
-            autoCapitalize={'none'}
-            autoCompleteType={'off'}
-            secureTextEntry={false}
-          />
-        </View>
-
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={onSubmit}>
-          <Text style={styles.buttonText}>Verify</Text>
-        </TouchableOpacity>
-        <Text
-          style={styles.bottomText}>
-          Didn't receive OTP?{' '}
-          <TouchableOpacity onPress={onResend}>
-          <Text style={[styles.bottomText, {color: DefaultColours.ping1}]}>
-             Resend Code.
+        <View style={{alignItems: 'center', justifyContent: 'center', height}}>
+          <Text style={styles.headerTitle}>Verification</Text>
+          <Text style={styles.headerSubtitle}>
+            Please enter your code sent to otp ID
           </Text>
+          <View style={{}}>
+            <TextInput
+              ref={otpRef}
+              style={styles.textInputBoxStyle}
+              value={otp}
+              autoCorrect={false}
+              onChangeText={val => setOtp(val)}
+              placeholder={''}
+              placeholderTextColor={DefaultColours.borderColor}
+              returnKeyType={'next'}
+              keyboardType={'numeric'}
+              maxLength={4}
+              autoCapitalize={'none'}
+              autoCompleteType={'off'}
+              secureTextEntry={false}
+            />
+          </View>
+
+          <TouchableOpacity style={styles.buttonContainer} onPress={onSubmit}>
+            <Text style={styles.buttonText}>Verify</Text>
           </TouchableOpacity>
-        </Text>
+          <Text style={styles.bottomText}>
+            Didn't receive OTP?{' '}
+            <TouchableOpacity onPress={onResend}>
+              <Text style={[styles.bottomText, {color: DefaultColours.ping1}]}>
+                Resend Code.
+              </Text>
+            </TouchableOpacity>
+          </Text>
         </View>
-
-
       </ScrollView>
     </View>
   );
@@ -176,7 +168,7 @@ try {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     backgroundColor: DefaultColours.white,
   },
   headerTitle: {
@@ -199,14 +191,13 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginTop: 20,
     height: 50,
-    paddingHorizontal:20,
+    paddingHorizontal: 20,
     width: SCREEN_WIDTH / 4,
     alignItems: 'center',
-    justifyContent:'center',
-    fontSize:FontSize(25),
+    justifyContent: 'center',
+    fontSize: FontSize(25),
     borderBottomWidth: 2,
     borderBottomColor: DefaultColours.borderColor,
-
   },
   forgetText: {
     fontSize: FontSize(16),

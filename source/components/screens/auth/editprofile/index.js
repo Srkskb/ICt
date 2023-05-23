@@ -17,17 +17,18 @@ import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const ProfileScreen = ({navigation}) => {
-  const [firstname, setFirstName] = useState('')
-  const [lastname, setLastName] = useState('')
-  const [mobile, setMobile] = useState('')
-  const [countryCallingCode, setcountryCallingCode] = useState('91')
-  const [countryCode, setCountryCode] = useState('IN')
-  const [countryName, setCountryName] = useState('India')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPass, setConfirmPass] = useState('')
-  const [termsConditionReadStatus, setTermsConditionReadStatus] = useState(false)
-  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false)
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [countryCallingCode, setcountryCallingCode] = useState('91');
+  const [countryCode, setCountryCode] = useState('IN');
+  const [countryName, setCountryName] = useState('India');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
+  const [termsConditionReadStatus, setTermsConditionReadStatus] =
+    useState(false);
+  const [loadingtypeoverlay, setLoadingtypeoverlay] = useState(false);
 
   let countryPickerRef = null;
 
@@ -40,132 +41,133 @@ const ProfileScreen = ({navigation}) => {
 
   useEffect(() => {
     //console.log('this is didmount')
-   }, []);
+  }, []);
 
-   useEffect(() => {
-      //console.log('this will run after country code update',countryCode)
-   }, [countryCode]);
+  useEffect(() => {
+    //console.log('this will run after country code update',countryCode)
+  }, [countryCode]);
 
-  const onSubmit = async() => {
+  const onSubmit = async () => {
+    //console.log('hit login api in else part');
+    setLoadingtypeoverlay(true);
 
-      //console.log('hit login api in else part');
-      setLoadingtypeoverlay(true);
+    var email_test = String(email).trim().toLowerCase();
+    // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // var email_test = re.test(email)
 
-      var email_test = String(email).trim().toLowerCase()
-      // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      // var email_test = re.test(email)
-
-      if ( email_test === false  ) {
+    if (email_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('email_test',email_test)
-        setTimeout(()=> {
-          Toast.show('Invalid email')
-          },200)
-          return
-      }
-      // var firstname = String(firstname).trim()
-      // var lastname = String(lastname).trim()
-      //
-      // var firstname_test = firstname.length > 2
-      // var lastname_test = lastname.length > 2
-      //
-      // if ( firstname_test === false  ) {
-      // setLoadingtypeoverlay(false);
-      // //console.log('firstname_test',firstname_test)
-      //   setTimeout(()=> {
-      //     Toast.show('Invalid first name')
-      //     },200)
-      //     return
-      // }
-      //
-      //
-      // if ( lastname_test === false  ) {
-      // setLoadingtypeoverlay(false);
-      // //console.log('lastname_test',lastname_test)
-      //   setTimeout(()=> {
-      //     Toast.show('Invalid last name')
-      //     },200)
-      //     return
-      // }
+      setTimeout(() => {
+        Toast.show('Invalid email');
+      }, 200);
+      return;
+    }
+    // var firstname = String(firstname).trim()
+    // var lastname = String(lastname).trim()
+    //
+    // var firstname_test = firstname.length > 2
+    // var lastname_test = lastname.length > 2
+    //
+    // if ( firstname_test === false  ) {
+    // setLoadingtypeoverlay(false);
+    // //console.log('firstname_test',firstname_test)
+    //   setTimeout(()=> {
+    //     Toast.show('Invalid first name')
+    //     },200)
+    //     return
+    // }
+    //
+    //
+    // if ( lastname_test === false  ) {
+    // setLoadingtypeoverlay(false);
+    // //console.log('lastname_test',lastname_test)
+    //   setTimeout(()=> {
+    //     Toast.show('Invalid last name')
+    //     },200)
+    //     return
+    // }
 
-      var mobile_test = (String(mobile).trim()).length ==  10
-      if ( mobile_test === false  ) {
+    var mobile_test = String(mobile).trim().length == 10;
+    if (mobile_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('email_test',mobile_test)
-        setTimeout(()=> {
-          Toast.show('Invalid phone number')
-          },200)
-          return
-      }
+      setTimeout(() => {
+        Toast.show('Invalid phone number');
+      }, 200);
+      return;
+    }
 
-      var password_test = (String(password).trim()).length > 5
-      if ( password_test === false  ) {
+    var password_test = String(password).trim().length > 5;
+    if (password_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('password_test',password_test)
-        setTimeout(()=> {
-          Toast.show('Invalid password')
-          },200)
-          return
-      }
+      setTimeout(() => {
+        Toast.show('Invalid password');
+      }, 200);
+      return;
+    }
 
-      var confirmPass_test = (String(confirmPass).trim()).length > 5
-      if ( confirmPass_test === false  ) {
+    var confirmPass_test = String(confirmPass).trim().length > 5;
+    if (confirmPass_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('confirmPass_test',confirmPass_test)
-        setTimeout(()=> {
-          Toast.show('Invalid confirm password')
-          },200)
-          return
-      }
+      setTimeout(() => {
+        Toast.show('Invalid confirm password');
+      }, 200);
+      return;
+    }
 
-      var mobile_test = (String(mobile).trim()).length ==  10
-      if ( mobile_test === false  ) {
+    var mobile_test = String(mobile).trim().length == 10;
+    if (mobile_test === false) {
       setLoadingtypeoverlay(false);
       //console.log('email_test',mobile_test)
-        setTimeout(()=> {
-          Toast.show('Invalid phone number')
-          },200)
-          return
-      }
+      setTimeout(() => {
+        Toast.show('Invalid phone number');
+      }, 200);
+      return;
+    }
 
-      if( password !== confirmPass  ){
-         Toast.show('confirm password does not match with password');
-        return;
-       }
+    if (password !== confirmPass) {
+      Toast.show('confirm password does not match with password');
+      return;
+    }
 
-      var data={
-        firstName: firstname,
-        lastName: lastname,
-        dialCode: countryCallingCode,
-        mobile: mobile,
-        country: countryName,
-        email: email,
-        password: password,
-        hearAboutICT: "hear about ICT",
-        role: "user"
-     }
-         //console.log('data', data)
+    var data = {
+      firstName: firstname,
+      lastName: lastname,
+      dialCode: countryCallingCode,
+      mobile: mobile,
+      country: countryName,
+      email: email,
+      password: password,
+      hearAboutICT: 'hear about ICT',
+      role: 'user',
+    };
+    //console.log('data', data)
 
-      try {
-       axios.post('http://3.20.89.137:8181/api/user/add', data)
+    try {
+      axios
+        .post('http://Ictkart.com/api/user/add', data)
         .then(response => {
-        //console.log('response',response)
-        Toast.show('Your Account Register successfully. Please Verify your account')
-        setLoadingtypeoverlay(false);
-        navigation.navigate('VerifyScreen',{ email})
+          //console.log('response',response)
+          Toast.show(
+            'Your Account Register successfully. Please Verify your account',
+          );
+          setLoadingtypeoverlay(false);
+          navigation.navigate('VerifyScreen', {email});
         })
-      .catch(err => {
+        .catch(err => {
           //console.log('error',err)
           setLoadingtypeoverlay(false);
-          Toast.show('This account allready exit')
+          Toast.show('This account allready exit');
         });
-      }
-      catch(error)  {
-        //console.log('error',error)
-          Toast.show('There is some connection problem. Please try later.')
-          setLoadingtypeoverlay(false);
-      }
-  }
+    } catch (error) {
+      //console.log('error',error)
+      Toast.show('There is some connection problem. Please try later.');
+      setLoadingtypeoverlay(false);
+    }
+  };
   const changeTermnConditionReadStatus = () =>
     setTermsConditionReadStatus(prev => ({
       ...prev,
@@ -174,25 +176,37 @@ const ProfileScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-    <Spinner
-            visible={loadingtypeoverlay}
-            textContent={'Loading...' }
-            textStyle={{ color: 'white' }}
-          />
+      <Spinner
+        visible={loadingtypeoverlay}
+        textContent={'Loading...'}
+        textStyle={{color: 'white'}}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 50}}>
-        <View style={{width:SCREEN_WIDTH,justifyContent:'center',flexDirection:'row',alignItems:'center', height:90,  }}>
-        <TouchableOpacity onPress={()=> navigation.goBack()} style={{alignItems:'flex-start', flex:0.1,marginLeft:10 }}>
-        <Image
-          style={{width:30, height:50}}
-          resizeMode="contain"
-          source={BackButtonImg}
-        />
-        </TouchableOpacity>
-        <View style={{flex:1}}>
-        <Text style={{textAlign:'center', color:'black', paddingRight:15}}>New Password</Text>
-        </View>
+        <View
+          style={{
+            width: SCREEN_WIDTH,
+            justifyContent: 'center',
+            flexDirection: 'row',
+            alignItems: 'center',
+            height: 90,
+          }}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{alignItems: 'flex-start', flex: 0.1, marginLeft: 10}}>
+            <Image
+              style={{width: 30, height: 50}}
+              resizeMode="contain"
+              source={BackButtonImg}
+            />
+          </TouchableOpacity>
+          <View style={{flex: 1}}>
+            <Text
+              style={{textAlign: 'center', color: 'black', paddingRight: 15}}>
+              New Password
+            </Text>
+          </View>
         </View>
 
         <View style={styles.headerContainer}>
@@ -265,9 +279,9 @@ const ProfileScreen = ({navigation}) => {
             }}
             onSelectCountry={data => {
               //console.log('#. onSelectCountry : ', data);
-              setCountryName(data.name)
-              setCountryCode(data.code)
-              setcountryCallingCode(data.callingCode)
+              setCountryName(data.name);
+              setCountryCode(data.code);
+              setcountryCallingCode(data.callingCode);
             }}
             containerStyle={{
               container: {marginLeft: 5},
@@ -360,9 +374,7 @@ const ProfileScreen = ({navigation}) => {
             I have read terms & conditions
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={onSubmit}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={onSubmit}>
           <Text style={styles.buttonText}>Signup</Text>
         </TouchableOpacity>
         <Text
